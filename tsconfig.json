@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"outDir": "dist",
+		"target": "ESNext",
+		"module": "UMD",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"importHelpers": true,
+		"allowSyntheticDefaultImports": true,
+		"allowUmdGlobalAccess": true,
+		"downlevelIteration": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"declaration": true,
+		"noEmitOnError": true,
+		"removeComments": true,
+		"strict": false,
+		"alwaysStrict": false,
+		"noImplicitAny": false,
+		"typeRoots": ["node_modules/@types"]
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules", "esm", "dist", "__test__/**/*.{test.ts,spec.ts}"]
+}

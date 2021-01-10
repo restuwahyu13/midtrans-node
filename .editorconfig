@@ -1,0 +1,15 @@
+# Global
+[*]
+root = true
+charset = utf-8
+end_of_line = lf
+
+# Global Indent and Indent Style Specific Ext
+[*.{ts,yml,spect.ts,test,ts,json}]
+indent_size = 2
+indent_style = tab
+
+# Makefile And Dockerfile Global Indent and Indent Style
+[Makefile, Dockerfile]
+indent_size = 3
+indent_style = tab

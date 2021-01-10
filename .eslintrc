@@ -1,0 +1,27 @@
+{
+	"parserOptions": {
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	"parser": "@typescript-eslint/parser",
+	"extends": [
+		"plugin:@typescript-eslint/recommended",
+		"plugin:prettier/recommended",
+		"plugin:jest/recommended",
+		"standard"
+	],
+	"rules": {
+		"prettier/prettier": 1,
+		"no-tabs": 0,
+		"indent": 0
+	},
+	"env": {
+		"node": true,
+		"jest/globals": true
+	},
+	"settings": {
+		"jest": {
+			"version": 26
+		}
+	}
+}
