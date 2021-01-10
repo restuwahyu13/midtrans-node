@@ -2,12 +2,12 @@ import _ from 'lodash'
 import { ApiConfigOptions, APIConfig } from '../types/ApiConfig'
 
 export class ApiConfig {
-	private static CORE_SANDBOX_BASE_URL = 'https://api.sandbox.midtrans.com/v2'
-	private static CORE_PRODUCTION_BASE_URL = 'https://api.midtrans.com/v2'
-	private static SNAP_SANDBOX_BASE_URL = 'https://app.sandbox.midtrans.com/snap/v1'
-	private static SNAP_PRODUCTION_BASE_URL = 'https://app.midtrans.com/snap/v1'
-	private static IRIS_SANDBOX_BASE_URL = 'https://app.sandbox.midtrans.com/iris/api/v1'
-	private static IRIS_PRODUCTION_BASE_URL = 'https://app.midtrans.com/iris/api/v1'
+	private static readonly CORE_SANDBOX_BASE_URL = 'https://api.sandbox.midtrans.com/v2'
+	private static readonly CORE_PRODUCTION_BASE_URL = 'https://api.midtrans.com/v2'
+	private static readonly SNAP_SANDBOX_BASE_URL = 'https://app.sandbox.midtrans.com/snap/v1'
+	private static readonly SNAP_PRODUCTION_BASE_URL = 'https://app.midtrans.com/snap/v1'
+	private static readonly IRIS_SANDBOX_BASE_URL = 'https://app.sandbox.midtrans.com/iris/api/v1'
+	private static readonly IRIS_PRODUCTION_BASE_URL = 'https://app.midtrans.com/iris/api/v1'
 	private isProduction: boolean
 	private serverKey: string
 	private clientKey: string

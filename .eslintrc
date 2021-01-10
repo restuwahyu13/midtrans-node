@@ -14,7 +14,9 @@
 		"prettier/prettier": 1,
 		"no-tabs": 0,
 		"indent": 0,
-		"space-before-function-paren": 0
+		"space-before-function-paren": 0,
+		"@typescript-eslint/no-explicit-any": 0,
+		"quote-props": 0
 	},
 	"env": {
 		"node": true,
