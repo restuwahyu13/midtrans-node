@@ -1,4 +1,4 @@
-type HttpClientSubOptionsConfig = {
+type HttpClientOptionsConfigs = {
 	readonly isProduction?: boolean
 	readonly serverKey?: string
 	readonly clientKey?: string
@@ -7,6 +7,13 @@ type HttpClientSubOptionsConfig = {
 export interface HttpClientOptions {
 	readonly url: string
 	readonly method: string
-	readonly configs?: HttpClientSubOptionsConfig
+	readonly configs?: HttpClientOptionsConfigs
 	readonly parameter?: any
+}
+
+export interface RequestOptions {
+	readonly requestUrl: string
+	readonly httpMethod: string
+	readonly serverKey: string
+	readonly requestPayload?: any
 }

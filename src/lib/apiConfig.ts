@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { ApiConfigOptions, APIConfig } from '../types/ApiConfig'
+import { ApiConfigOptions, ApiConfigGetter } from '../types/ApiConfig'
 
 export class ApiConfig {
 	private static readonly CORE_SANDBOX_BASE_URL = 'https://api.sandbox.midtrans.com/v2'
@@ -30,7 +30,7 @@ export class ApiConfig {
 	 * @return {Object} object contains isProduction, serverKey, clientKey
 	 */
 
-	get(): APIConfig {
+	get(): ApiConfigGetter {
 		const currentConfig: ApiConfigOptions = {
 			isProduction: this.isProduction,
 			serverKey: this.serverKey,

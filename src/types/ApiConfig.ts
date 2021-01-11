@@ -4,7 +4,7 @@ export interface ApiConfigOptions {
 	readonly clientKey: string
 }
 
-export class APIConfig {
+export interface ApiConfigGetter {
 	readonly isProduction: boolean
 	readonly serverKey: string
 	readonly clientKey: string
