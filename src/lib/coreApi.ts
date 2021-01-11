@@ -1,6 +1,6 @@
 import { ApiConfig } from './apiConfig'
 import { HttpClient } from './httpClient'
-import { CoreApiOptions, ChargeRequest, CaptureRequest } from '../types/CoreApi'
+import { CoreApiOptions, ChargeRequest, CaptureRequest, CardRegisterRequest, CardTokenRequest } from '../types/CoreApi'
 /**
  * CoreApi object able to do API request to Midtrans Core API
  */
@@ -61,7 +61,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public cardRegister(parameter = {}): Promise<Record<string, any>> {
+	public cardRegister(parameter: CardRegisterRequest): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/card/register'
 		const responsePromise = this.httpClient.request<Record<string, any>>({
 			requestUrl: apiUrl,
@@ -78,7 +78,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public cardToken(parameter = {}): Promise<Record<string, any>> {
+	public cardToken(parameter: CardTokenRequest): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/token'
 		const responsePromise = this.httpClient.request<Record<string, any>>({
 			requestUrl: apiUrl,
@@ -95,9 +95,9 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public cardPointInquiry(tokenId: string | number): Promise<any> {
+	public cardPointInquiry(tokenId: string | number): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/point_inquiry/' + tokenId
-		const responsePromise = this.httpClient.request<any>({
+		const responsePromise = this.httpClient.request<Record<string, any>>({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey
