@@ -1,7 +1,7 @@
-import { CoreApi as CoreAPI } from './lib/coreApi'
+import { CoreApi as MidtransCoreApi } from './lib/coreApi'
 
 declare namespace midtransClient {
-	export class CoreApi extends CoreAPI {}
+	export class CoreApi extends MidtransCoreApi {}
 }
 
 export default midtransClient
