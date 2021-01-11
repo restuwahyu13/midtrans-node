@@ -19,7 +19,8 @@
 		"no-prototype-builtins": 0,
 		"quote-props": 0,
 		"no-async-promise-executor": 0,
-		"prefer-const": 0
+		"prefer-const": 0,
+		"camelcase": 0
 	},
 	"env": {
 		"node": true,

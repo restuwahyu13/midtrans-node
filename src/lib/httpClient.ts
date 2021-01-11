@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError, Method } from 'axios'
 import { IncomingHttpHeaders } from 'http'
 import { MidtransError } from './midtransError'
-import { HttpClientOptions, RequestOptions } from '../types/HttpClient'
+import { RequestOptions } from '../types/HttpClient'
 
 /**
  * Wrapper of Axios to do API request to Midtrans API
@@ -10,13 +10,13 @@ import { HttpClientOptions, RequestOptions } from '../types/HttpClient'
  */
 
 export class HttpClient {
-	private readonly parent: HttpClientOptions
+	private readonly parent: Record<string, any>
 	private readonly httpClient: AxiosInstance
 	private readonly headers: IncomingHttpHeaders
 	private readonly requestBody?: any
 	private readonly requestParam?: any
 
-	constructor({ ...options }: HttpClientOptions) {
+	constructor(options: Record<string, any> = {}) {
 		this.parent = options
 		this.httpClient = axios.create()
 		this.headers = {
@@ -28,7 +28,7 @@ export class HttpClient {
 		this.requestParam = {}
 	}
 
-	request<T>({ ...options }: RequestOptions): Promise<T> {
+	public request<T>(options: RequestOptions): Promise<T> {
 		const headers = this.headers
 
 		let requestBody = this.requestBody
