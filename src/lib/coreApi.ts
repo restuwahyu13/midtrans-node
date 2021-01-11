@@ -12,10 +12,10 @@ export class CoreApi {
 	 * isProduction, serverKey, clientKey
 	 */
 
-	private readonly apiConfig: ApiConfig
+	public readonly apiConfig: ApiConfig
 	private readonly httpClient: HttpClient
 
-	constructor(options: CoreApiOptions) {
+	constructor(options?: CoreApiOptions) {
 		this.apiConfig = new ApiConfig(options)
 		this.httpClient = new HttpClient(this)
 		// this.transaction = new Transaction(this)
@@ -27,7 +27,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public charge(parameter: ChargeRequest): Promise<Record<string, any>> {
+	public charge<T extends ChargeRequest>(parameter: T | Record<string, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/charge'
 		const responsePromise = this.httpClient.request<Record<string, any>>({
 			requestUrl: apiUrl,
@@ -44,7 +44,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public capture(parameter: CaptureRequest): Promise<Record<string, any>> {
+	public capture<T extends CaptureRequest>(parameter: T | Record<string, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/capture'
 		const responsePromise = this.httpClient.request<Record<string, any>>({
 			requestUrl: apiUrl,
@@ -61,7 +61,9 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public cardRegister(parameter: CardRegisterRequest): Promise<Record<string, any>> {
+	public cardRegister<T extends CardRegisterRequest>(
+		parameter: T | Record<string, any> = {}
+	): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/card/register'
 		const responsePromise = this.httpClient.request<Record<string, any>>({
 			requestUrl: apiUrl,
@@ -78,7 +80,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public cardToken(parameter: CardTokenRequest): Promise<Record<string, any>> {
+	public cardToken<T extends CardTokenRequest>(parameter: T | Record<string, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/token'
 		const responsePromise = this.httpClient.request<Record<string, any>>({
 			requestUrl: apiUrl,
