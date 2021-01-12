@@ -14,7 +14,7 @@ type ChargeRequestTransactionDetail = {
 }
 
 export interface ChargeRequest {
-	readonly payment_type: 'bank_transfer'
+	readonly payment_type: string
 	readonly bank_transfer: ChargeRequestBank
 	readonly transaction_details: ChargeRequestTransactionDetail
 	readonly custom_field1?: Record<string, any>
