@@ -30,27 +30,37 @@ export class Transaction {
 		return responsePromise
 	}
 
-	public deny(transactionId = '') {
+	public deny(transactionId: string) {
 		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/deny'
 		let responsePromise = this.parent.httpClient.request('post', this.parent.apiConfig.get().serverKey, apiUrl, null)
 		return responsePromise
 	}
 
-	public cancel(transactionId = '') {
+	public cancel(transactionId: string): Promise<Record<string, any>> {
 		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/cancel'
-		let responsePromise = this.parent.httpClient.request('post', this.parent.apiConfig.get().serverKey, apiUrl, null)
+		let responsePromise = this.parent.httpClient.request<Record<string, any>>(
+			'post',
+			this.parent.apiConfig.get().serverKey,
+			apiUrl,
+			null
+		)
 		return responsePromise
 	}
 
 	public expire(transactionId = '') {
 		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/expire'
-		let responsePromise = this.parent.httpClient.request('post', this.parent.apiConfig.get().serverKey, apiUrl, null)
+		let responsePromise = this.parent.httpClient.request<Record<string, any>>(
+			'post',
+			this.parent.apiConfig.get().serverKey,
+			apiUrl,
+			null
+		)
 		return responsePromise
 	}
 
 	public refund(transactionId = '', parameter = {}) {
 		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund'
-		let responsePromise = this.parent.httpClient.request(
+		let responsePromise = this.parent.httpClient.request<Record<string, any>>(
 			'post',
 			this.parent.apiConfig.get().serverKey,
 			apiUrl,
@@ -61,7 +71,7 @@ export class Transaction {
 
 	public refundDirect(transactionId = '', parameter = {}) {
 		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund/online/direct'
-		let responsePromise = this.parent.httpClient.request(
+		let responsePromise = this.parent.httpClient.request<Record<string, any>>(
 			'post',
 			this.parent.apiConfig.get().serverKey,
 			apiUrl,
