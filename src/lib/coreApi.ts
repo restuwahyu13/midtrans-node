@@ -31,7 +31,7 @@ export class CoreApi {
 
 	public charge<T extends ChargeRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/charge'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
@@ -48,7 +48,7 @@ export class CoreApi {
 
 	public capture<T extends CaptureRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/capture'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
@@ -67,7 +67,7 @@ export class CoreApi {
 		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/card/register'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
@@ -84,7 +84,7 @@ export class CoreApi {
 
 	public cardToken<T extends CardTokenRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/token'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
@@ -101,7 +101,7 @@ export class CoreApi {
 
 	public cardPointInquiry(tokenId: string | number): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/point_inquiry/' + tokenId
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey

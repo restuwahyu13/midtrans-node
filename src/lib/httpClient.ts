@@ -28,7 +28,7 @@ export class HttpClient {
 		this.requestParam = {}
 	}
 
-	public request<T extends RequestOptions>(options: T | Record<any, any> = {}): Promise<T> {
+	public request<T extends RequestOptions>(options: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const headers = this.headers
 
 		let requestBody = this.requestBody
@@ -57,7 +57,7 @@ export class HttpClient {
 			}
 
 			// Reject if param is not JSON
-			if (typeof requestParam === 'string' || Object.keys(requestParam).length < 1) {
+			if (typeof requestParam === 'string') {
 				try {
 					requestParam = JSON.parse(requestParam)
 				} catch (err) {

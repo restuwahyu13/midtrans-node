@@ -13,7 +13,7 @@ export class Transaction {
 	private readonly apiConfig: ApiConfig
 	private readonly httpClient: HttpClient
 
-	constructor(options?: Record<string, any> = {}) {
+	constructor(options?: Record<string, any>) {
 		this.parent = options
 		this.apiConfig = new ApiConfig()
 		this.httpClient = new HttpClient()
@@ -27,7 +27,7 @@ export class Transaction {
 
 	public status(transactionId: string): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/status'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey
@@ -43,7 +43,7 @@ export class Transaction {
 
 	public statusb2b(transactionId: string): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/statusb2b'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey
@@ -59,7 +59,7 @@ export class Transaction {
 
 	public approve(transactionId: string): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/approve'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey
@@ -75,7 +75,7 @@ export class Transaction {
 
 	public deny(transactionId: string): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/deny'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey
@@ -91,7 +91,7 @@ export class Transaction {
 
 	public cancel(transactionId: string): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/cancel'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey
@@ -107,7 +107,7 @@ export class Transaction {
 
 	public expire(transactionId: string): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/expire'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey
@@ -124,10 +124,10 @@ export class Transaction {
 
 	public refund<T extends RefundRequest>(
 		transactionId: string,
-		parameter?: T | Record<any, any> = {}
+		parameter?: T | Record<any, any>
 	): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
@@ -145,10 +145,10 @@ export class Transaction {
 
 	public refundDirect<T extends RefundDRequest>(
 		transactionId: string,
-		parameter?: T | Record<any, any> = {}
+		parameter?: T | Record<any, any>
 	): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund/online/direct'
-		const responsePromise = this.httpClient.request<Record<string, any>>({
+		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
@@ -157,11 +157,17 @@ export class Transaction {
 		return responsePromise
 	}
 
-	public notification(notificationObj = {}): Promise<Record<string, any>> {
+	/**
+	 * An additional mechanism we provide to verify the content and the origin of the notification is to challenge. This can be achieved by calling the get status API. The response is the same as the notification status.
+	 * @param notification
+	 * @return Promise
+	 */
+
+	public notification(notification: Record<any, any> = {}): Promise<void> {
 		return new Promise(function (resolve, reject) {
-			if (typeof notificationObj === 'string' || notificationObj instanceof String) {
+			if (typeof notification === 'string') {
 				try {
-					notificationObj = JSON.parse(notificationObj)
+					notification = JSON.parse(notification)
 				} catch (err) {
 					reject(
 						new MidtransNotificationError(
@@ -171,14 +177,10 @@ export class Transaction {
 					)
 				}
 			}
-			const transactionId = notificationObj.transaction_id
+			const transactionId: string = notification.transaction_id
 			this.status(transactionId)
-				.then(function (res) {
-					resolve(res)
-				})
-				.catch(function (err) {
-					reject(err)
-				})
+				.then((res) => resolve(res))
+				.catch((err) => reject(err))
 		})
 	}
 }
