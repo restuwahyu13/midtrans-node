@@ -8,79 +8,104 @@ import { HttpClient } from './httpClient'
  */
 
 export class Transaction {
-	constructor(parentObj = {}) {
-		this.parent = parentObj
+	private readonly parent: Record<string, any>
+	private readonly apiConfig: ApiConfig
+	private readonly httpClient: HttpClient
+
+	constructor(options?: Record<string, any> = {}) {
+		this.parent = options
+		this.apiConfig = new ApiConfig()
+		this.httpClient = new HttpClient()
 	}
 
-	public status(transactionId = '') {
-		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/status'
-		let responsePromise = this.parent.httpClient.request('get', this.parent.apiConfig.get().serverKey, apiUrl, null)
+	public status(transactionId: string): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/status'
+		const responsePromise = this.httpClient.request<Record<string, any>>({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey
+		})
 		return responsePromise
 	}
 
-	public statusb2b(transactionId = '') {
-		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/statusb2b'
-		let responsePromise = this.parent.httpClient.request('get', this.parent.apiConfig.get().serverKey, apiUrl, null)
+	public statusb2b(transactionId = ''): Promise<Record<string, any>> {
+		let apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/statusb2b'
+		let responsePromise = this.httpClient.request<Record<string, any>>(
+			'get',
+			this.apiConfig.get().serverKey,
+			apiUrl,
+			null
+		)
 		return responsePromise
 	}
 
-	public approve(transactionId = '') {
-		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/approve'
-		let responsePromise = this.parent.httpClient.request('post', this.parent.apiConfig.get().serverKey, apiUrl, null)
+	public approve(transactionId = ''): Promise<Record<string, any>> {
+		let apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/approve'
+		let responsePromise = this.httpClient.request<Record<string, any>>(
+			'post',
+			this.apiConfig.get().serverKey,
+			apiUrl,
+			null
+		)
 		return responsePromise
 	}
 
-	public deny(transactionId: string) {
-		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/deny'
-		let responsePromise = this.parent.httpClient.request('post', this.parent.apiConfig.get().serverKey, apiUrl, null)
+	public deny(transactionId: string): Promise<Record<string, any>> {
+		let apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/deny'
+		let responsePromise = this.httpClient.request<Record<string, any>>(
+			'post',
+			this.apiConfig.get().serverKey,
+			apiUrl,
+			null
+		)
 		return responsePromise
 	}
 
 	public cancel(transactionId: string): Promise<Record<string, any>> {
-		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/cancel'
-		let responsePromise = this.parent.httpClient.request<Record<string, any>>(
+		let apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/cancel'
+		let responsePromise = this.httpClient.request<Record<string, any>>(
 			'post',
-			this.parent.apiConfig.get().serverKey,
+			this.apiConfig.get().serverKey,
 			apiUrl,
 			null
 		)
 		return responsePromise
 	}
 
-	public expire(transactionId = '') {
-		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/expire'
-		let responsePromise = this.parent.httpClient.request<Record<string, any>>(
+	public expire(transactionId = ''): Promise<Record<string, any>> {
+		let apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/expire'
+		let responsePromise = this.httpClient.request<Record<string, any>>(
 			'post',
-			this.parent.apiConfig.get().serverKey,
+			this.apiConfig.get().serverKey,
 			apiUrl,
 			null
 		)
 		return responsePromise
 	}
 
-	public refund(transactionId = '', parameter = {}) {
-		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund'
-		let responsePromise = this.parent.httpClient.request<Record<string, any>>(
+	public refund(transactionId = '', parameter = {}): Promise<Record<string, any>> {
+		let apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund'
+		let responsePromise = this.httpClient.request<Record<string, any>>(
 			'post',
-			this.parent.apiConfig.get().serverKey,
+			this.apiConfig.get().serverKey,
 			apiUrl,
 			parameter
 		)
 		return responsePromise
 	}
 
-	public refundDirect(transactionId = '', parameter = {}) {
-		let apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund/online/direct'
-		let responsePromise = this.parent.httpClient.request<Record<string, any>>(
+	public refundDirect(transactionId = '', parameter = {}): Promise<Record<string, any>> {
+		let apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund/online/direct'
+		let responsePromise = this.httpClient.request<Record<string, any>>(
 			'post',
-			this.parent.apiConfig.get().serverKey,
+			this.apiConfig.get().serverKey,
 			apiUrl,
 			parameter
 		)
 		return responsePromise
 	}
 
-	public notification(notificationObj = {}) {
+	public notification(notificationObj = {}): Promise<Record<string, any>> {
 		return new Promise(function (resolve, reject) {
 			if (typeof notificationObj === 'string' || notificationObj instanceof String) {
 				try {

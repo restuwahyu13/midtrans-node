@@ -1,5 +1,6 @@
 import { ApiConfig } from './apiConfig'
 import { HttpClient } from './httpClient'
+import { Transaction } from './transaction'
 import { CoreApiOptions, ChargeRequest, CaptureRequest, CardRegisterRequest, CardTokenRequest } from '../types/CoreApi'
 /**
  * CoreApi object able to do API request to Midtrans Core API
@@ -14,11 +15,12 @@ export class CoreApi {
 
 	public readonly apiConfig: ApiConfig
 	private readonly httpClient: HttpClient
+	private readonly transaction: Transaction
 
 	constructor(options?: CoreApiOptions) {
 		this.apiConfig = new ApiConfig(options)
 		this.httpClient = new HttpClient(this)
-		// this.transaction = new Transaction(this)
+		this.transaction = new Transaction(this)
 	}
 
 	/**
