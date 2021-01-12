@@ -28,7 +28,7 @@ export class HttpClient {
 		this.requestParam = {}
 	}
 
-	public request<T>(options: RequestOptions): Promise<T> {
+	public request<T extends RequestOptions>(options: T | Record<any, any> = {}): Promise<T> {
 		const headers = this.headers
 
 		let requestBody = this.requestBody

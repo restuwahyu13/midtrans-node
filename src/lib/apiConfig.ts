@@ -45,7 +45,7 @@ export class ApiConfig {
 	 * @param {Object} options - object contains isProduction, serverKey, clientKey]
 	 */
 
-	public set<T extends ApiConfigOptions>(options: T | Record<string, any> = {}): void {
+	public set<T extends ApiConfigOptions>(options: T | Record<any, any> = {}): void {
 		const currentConfig: ApiConfigOptions = {
 			isProduction: this.isProduction,
 			serverKey: this.serverKey,

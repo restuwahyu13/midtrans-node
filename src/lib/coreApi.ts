@@ -29,7 +29,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public charge<T extends ChargeRequest>(parameter: T | Record<string, any> = {}): Promise<Record<string, any>> {
+	public charge<T extends ChargeRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/charge'
 		const responsePromise = this.httpClient.request<Record<string, any>>({
 			requestUrl: apiUrl,
@@ -46,7 +46,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public capture<T extends CaptureRequest>(parameter: T | Record<string, any> = {}): Promise<Record<string, any>> {
+	public capture<T extends CaptureRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/capture'
 		const responsePromise = this.httpClient.request<Record<string, any>>({
 			requestUrl: apiUrl,
@@ -64,7 +64,7 @@ export class CoreApi {
 	 */
 
 	public cardRegister<T extends CardRegisterRequest>(
-		parameter: T | Record<string, any> = {}
+		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/card/register'
 		const responsePromise = this.httpClient.request<Record<string, any>>({
@@ -82,7 +82,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public cardToken<T extends CardTokenRequest>(parameter: T | Record<string, any> = {}): Promise<Record<string, any>> {
+	public cardToken<T extends CardTokenRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/token'
 		const responsePromise = this.httpClient.request<Record<string, any>>({
 			requestUrl: apiUrl,
