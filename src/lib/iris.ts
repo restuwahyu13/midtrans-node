@@ -24,7 +24,7 @@ export class Iris {
 
 	public apiConfig: ApiConfig
 	public httpClient: HttpClient
-	public transaction: Transaction
+	private transaction: Transaction
 
 	constructor(options: IrisOptions | Record<string, any> = {}) {
 		this.apiConfig = new ApiConfig(options)
