@@ -1,3 +1,9 @@
+/*
+ *========================================
+ * @description Core API Options
+ *=======================================
+ */
+
 export interface CoreApiOptions {
 	readonly isProduction: boolean
 	readonly serverKey: string
@@ -15,7 +21,7 @@ type TransactionDetailOptions = {
 	readonly gross_amount: number
 }
 
-type SubChargeCustomerDetailOptions = {
+type BillingAddressOptions = {
 	readonly first_name?: string
 	readonly last_name?: string
 	readonly emai?: string
@@ -25,8 +31,7 @@ type SubChargeCustomerDetailOptions = {
 	readonly postal_code: string
 	readonly country_code?: string
 }
-
-type SubItemDetailsOptions = {
+type ItemDetailsOptions = {
 	readonly id?: string
 	readonly price: number
 	readonly quantity: number
@@ -34,8 +39,8 @@ type SubItemDetailsOptions = {
 	readonly brand?: string
 	readonly category?: string
 	readonly merchant_name?: string
-	/**
-	 * @descript For BCA Klikpay
+	/*
+	 * @description For BCA Klikpay
 	 */
 	readonly tenor?: number
 	readonly code_plan?: number
@@ -47,16 +52,24 @@ type ChargeCustomerDetailOptions = {
 	readonly last_name: string
 	readonly email: string
 	readonly phone: string
-	readonly billing_address?: SubChargeCustomerDetailOptions
+	readonly billing_address?: BillingAddressOptions
 }
 
-type SubDynamicDescriptorOptions = {
+type ShipingDetailOptions = {
+	readonly first_name: string
+	readonly last_name: string
+	readonly email: string
+	readonly phone: string
+	readonly billing_address?: BillingAddressOptions
+}
+
+type DynamicDescriptorOptions = {
 	readonly merchant_name: string
 	readonly city_name: string
 	readonly country_code: string
 }
 
-type SubCreditCardOptions = {
+type CreditCardOptions = {
 	readonly token_id: string
 	readonly bank?: string
 	readonly installment_term?: number
@@ -80,9 +93,9 @@ type ChargeBankTransfer = {
 	readonly payment_type: string
 	readonly bank_transfer: ChargeBankOptions
 	readonly transaction_details: TransactionDetailOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly custom_field1?: Record<string, any>
 	readonly custom_field2?: Record<string, any>
 	readonly custom_field3?: Record<string, any>
@@ -97,10 +110,10 @@ type ChargeBankTransfer = {
 type ChargeCreditCard = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly credit_card: SubCreditCardOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly credit_card: CreditCardOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 }
 
 /*
@@ -109,7 +122,7 @@ type ChargeCreditCard = {
  * ==============================================
  */
 
-type SubCreditCardOptionsNon3DS = {
+type CreditCardOptionsNon3DS = {
 	readonly number: string
 	readonly expiry_month: string
 	readonly expiry_year: string
@@ -123,12 +136,12 @@ type ChargeNon3DS = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
 	readonly credit_card: {
-		readonly card: SubCreditCardOptionsNon3DS
-		readonly dynamic_descriptor?: SubDynamicDescriptorOptions
+		readonly card: CreditCardOptionsNon3DS
+		readonly dynamic_descriptor?: DynamicDescriptorOptions
 	}
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 }
 
 /*
@@ -137,7 +150,7 @@ type ChargeNon3DS = {
  * ==============================================
  */
 
-type SubCreditCardOptions3DSOptions = {
+type CreditCardOptions3DSOptions = {
 	readonly number: string
 	readonly expiry_month: string
 	readonly expiry_year: string
@@ -151,14 +164,14 @@ type Charge3DS = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
 	readonly credit_card: {
-		readonly card: SubCreditCardOptions3DSOptions
-		readonly dynamic_descriptor?: SubDynamicDescriptorOptions
+		readonly card: CreditCardOptions3DSOptions
+		readonly dynamic_descriptor?: DynamicDescriptorOptions
 		readonly authentication?: boolean
 		readonly callback_type?: string
 	}
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 }
 
 /*
@@ -171,7 +184,7 @@ type SubPermataOptions = {
 	readonly recipient_name?: string
 }
 
-type SubBankTransferPermataOptions = {
+type BankTransferPermataOptions = {
 	readonly bank: string
 	readonly permata?: SubPermataOptions
 }
@@ -179,10 +192,10 @@ type SubBankTransferPermataOptions = {
 type ChargePermataVirtualAccount = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly bank_transfer: SubBankTransferPermataOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly bank_transfer: BankTransferPermataOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -194,34 +207,34 @@ type ChargePermataVirtualAccount = {
  * ==============================================
  */
 
-type SubInquiryPaymentOptions = {
+type InquiryPaymentOptions = {
 	readonly id: string
 	readonly en: string
 }
 
-type SubFreeTextOptions = {
-	readonly inquiry?: SubInquiryPaymentOptions[]
-	readonly payment?: SubInquiryPaymentOptions[]
+type FreeTextOptions = {
+	readonly inquiry?: InquiryPaymentOptions[]
+	readonly payment?: InquiryPaymentOptions[]
 }
 
-type SubBcaOptions = {
+type BcaOptions = {
 	readonly sub_company_code?: string
 }
 
-type SubBankTransferBcaOptions = {
+type BankTransferBcaOptions = {
 	readonly bank: string
 	readonly va_number?: number
-	readonly free_text?: SubFreeTextOptions
-	readonly bca?: SubBcaOptions
+	readonly free_text?: FreeTextOptions
+	readonly bca?: BcaOptions
 }
 
 type ChargeBcaVirtualAccount = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly bank_transfer: SubBankTransferBcaOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly bank_transfer: BankTransferBcaOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -233,7 +246,7 @@ type ChargeBcaVirtualAccount = {
  * ==============================================
  */
 
-type SubEchannelOptions = {
+type EchannelOptions = {
 	readonly bill_info1: string
 	readonly bill_info2: string
 	readonly bill_info3?: string
@@ -247,10 +260,10 @@ type SubEchannelOptions = {
 type ChargeMandiriVirtualAccount = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly echannel: SubEchannelOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly echannel: EchannelOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -262,7 +275,7 @@ type ChargeMandiriVirtualAccount = {
  * ==============================================
  */
 
-type SubBankTransferBniOptions = {
+type BankTransferBniOptions = {
 	readonly bank: string
 	readonly va_number?: string
 }
@@ -270,10 +283,10 @@ type SubBankTransferBniOptions = {
 type ChargeBniVirtualAccount = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly bank_transfer: SubBankTransferBniOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly bank_transfer: BankTransferBniOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -285,7 +298,7 @@ type ChargeBniVirtualAccount = {
  * ==============================================
  */
 
-type SubBankTransferBriOptions = {
+type BankTransferBriOptions = {
 	readonly bank: string
 	readonly va_number?: string
 }
@@ -293,10 +306,10 @@ type SubBankTransferBriOptions = {
 type ChargeBriVirtualAccount = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly bank_transfer: SubBankTransferBriOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly bank_transfer: BankTransferBriOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -308,7 +321,7 @@ type ChargeBriVirtualAccount = {
  * ==============================================
  */
 
-type SubBcaKlikPayOptions = {
+type KlikPayOptions = {
 	readonly description: string
 	readonly misc_fee?: string
 }
@@ -316,10 +329,10 @@ type SubBcaKlikPayOptions = {
 type ChargeBcaKlikpay = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly bca_klikpay: SubBcaKlikPayOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly bca_klikpay: KlikPayOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -331,18 +344,18 @@ type ChargeBcaKlikpay = {
  * ==============================================
  */
 
-type SubBcaKlikBcaOptions = {
+type KlikBcaOptions = {
 	readonly description: string
 	readonly user_id: string
 }
 
-type ChargeBcaKliBca = {
+type ChargeKlikBca = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly bca_klikbca: SubBcaKlikBcaOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly bca_klikbca: KlikBcaOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -357,9 +370,9 @@ type ChargeBcaKliBca = {
 type ChargeBriEpay = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -371,17 +384,17 @@ type ChargeBriEpay = {
  * ==============================================
  */
 
-type SubCimbClickOptions = {
+type CimbClickOptions = {
 	readonly description: string
 }
 
 type ChargeCimbClick = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly cimb_clicks: SubCimbClickOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly cimb_clicks: CimbClickOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 }
 
 /*
@@ -393,9 +406,9 @@ type ChargeCimbClick = {
 type ChargeDanamonOnline = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -407,17 +420,17 @@ type ChargeDanamonOnline = {
  * ==============================================
  */
 
-type SubQrisOptions = {
+type QrisOptions = {
 	readonly acquirer: string
 }
 
 type ChargeQris = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly qris?: SubQrisOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly qris?: QrisOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -429,7 +442,7 @@ type ChargeQris = {
  * ==============================================
  */
 
-type SubGopayOptions = {
+type GopayOptions = {
 	readonly enable_callback?: boolean
 	readonly callback_url?: string
 	readonly account_id: string
@@ -440,10 +453,10 @@ type SubGopayOptions = {
 type ChargeGopay = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly gopay: SubGopayOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly gopay: GopayOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -455,17 +468,17 @@ type ChargeGopay = {
  * ==============================================
  */
 
-type SubShoopeOptions = {
+type ShoopeOptions = {
 	readonly callback_url: string
 }
 
 type ChargeShoopePay = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly shopeepay?: SubShoopeOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly shopeepay?: ShoopeOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -477,7 +490,7 @@ type ChargeShoopePay = {
  * ==============================================
  */
 
-type SubIndomaretOptions = {
+type IndomartCsStoreOptions = {
 	readonly store: string
 	readonly message?: string
 }
@@ -485,10 +498,10 @@ type SubIndomaretOptions = {
 type ChargeIndomaret = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly cstore: SubIndomaretOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly cstore: IndomartCsStoreOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -499,7 +512,7 @@ type ChargeIndomaret = {
  * ==============================================
  */
 
-type SubAlfamartOptions = {
+type AlfamartCsStoreOptions = {
 	readonly store: string
 	readonly alfamart_free_text_1?: string
 	readonly alfamart_free_text_2?: string
@@ -509,10 +522,10 @@ type SubAlfamartOptions = {
 type ChargeAlfamart = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly cstore: SubAlfamartOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly cstore: AlfamartCsStoreOptions
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -527,9 +540,9 @@ type ChargeAlfamart = {
 type ChargeAkuLaku = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailOptions
-	readonly item_details?: SubItemDetailsOptions[]
+	readonly item_details?: ItemDetailsOptions[]
 	readonly customer_details?: ChargeCustomerDetailOptions
-	readonly shipping_address?: ChargeCustomerDetailOptions
+	readonly shipping_address?: ShipingDetailOptions
 	readonly order_time?: string
 	readonly expiry_duration?: string
 	readonly unit?: string
@@ -552,7 +565,7 @@ export interface ChargeTypeRequest {
 	readonly chargeBni?: ChargeBniVirtualAccount
 	readonly chargeBri?: ChargeBriVirtualAccount
 	readonly chargeBcaKlikPay?: ChargeBcaKlikpay
-	readonly chargeBcaKlikBca?: ChargeBcaKliBca
+	readonly chargeKlikBca?: ChargeKlikBca
 	readonly chargeBriEpay?: ChargeBriEpay
 	readonly chargeChimbClick?: ChargeCimbClick
 	readonly chargeDanamonOnline?: ChargeDanamonOnline
