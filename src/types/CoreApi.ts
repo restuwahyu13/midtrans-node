@@ -184,6 +184,9 @@ type ChargePermataVirtualAccount = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -220,6 +223,9 @@ type ChargeBcaVirtualAccount = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -246,6 +252,9 @@ type ChargeMandiriVirtualAccount = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -266,6 +275,9 @@ type ChargeBniVirtualAccount = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -286,6 +298,9 @@ type ChargeBriVirtualAccount = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -306,6 +321,9 @@ type ChargeBcaKlikpay = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -326,6 +344,9 @@ type ChargeBcaKliBca = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -340,6 +361,9 @@ type ChargeBriEpay = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -373,6 +397,9 @@ type ChargeDanamonOnline = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -392,6 +419,9 @@ type ChargeQris = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -415,6 +445,9 @@ type ChargeGopay = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -434,6 +467,9 @@ type ChargeShoopePay = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -454,6 +490,9 @@ type ChargeIndomaret = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 /*
  * ==============================================
@@ -475,6 +514,9 @@ type ChargeAlfamart = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -489,6 +531,9 @@ type ChargeAkuLaku = {
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
+	readonly order_time?: string
+	readonly expiry_duration?: string
+	readonly unit?: string
 }
 
 /*
@@ -528,7 +573,7 @@ export interface ChargeTypeRequest {
 
 export interface CaptureRequest {
 	readonly transaction_id: string
-	readonly gross_amount: number
+	readonly gross_amount?: number
 }
 
 /*
