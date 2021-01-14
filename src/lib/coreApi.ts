@@ -41,7 +41,7 @@ export class CoreApi {
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: parameter
+			requestPayload: Object.values(parameter)
 		})
 		return responsePromise
 	}
@@ -52,7 +52,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public capture<T extends CaptureRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
+	public capture<T extends CaptureRequest>(parameter: T | Record<any, any>): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/capture'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
