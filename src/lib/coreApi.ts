@@ -8,8 +8,9 @@ import {
 	CardRegisterRequest,
 	CardTokenRequest
 } from '../types/CoreApi'
+
 /**
- * CoreApi object able to do API request to Midtrans Core API
+ * CoreApi Midtrans is a RESTful Web Service served as a communication bridge between merchants and our payment channels.
  */
 
 export class CoreApi {
@@ -20,10 +21,10 @@ export class CoreApi {
 	 */
 
 	public readonly apiConfig: ApiConfig
-	private readonly httpClient: HttpClient
-	private readonly transaction: Transaction
+	public readonly httpClient: HttpClient
+	public readonly transaction: Transaction
 
-	constructor(options?: CoreApiOptions) {
+	constructor(options: CoreApiOptions | Record<string, any> = {}) {
 		this.apiConfig = new ApiConfig(options)
 		this.httpClient = new HttpClient(this)
 		this.transaction = new Transaction(this)

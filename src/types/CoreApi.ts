@@ -16,14 +16,14 @@ type TransactionDetailOptions = {
 }
 
 type SubChargeCustomerDetailOptions = {
-	readonly first_name: string
-	readonly last_name: string
-	readonly email: string
-	readonly phone: string
+	readonly first_name?: string
+	readonly last_name?: string
+	readonly emai?: string
+	readonly phone?: string
 	readonly address: string
 	readonly city: string
 	readonly postal_code: string
-	readonly country_code: string
+	readonly country_code?: string
 }
 
 type SubItemDetailsOptions = {

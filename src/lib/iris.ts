@@ -1,214 +1,288 @@
-// import { ApiConfig } from './apiConfig'
-// import { HttpClient } from './httpClient'
-// import { Transaction } from './transaction'
-// /**
-//  * Iris object able to do API request to Midtrans Iris API
-//  */
+import { ApiConfig } from './apiConfig'
+import { HttpClient } from './httpClient'
+import { Transaction } from './transaction'
+import {
+	IrisOptions,
+	BeneficiariesOptions,
+	PayoutOptions,
+	ApprovePayoutsOptions,
+	RejectPayoutsOptions,
+	TransactionHistory,
+	ValidateBankAccountOptions
+} from '../types/iris'
 
-// export class Iris {
-// 	/**
-// 	 * Initiate with options
-// 	 * @param  {Object} options - should have these props:
-// 	 * isProduction, apiKey
-// 	 */
+/**
+ * Iris API is Midtrans’ cash management solution that allows you to disburse payments to any bank accounts in Indonesia securely and easily. Iris connects to the banks’ hosts to enable seamless transfer using integrated APIs.
+ */
 
-// 	private isProduction: boolean
-// 	private serverKey: string
-// 	private clientKey: string
+export class Iris {
+	/**
+	 * Initiate with options
+	 * @param  {Object} options - should have these props:
+	 * isProduction, apiKey
+	 */
 
-// 	constructor(options = { isProduction: false, serverKey: '' }) {
-// 		this.isProduction = false
-// 		this.serverKey = ''
-// 		this.clientKey = ''
-// 		this.o = {}
+	public apiConfig: ApiConfig
+	public httpClient: HttpClient
+	public transaction: Transaction
 
-// 		const { isProduction, serverKey, clientKey } = this
-// 		options ? new ApiConfig(options) : 3.0
+	constructor(options: IrisOptions | Record<string, any> = {}) {
+		this.apiConfig = new ApiConfig(options)
+		this.httpClient = new HttpClient(this)
+		this.transaction = new Transaction(this)
+	}
 
-// 		iConfig(options)({ isProduction, serverKey, clientKey })
+	/**
+	 * Returns pong message for monitoring purpose
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 		this.apiConfig = this.httpClient = new HttpClient(this)
-// 		this.transaction = new Transaction(this)
-// 	}
+	public ping(): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/ping'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			method: 'get',
+			serverKey: this.apiConfig.get().serverKey
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do `/ping` API request to Iris API
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * Use this API to create a new beneficiary information for quick access on the payout page in Iris Portal.
+	 * @param parameter - object of Iris API JSON body as parameter, will be converted to JSON (more params detail refer to: https://iris-docs.midtrans.com)
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public ping(): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/ping'
-// 		let responsePromise = this.httpClient.request('get', this.apiConfig.get().serverKey, apiUrl)
-// 		return responsePromise
-// 	}
+	public createBeneficiaries<T extends BeneficiariesOptions>(
+		parameter: T | Record<any, any> = {}
+	): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'post',
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: parameter
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do create `/beneficiaries` API request to Iris API
-// 	 * @param  {Object} parameter - object of Iris API JSON body as parameter, will be converted to JSON (more params detail refer to: https://iris-docs.midtrans.com)
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * Use this API to update an existing beneficiary identified by its alias_name. Do update `/beneficiaries/<alias_name>` API request to Iris API
+	 * @param parameter - alias_name of the beneficiaries that need to be updated
+	 * @param parameter - object of Iris API JSON body as parameter, will be converted to JSON (more params detail refer to: https://iris-docs.midtrans.com)
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public createBeneficiaries(parameter: Record<string, any> = {}): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries'
-// 		let responsePromise = this.httpClient.request('post', this.apiConfig.get().serverKey, apiUrl, parameter)
-// 		return responsePromise
-// 	}
+	public updateBeneficiaries<T extends BeneficiariesOptions>(
+		aliasName: string,
+		parameter: T | Record<any, any> = {}
+	): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries/' + aliasName
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'patch',
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: parameter
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do update `/beneficiaries/<alias_name>` API request to Iris API
-// 	 * @param  {String} parameter - alias_name of the beneficiaries that need to be updated
-// 	 * @param  {Object} parameter - object of Iris API JSON body as parameter, will be converted to JSON (more params detail refer to: https://iris-docs.midtrans.com)
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * Use this API to fetch list of all beneficiaries saved in Iris Portal.
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public updateBeneficiaries(aliasName: string, parameter: Record<string, any> = {}): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries/' + aliasName
-// 		let responsePromise = this.httpClient.request('patch', this.apiConfig.get().serverKey, apiUrl, parameter)
-// 		return responsePromise
-// 	}
+	public getBeneficiaries(): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do `/beneficiaries` API request to Iris API
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * This API is for Creator to create a payout. It can be used for single payout and also multiple payouts.
+	 * @param parameter - object of Iris API JSON body as parameter, will be converted to JSON (more params detail refer to: https://iris-docs.midtrans.com)
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public getBeneficiaries(): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries'
-// 		let responsePromise = this.httpClient.request('get', this.apiConfig.get().serverKey, apiUrl)
-// 		return responsePromise
-// 	}
+	public createPayout<T extends PayoutOptions>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: parameter
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do create `/payouts` API request to Iris API
-// 	 * @param  {Object} parameter - object of Iris API JSON body as parameter, will be converted to JSON (more params detail refer to: https://iris-docs.midtrans.com)
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * Use this API for Apporver to approve multiple payout request.
+	 * @param parameter - object of Iris API JSON body as parameter, will be converted to JSON (more params detail refer to: https://iris-docs.midtrans.com)
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public createPayouts(parameter: Record<string, any> = {}): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts'
-// 		let responsePromise = this.httpClient.request('post', this.apiConfig.get().serverKey, apiUrl, parameter)
-// 		return responsePromise
-// 	}
+	public approvePayouts<T extends ApprovePayoutsOptions>(
+		parameter: T | Record<any, any> = {}
+	): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/approve'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: parameter
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do approve `/payouts/approve` API request to Iris API
-// 	 * @param  {Object} parameter - object of Iris API JSON body as parameter, will be converted to JSON (more params detail refer to: https://iris-docs.midtrans.com)
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * Use this API for Apporver to reject multiple payout request.
+	 * @param parameter - object of Iris API JSON body as parameter, will be converted to JSON (more params detail refer to: https://iris-docs.midtrans.com)
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public approvePayouts(parameter: Record<string, any> = {}): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/approve'
-// 		let responsePromise = this.httpClient.request('post', this.apiConfig.get().serverKey, apiUrl, parameter)
-// 		return responsePromise
-// 	}
+	public rejectPayouts<T extends RejectPayoutsOptions>(
+		parameter: T | Record<any, any> = {}
+	): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/reject'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: parameter
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do reject `/payouts/reject` API request to Iris API
-// 	 * @param  {Object} parameter - object of Iris API JSON body as parameter, will be converted to JSON (more params detail refer to: https://iris-docs.midtrans.com)
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * Get details of a single payout
+	 * @param parameter - reference_no of the payout
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public rejectPayouts(parameter: Record<string, any> = {}): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/reject'
-// 		let responsePromise = this.httpClient.request('post', this.apiConfig.get().serverKey, apiUrl, parameter)
-// 		return responsePromise
-// 	}
+	public getPayoutDetails(referenceNo: string): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/' + referenceNo
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do `/payouts/<reference_no>` API request to Iris API
-// 	 * @param  {String} parameter - reference_no of the payout
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * List all transactions history for a month. You can specified start date and also end date for range transaction history.
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public getPayoutDetails(referenceNo: string): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/' + referenceNo
-// 		let responsePromise = this.httpClient.request('get', this.apiConfig.get().serverKey, apiUrl)
-// 		return responsePromise
-// 	}
+	public getTransactionHistory<T extends TransactionHistory>(
+		parameter: T | Record<any, any> = {}
+	): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/statements'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: parameter
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do `/statements` API request to Iris API
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
-// 	// https://iris-docs.midtrans.com/#transaction-history
+	/**
+	 * Provide top up information channel for Aggregator Partner
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public getTransactionHistory(parameter: Record<string, any> = {}): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/statements'
-// 		let responsePromise = this.httpClient.request(
-// 			'get',
-// 			this.apiConfig.get().serverKey,
-// 			apiUrl,
-// 			null, // it doesn't use URL query param
-// 			parameter
-// 		) // but it use JSON param instead, non standard
-// 		return responsePromise
-// 	}
+	public getTopupChannels(): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/channels'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do `/channels` API request to Iris API
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * Use this API is to get current balance
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public getTopupChannels(): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/channels'
-// 		let responsePromise = this.httpClient.request('get', this.apiConfig.get().serverKey, apiUrl)
-// 		return responsePromise
-// 	}
+	public getBalance(): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/balance'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do `/balance` API request to Iris API
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * Show list of registered bank accounts for facilitator partner
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public getBalance(): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/balance'
-// 		let responsePromise = this.httpClient.request('get', this.apiConfig.get().serverKey, apiUrl)
-// 		return responsePromise
-// 	}
+	public getFacilitatorBankAccounts(): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do `/bank_accounts` API request to Iris API
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 *  use this API is to get current balance information of your registered bank account.
+	 * @param parameter - bank_account_id of the bank account
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public getFacilitatorBankAccounts(): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts'
-// 		let responsePromise = this.httpClient.request('get', this.apiConfig.get().serverKey, apiUrl)
-// 		return responsePromise
-// 	}
+	public getFacilitatorBalance(bankAccountId: string): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts/' + bankAccountId + '/balance'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do `/bank_accounts/<bank_account_id>/balance` API request to Iris API
-// 	 * @param  {String} parameter - bank_account_id of the bank account
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * Show list of supported banks in IRIS.
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public getFacilitatorBalance(bankAccountId): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts/' + bankAccountId + '/balance'
-// 		let responsePromise = this.httpClient.request('get', this.apiConfig.get().serverKey, apiUrl)
-// 		return responsePromise
-// 	}
+	public getBeneficiaryBanks(): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiary_banks'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey
+		})
+		return responsePromise
+	}
 
-// 	/**
-// 	 * Do `/beneficiary_banks` API request to Iris API
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
+	/**
+	 * Check if an account is valid, if valid return account information.
+	 * @param parameter - object of Iris API JSON body as parameter, will be converted to GET Query param (more params detail refer to: https://iris-docs.midtrans.com)
+	 * @return {Promise} - Promise contains Object from JSON decoded response
+	 */
 
-// 	public getBeneficiaryBanks(): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiary_banks'
-// 		let responsePromise = this.httpClient.request('get', this.apiConfig.get().serverKey, apiUrl)
-// 		return responsePromise
-// 	}
-
-// 	/**
-// 	 * Do `/account_validation` API request to Iris API
-// 	 * @param  {Object} parameter - object of Iris API JSON body as parameter, will be converted to GET Query param (more params detail refer to: https://iris-docs.midtrans.com)
-// 	 * @return {Promise} - Promise contains Object from JSON decoded response
-// 	 */
-
-// 	public validateBankAccount(parameter: Record<string, any> = {}): Promise<Record<string, any>> {
-// 		let apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/account_validation'
-// 		let responsePromise = this.httpClient.request('get', this.apiConfig.get().serverKey, apiUrl, parameter)
-// 		return responsePromise
-// 	}
-// }
+	public validateBankAccount<T extends ValidateBankAccountOptions>(
+		parameter: T | Record<any, any> = {}
+	): Promise<Record<string, any>> {
+		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/account_validation'
+		const responsePromise = this.httpClient.request({
+			requestUrl: apiUrl,
+			httpMethod: 'get',
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: parameter
+		})
+		return responsePromise
+	}
+}
