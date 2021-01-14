@@ -1,7 +1,13 @@
 import { ApiConfig } from './apiConfig'
 import { HttpClient } from './httpClient'
 import { Transaction } from './transaction'
-import { CoreApiOptions, ChargeRequest, CaptureRequest, CardRegisterRequest, CardTokenRequest } from '../types/CoreApi'
+import {
+	CoreApiOptions,
+	ChargeTypeRequest,
+	CaptureRequest,
+	CardRegisterRequest,
+	CardTokenRequest
+} from '../types/CoreApi'
 /**
  * CoreApi object able to do API request to Midtrans Core API
  */
@@ -29,7 +35,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public charge<T extends ChargeRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
+	public charge<T extends ChargeTypeRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/charge'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
