@@ -22,9 +22,9 @@ export class Iris {
 	 * isProduction, apiKey
 	 */
 
-	public apiConfig: ApiConfig
-	public httpClient: HttpClient
-	private transaction: Transaction
+	public readonly apiConfig: ApiConfig
+	public readonly httpClient: HttpClient
+	private readonly transaction: Transaction
 
 	constructor(options: IrisOptions | Record<string, any> = {}) {
 		this.apiConfig = new ApiConfig(options)

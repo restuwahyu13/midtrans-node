@@ -1,11 +1,11 @@
 export interface RefundRequest {
-	refund_key?: string
-	amount?: number
-	reason?: string
+	readonly refund_key?: string
+	readonly amount?: number
+	readonly reason?: string
 }
 
-export interface RefundDRequest {
-	refund_key?: string
-	amount?: number
-	reason?: string
+export interface TransactionOptions {
+	readonly isProduction: boolean
+	readonly serverKey: string
+	readonly clientKey: string
 }

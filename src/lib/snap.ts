@@ -8,9 +8,9 @@ import { TransactionRequestType, SnapOptions } from '../types/snap'
  */
 
 export class Snap {
-	public apiConfig: ApiConfig
-	public httpClient: HttpClient
-	public transaction: Transaction
+	public readonly apiConfig: ApiConfig
+	public readonly httpClient: HttpClient
+	public readonly transaction: Transaction
 
 	constructor(options: SnapOptions | Record<string, any> = {}) {
 		this.apiConfig = new ApiConfig(options)
@@ -32,7 +32,7 @@ export class Snap {
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: parameter
+			requestPayload: Object.values(parameter)[0]
 		})
 		return responsePromise
 	}
@@ -45,7 +45,7 @@ export class Snap {
 	public createTransactionToken<T extends TransactionRequestType>(
 		parameter: T | Record<any, any> = {}
 	): Promise<string> {
-		return this.createTransaction(parameter).then((res) => res.token)
+		return this.createTransaction(Object.values(parameter)[0]).then((res) => res.token)
 	}
 
 	/**
@@ -56,6 +56,6 @@ export class Snap {
 	public createTransactionRedirectUrl<T extends TransactionRequestType>(
 		parameter: T | Record<any, any> = {}
 	): Promise<string> {
-		return this.createTransaction(parameter).then((res) => res.redirect_url)
+		return this.createTransaction(Object.values(parameter)[0]).then((res) => res.redirect_url)
 	}
 }

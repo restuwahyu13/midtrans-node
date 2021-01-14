@@ -1,6 +1,6 @@
 import { ApiConfig } from './apiConfig'
 import { HttpClient } from './httpClient'
-import { RefundRequest, RefundDRequest } from '../types/transaction'
+import { RefundRequest, TransactionOptions } from '../types/transaction'
 
 /**
  * These are wrapper/implementation of API methods described on:
@@ -13,7 +13,7 @@ export class Transaction {
 	private readonly apiConfig: ApiConfig
 	private readonly httpClient: HttpClient
 
-	constructor(options?: Record<string, any>) {
+	constructor(options: TransactionOptions | Record<string, any> = {}) {
 		this.parent = options
 		this.apiConfig = new ApiConfig()
 		this.httpClient = new HttpClient()
@@ -143,7 +143,7 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public refundDirect<T extends RefundDRequest>(
+	public refundDirect<T extends RefundRequest>(
 		transactionId: string,
 		parameter?: T | Record<any, any>
 	): Promise<Record<string, any>> {

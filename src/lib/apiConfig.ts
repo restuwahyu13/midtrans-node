@@ -8,9 +8,9 @@ export class ApiConfig {
 	private static readonly SNAP_PRODUCTION_BASE_URL = 'https://app.midtrans.com/snap/v1'
 	private static readonly IRIS_SANDBOX_BASE_URL = 'https://app.sandbox.midtrans.com/iris/api/v1'
 	private static readonly IRIS_PRODUCTION_BASE_URL = 'https://app.midtrans.com/iris/api/v1'
-	public isProduction: boolean
-	public serverKey: string
-	public clientKey: string
+	private isProduction: boolean
+	private serverKey: string
+	private clientKey: string
 
 	/**
 	 * Initiate with options
