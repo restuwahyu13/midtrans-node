@@ -27,13 +27,19 @@ type SubChargeCustomerDetailRequest = {
 }
 
 type SubItemDetails = {
-	readonly id: string
+	readonly id?: string
 	readonly price: number
 	readonly quantity: number
 	readonly name: string
 	readonly brand?: string
 	readonly category?: string
 	readonly merchant_name?: string
+	/**
+	 * @descript For BCA Klikpay
+	 */
+	readonly tenor?: number
+	readonly code_plan?: number
+	readonly mid?: number
 }
 
 type ChargeCustomerDetailRequest = {
@@ -50,6 +56,17 @@ type SubDynamicDescriptor = {
 	readonly country_code: string
 }
 
+type SubCreditCard = {
+	readonly token_id: string
+	readonly bank?: string
+	readonly type?: string
+	readonly installment_term?: number
+	readonly bins?: string[]
+	readonly type?: string
+	readonly save_token_id?: boolean
+	readonly authentication?: boolean
+}
+
 /*
  * ====================================
  * @description Charge Custom Request
@@ -60,7 +77,7 @@ type ChargeBankRequest = {
 	readonly bank: string
 }
 
-type ChargeCustom = {
+type ChargeBankTransfer = {
 	readonly payment_type: string
 	readonly bank_transfer: ChargeBankRequest
 	readonly transaction_details: TransactionDetailRequest
@@ -74,168 +91,14 @@ type ChargeCustom = {
 
 /*
  * =============================================
- * @description Charge Full Credit Card Request
+ * @description Charge All Credit Card Request
  * ============================================
  */
 
-type SubCreditCardRequest = {
-	readonly number: string
-	readonly expiry_month: string
-	readonly expiry_year: string
-	readonly cvv: string
-}
-
-type ChargeFullCreditCard = {
+type ChargeCreditCard = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly credit_card: {
-		readonly card: SubCreditCardRequest
-		readonly dynamic_descriptor?: SubDynamicDescriptor
-	}
-	readonly item_details?: SubItemDetails[]
-	readonly customer_details?: ChargeCustomerDetailRequest
-	readonly shipping_address?: ChargeCustomerDetailRequest
-}
-
-/*
- * =======================================
- * @description Charge 3D Secure Request
- * =======================================
- */
-
-type SubCreditCard3DRequest = {
-	readonly token_id: string
-	readonly bank: string
-	readonly authentication: boolean
-}
-
-type Charge3DSecure = {
-	readonly payment_type: string
-	readonly transaction_details: TransactionDetailRequest
-	readonly credit_card: SubCreditCard3DRequest
-	readonly item_details?: SubItemDetails[]
-	readonly customer_details?: ChargeCustomerDetailRequest
-	readonly shipping_address?: ChargeCustomerDetailRequest
-}
-
-/*
- * =======================================
- * @description Charge Bin Promo Request
- * =======================================
- */
-
-type SubCreditCardBinPromoRequest = {
-	readonly token_id: string
-	readonly bank: string
-	readonly authentication: boolean
-}
-
-type ChargeBinPromo = {
-	readonly payment_type: string
-	readonly transaction_details: TransactionDetailRequest
-	readonly credit_card: SubCreditCardBinPromoRequest
-	readonly item_details?: SubItemDetails[]
-	readonly customer_details?: ChargeCustomerDetailRequest
-	readonly shipping_address?: ChargeCustomerDetailRequest
-}
-
-/*
- * =======================================
- * @description Charge Installment Request
- * =======================================
- */
-
-type SubCreditCardInstallmentRequest = {
-	readonly token_id: string
-	readonly bank: string
-	readonly installment_term: number
-}
-
-type ChargeInstallment = {
-	readonly payment_type: string
-	readonly transaction_details: TransactionDetailRequest
-	readonly credit_card: SubCreditCardInstallmentRequest
-	readonly item_details?: SubItemDetails[]
-	readonly customer_details?: ChargeCustomerDetailRequest
-	readonly shipping_address?: ChargeCustomerDetailRequest
-}
-
-/*
- * ==============================================
- * @description Charge Pre Authorization Request
- * ==============================================
- */
-
-type SubCreditCardPreAuthRequest = {
-	readonly token_id: string
-	readonly bank: string
-	readonly type: string
-}
-
-type ChargePreAuth = {
-	readonly payment_type: string
-	readonly transaction_details: TransactionDetailRequest
-	readonly credit_card: SubCreditCardPreAuthRequest
-	readonly item_details?: SubItemDetails[]
-	readonly customer_details?: ChargeCustomerDetailRequest
-	readonly shipping_address?: ChargeCustomerDetailRequest
-}
-
-/*
- * ==============================================
- * @description Charge One Click Request
- * ==============================================
- */
-
-type SubCreditCardOneClick = {
-	readonly token_id: string
-	readonly save_token_id: boolean
-}
-
-type ChargeOneClick = {
-	readonly payment_type: string
-	readonly transaction_details: TransactionDetailRequest
-	readonly credit_card: SubCreditCardOneClick
-	readonly item_details?: SubItemDetails[]
-	readonly customer_details?: ChargeCustomerDetailRequest
-	readonly shipping_address?: ChargeCustomerDetailRequest
-}
-
-/*
- * ==============================================
- * @description Charge Two Click Request
- * ==============================================
- */
-
-type SubCreditCardTwoClick = {
-	readonly token_id: string
-	readonly save_token_id: boolean
-}
-
-type ChargeTwoClick = {
-	readonly payment_type: string
-	readonly transaction_details: TransactionDetailRequest
-	readonly credit_card: SubCreditCardTwoClick
-	readonly item_details?: SubItemDetails[]
-	readonly customer_details?: ChargeCustomerDetailRequest
-	readonly shipping_address?: ChargeCustomerDetailRequest
-}
-
-/*
- * ==============================================
- * @description Charge Point Request
- * ==============================================
- */
-
-type SubCreditCardPoint = {
-	readonly token_id: string
-	readonly point_redeem_amount: number
-}
-
-type ChargePoint = {
-	readonly payment_type: string
-	readonly transaction_details: TransactionDetailRequest
-	readonly credit_card: SubCreditCardPoint
+	readonly credit_card: SubCreditCard
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
@@ -251,7 +114,10 @@ type SubCreditCardNon3DS = {
 	readonly number: string
 	readonly expiry_month: string
 	readonly expiry_year: string
-	readonly cvv: string
+	readonly cvv?: string
+	readonly merchant_name?: string
+	readonly city_name?: string
+	readonly country_code?: string
 }
 
 type ChargeNon3DS = {
@@ -272,19 +138,24 @@ type ChargeNon3DS = {
  * ==============================================
  */
 
-type SubCreditCard3DS = {
+type SubCreditCard3DSOptions = {
 	readonly number: string
 	readonly expiry_month: string
 	readonly expiry_year: string
-	readonly cvv: string
+	readonly cvv?: string
+	readonly merchant_name?: string
+	readonly city_name?: string
+	readonly country_code?: string
 }
 
 type Charge3DS = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
 	readonly credit_card: {
-		readonly card: SubCreditCard3DS
+		readonly card: SubCreditCard3DSOptions
 		readonly dynamic_descriptor?: SubDynamicDescriptor
+		readonly authentication?: boolean
+		readonly callback_type?: string
 	}
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
@@ -298,18 +169,18 @@ type Charge3DS = {
  */
 
 type SubPermataOptions = {
-	readonly recipient_name: string
+	readonly recipient_name?: string
 }
 
-type SubBankTransferPermata = {
+type SubBankTransferPermataOptions = {
 	readonly bank: string
-	readonly permata: SubPermataOptions
+	readonly permata?: SubPermataOptions
 }
 
 type ChargePermataVirtualAccount = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransferPermata
+	readonly bank_transfer: SubBankTransferPermataOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
@@ -327,17 +198,17 @@ type SubInquiryPaymentOptions = {
 }
 
 type SubFreeTextOptions = {
-	readonly inquiry: SubInquiryPaymentOptions[]
-	readonly payment: SubInquiryPaymentOptions[]
+	readonly inquiry?: SubInquiryPaymentOptions[]
+	readonly payment?: SubInquiryPaymentOptions[]
 }
 
 type SubBcaOptions = {
-	readonly sub_company_code: string
+	readonly sub_company_code?: string
 }
 
-type SubBankTransferBca = {
+type SubBankTransferBcaOptions = {
 	readonly bank: string
-	readonly va_number: number
+	readonly va_number?: number
 	readonly free_text?: SubFreeTextOptions
 	readonly bca?: SubBcaOptions
 }
@@ -345,7 +216,33 @@ type SubBankTransferBca = {
 type ChargeBcaVirtualAccount = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransferBca
+	readonly bank_transfer: SubBankTransferBcaOptions
+	readonly item_details?: SubItemDetails[]
+	readonly customer_details?: ChargeCustomerDetailRequest
+	readonly shipping_address?: ChargeCustomerDetailRequest
+}
+
+/*
+ * ==============================================
+ * @description Mandiri Virtual Account Request
+ * ==============================================
+ */
+
+type SubEchannelOptions = {
+	readonly bill_info1: string
+	readonly bill_info2: string
+	readonly bill_info3?: string
+	readonly bill_info4?: string
+	readonly bill_info5?: string
+	readonly bill_info6?: string
+	readonly bill_info7?: string
+	readonly bill_info8?: string
+}
+
+type ChargeMandiriVirtualAccount = {
+	readonly payment_type: string
+	readonly transaction_details: TransactionDetailRequest
+	readonly echannel: SubEchannelOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
@@ -357,15 +254,15 @@ type ChargeBcaVirtualAccount = {
  * ==============================================
  */
 
-type SubBankTransBni = {
+type SubBankTransferBniOptions = {
 	readonly bank: string
-	readonly va_number: string
+	readonly va_number?: string
 }
 
 type ChargeBniVirtualAccount = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBni
+	readonly bank_transfer: SubBankTransferBniOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
@@ -377,15 +274,15 @@ type ChargeBniVirtualAccount = {
  * ==============================================
  */
 
-type SubBankTransBri = {
+type SubBankTransferBriOptions = {
 	readonly bank: string
-	readonly va_number: string
+	readonly va_number?: string
 }
 
 type ChargeBriVirtualAccount = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
+	readonly bank_transfer: SubBankTransferBriOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
@@ -399,13 +296,13 @@ type ChargeBriVirtualAccount = {
 
 type SubBcaKlikPayOptions = {
 	readonly description: string
+	readonly misc_fee?: string
 }
 
 type ChargeBcaKlikpay = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
-	readonly bca_klikpay?: SubBcaKlikPayOptions
+	readonly bca_klikpay: SubBcaKlikPayOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
@@ -425,8 +322,7 @@ type SubBcaKlikBcaOptions = {
 type ChargeBcaKliBca = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
-	readonly bca_klikbca?: SubBcaKlikBcaOptions
+	readonly bca_klikbca: SubBcaKlikBcaOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
@@ -441,7 +337,6 @@ type ChargeBcaKliBca = {
 type ChargeBriEpay = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
@@ -453,10 +348,14 @@ type ChargeBriEpay = {
  * ==============================================
  */
 
+type SubCimbClickOptions = {
+	readonly description: string
+}
+
 type ChargeCimbClick = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
+	readonly cimb_clicks: SubCimbClickOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
@@ -471,7 +370,6 @@ type ChargeCimbClick = {
 type ChargeDanamonOnline = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
@@ -490,7 +388,6 @@ type SubQrisOptions = {
 type ChargeQris = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
 	readonly qris?: SubQrisOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
@@ -504,16 +401,16 @@ type ChargeQris = {
  */
 
 type SubGopayOptions = {
-	readonly enable_callback: boolean
-	readonly callback_url: string
+	readonly enable_callback?: boolean
+	readonly callback_url?: string
 	readonly account_id: string
 	readonly payment_option_token: string
+	readonly pre_auth?: boolean
 }
 
 type ChargeGopay = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
 	readonly gopay: SubGopayOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
@@ -533,12 +430,12 @@ type SubShoopeOptions = {
 type ChargeShoopePay = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
-	readonly shopeepay: SubShoopeOptions
+	readonly shopeepay?: SubShoopeOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
 }
+
 /*
  * ==============================================
  * @description Indomaret Pay Request
@@ -547,13 +444,12 @@ type ChargeShoopePay = {
 
 type SubIndomaretOptions = {
 	readonly store: string
-	readonly message: string
+	readonly message?: string
 }
 
 type ChargeIndomaret = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
 	readonly cstore: SubIndomaretOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
@@ -575,7 +471,6 @@ type SubAlfamartOptions = {
 type ChargeAlfamart = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
 	readonly cstore: SubAlfamartOptions
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
@@ -591,7 +486,6 @@ type ChargeAlfamart = {
 type ChargeAkuLaku = {
 	readonly payment_type: string
 	readonly transaction_details: TransactionDetailRequest
-	readonly bank_transfer: SubBankTransBri
 	readonly item_details?: SubItemDetails[]
 	readonly customer_details?: ChargeCustomerDetailRequest
 	readonly shipping_address?: ChargeCustomerDetailRequest
@@ -604,19 +498,13 @@ type ChargeAkuLaku = {
  */
 
 export interface ChargeTypeRequest {
-	readonly charge: ChargeCustom
-	readonly chargeCreditCardFull?: ChargeFullCreditCard
-	readonly charge3DSecure?: Charge3DSecure
-	readonly chargeBinPromo?: ChargeBinPromo
-	readonly chargeInstallment?: ChargeInstallment
-	readonly chargePreAuth?: ChargePreAuth
-	readonly chargeOneClick?: ChargeOneClick
-	readonly chargeTwoClick?: ChargeTwoClick
-	readonly chargePoint?: ChargePoint
+	readonly chargeBankTransfer: ChargeBankTransfer
+	readonly chargeCreditCard?: ChargeCreditCard
 	readonly chargeNon3DS?: ChargeNon3DS
 	readonly charge3DS?: Charge3DS
 	readonly chargePermata?: ChargePermataVirtualAccount
 	readonly chargeBca?: ChargeBcaVirtualAccount
+	readonly chargeMandiri?: ChargeMandiriVirtualAccount
 	readonly chargeBni?: ChargeBniVirtualAccount
 	readonly chargeBri?: ChargeBriVirtualAccount
 	readonly chargeBcaKlikPay?: ChargeBcaKlikpay
