@@ -1,5 +1,4 @@
-import { ApiConfig } from './apiConfig'
-import { HttpClient } from './httpClient'
+import { Snap } from './snap'
 import { RefundRequest, TransactionOptions } from '../types/transaction'
 
 /**
@@ -9,14 +8,10 @@ import { RefundRequest, TransactionOptions } from '../types/transaction'
  */
 
 export class Transaction {
-	private readonly parent: Record<string, any>
-	private readonly apiConfig: ApiConfig
-	private readonly httpClient: HttpClient
+	private readonly parent: Snap
 
 	constructor(options: TransactionOptions | Record<string, any> = {}) {
-		this.parent = options
-		this.apiConfig = new ApiConfig()
-		this.httpClient = new HttpClient()
+		this.parent = options as Snap
 	}
 
 	/**
@@ -26,12 +21,14 @@ export class Transaction {
 	 */
 
 	public status(transactionId: string): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/status'
-		const responsePromise = this.httpClient.request({
+		const apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/status'
+		const responsePromise = this.parent.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.parent.apiConfig.get().serverKey,
+			requestPayload: null
 		})
+
 		return responsePromise
 	}
 
@@ -42,11 +39,12 @@ export class Transaction {
 	 */
 
 	public statusb2b(transactionId: string): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/statusb2b'
-		const responsePromise = this.httpClient.request({
+		const apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/statusb2b'
+		const responsePromise = this.parent.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.parent.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -58,11 +56,12 @@ export class Transaction {
 	 */
 
 	public approve(transactionId: string): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/approve'
-		const responsePromise = this.httpClient.request({
+		const apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/approve'
+		const responsePromise = this.parent.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.parent.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -74,11 +73,12 @@ export class Transaction {
 	 */
 
 	public deny(transactionId: string): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/deny'
-		const responsePromise = this.httpClient.request({
+		const apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/deny'
+		const responsePromise = this.parent.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.parent.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -90,11 +90,12 @@ export class Transaction {
 	 */
 
 	public cancel(transactionId: string): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/cancel'
-		const responsePromise = this.httpClient.request({
+		const apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/cancel'
+		const responsePromise = this.parent.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.parent.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -106,11 +107,12 @@ export class Transaction {
 	 */
 
 	public expire(transactionId: string): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/expire'
-		const responsePromise = this.httpClient.request({
+		const apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/expire'
+		const responsePromise = this.parent.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.parent.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -126,11 +128,11 @@ export class Transaction {
 		transactionId: string,
 		parameter?: T | Record<any, any>
 	): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund'
-		const responsePromise = this.httpClient.request({
+		const apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund'
+		const responsePromise = this.parent.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
-			serverKey: this.apiConfig.get().serverKey,
+			serverKey: this.parent.apiConfig.get().serverKey,
 			requestPayload: parameter
 		})
 		return responsePromise
@@ -147,11 +149,11 @@ export class Transaction {
 		transactionId: string,
 		parameter?: T | Record<any, any>
 	): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund/online/direct'
-		const responsePromise = this.httpClient.request({
+		const apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund/online/direct'
+		const responsePromise = this.parent.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
-			serverKey: this.apiConfig.get().serverKey,
+			serverKey: this.parent.apiConfig.get().serverKey,
 			requestPayload: parameter
 		})
 		return responsePromise

@@ -41,7 +41,7 @@ export class Iris {
 		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/ping'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
-			method: 'get',
+			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey
 		})
 		return responsePromise
