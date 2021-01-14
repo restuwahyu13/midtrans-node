@@ -30,8 +30,8 @@ export class CoreApi {
 	}
 
 	/**
-	 * Do `/charge` API request to Core API
-	 * @param  {Object} parameter - object of Core API JSON body as parameter, will be converted to JSON (more params detail refer to: https://api-docs.midtrans.com)
+	 * Perform a transaction with various available payment methods and features. Example given: Credit Card Charge.
+	 * @param  parameter - object of Core API JSON body as parameter, will be converted to JSON (more params detail refer to: https://api-docs.midtrans.com)
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
@@ -47,8 +47,8 @@ export class CoreApi {
 	}
 
 	/**
-	 * Do `/capture` API request to Core API
-	 * @param  {Object} parameter - object of Core API JSON body as parameter, will be converted to JSON (more params detail refer to: https://api-docs.midtrans.com)
+	 *  Capture an authorized transaction for card payment
+	 * @param parameter - object of Core API JSON body as parameter, will be converted to JSON (more params detail refer to: https://api-docs.midtrans.com)
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
@@ -64,8 +64,8 @@ export class CoreApi {
 	}
 
 	/**
-	 * Do `/card/register` API request to Core API
-	 * @param  {Object} parameter - object of Core API JSON body as parameter, will be converted to JSON (more params detail refer to: https://api-docs.midtrans.com)
+	 * Register card information (card number and expiry) to be used for two clicks and one click
+	 * @param parameter - object of Core API JSON body as parameter, will be converted to JSON (more params detail refer to: https://api-docs.midtrans.com)
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
@@ -83,7 +83,7 @@ export class CoreApi {
 	}
 
 	/**
-	 * Do `/token` API request to Core API
+	 * Tokenize Credit Card information before being charged
 	 * @param  {Object} parameter - object of Core API JSON body as parameter, will be converted to JSON (more params detail refer to: https://api-docs.midtrans.com)
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
@@ -100,7 +100,7 @@ export class CoreApi {
 	}
 
 	/**
-	 * Do `/point_inquiry/<tokenId>` API request to Core API
+	 * Get the point balance of the card in denomination amount
 	 * @param  {String} tokenId - tokenId of credit card (more params detail refer to: https://api-docs.midtrans.com)
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
