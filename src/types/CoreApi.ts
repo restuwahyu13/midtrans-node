@@ -571,7 +571,7 @@ export interface ChargeTypeRequest {
 	readonly chargeDanamonOnline?: ChargeDanamonOnline
 	readonly chargeQris?: ChargeQris
 	readonly chargeGopay?: ChargeGopay
-	readonly chargeShopePay?: ChargeShoopePay
+	readonly chargeShopeePay?: ChargeShoopePay
 	readonly chargeIndomaret?: ChargeIndomaret
 	readonly chargeAlfamart?: ChargeAlfamart
 	readonly chargeAkuLaku?: ChargeAkuLaku
