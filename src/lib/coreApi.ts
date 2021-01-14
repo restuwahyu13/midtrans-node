@@ -41,7 +41,7 @@ export class CoreApi {
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: Object.values(parameter)
+			requestPayload: Object.values(parameter)[0]
 		})
 		return responsePromise
 	}
