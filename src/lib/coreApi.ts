@@ -53,7 +53,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public capture<T extends CaptureRequest>(parameter: T | Record<any, any>): Promise<Record<string, any>> {
+	public capture<T extends CaptureRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/capture'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
@@ -106,7 +106,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public cardPointInquiry(tokenId: string | number): Promise<Record<string, any>> {
+	public cardPointInquiry(tokenId: string): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/point_inquiry/' + tokenId
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
