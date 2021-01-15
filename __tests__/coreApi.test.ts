@@ -31,7 +31,7 @@ describe('Midtrands Core API', () => {
 		const res = await coreApi.cardToken({
 			card_number: '5264 2210 3887 4659',
 			card_exp_month: '12',
-			card_exp_year: new Date().getFullYear() + 1 + '',
+			card_exp_year: `${new Date().getFullYear() + 1}`,
 			card_cvv: '123',
 			client_key: coreApi.apiConfig.get().clientKey
 		})
@@ -40,9 +40,187 @@ describe('Midtrands Core API', () => {
 		expect(typeof res.token_id).toStrictEqual('string')
 		expect(res.status_code).toStrictEqual('200')
 		tokenId = res.token_id
-
 		done()
 	})
+
+	it('able to card register cc', async (done) => {
+		const res = await coreApi.cardRegister({
+			card_number: '4811 1111 1111 1114',
+			card_exp_month: '12',
+			card_exp_year: `${new Date().getFullYear() + 1}`,
+			card_cvv: '123',
+			client_key: coreApi.apiConfig.get().clientKey
+		})
+
+		expect(typeof res.status_code).toStrictEqual('string')
+		expect(typeof res.saved_token_id).toStrictEqual('string')
+		expect(res.status_code).toStrictEqual('200')
+		savedTokenId = res.saved_token_id
+		done()
+	})
+
+	it('fail to card point inquiry 402', () => {
+		return coreApi.cardPointInquiry(tokenId).catch((e) => {
+			expect(e.httpStatusCode).toStrictEqual('402')
+		})
+	})
+
+	it('able to charge cc simple', async (done) => {
+		const parameter = generateCCParamMin(reuseOrderId[1], tokenId)
+		const res = await coreApi.charge(parameter)
+		console.log(res)
+		expect(res.status_code).toStrictEqual('200')
+		expect(res.transaction_status).toStrictEqual('capture')
+		expect(res.fraud_status).toStrictEqual('accept')
+		done()
+	})
+
+	it('able to charge cc one click', async (done) => {
+		const parameter = generateCCParamMin(reuseOrderId[2], savedTokenId)
+		const res = await coreApi.charge(parameter)
+		expect(res.status_code).toStrictEqual('200')
+		expect(res.transaction_status).toStrictEqual('capture')
+		expect(res.fraud_status).toStrictEqual('accept')
+		done()
+	})
+
+	it('able to charge bank transfer BCA VA simple', async (done) => {
+		const res = await coreApi.charge(generateParamMin(reuseOrderId[0]))
+		expect(typeof res.status_code).toStrictEqual('string')
+		expect(res.status_code).toStrictEqual('201')
+		expect(typeof res.transaction_status).toStrictEqual('string')
+		expect(res.transaction_status).toStrictEqual('pending')
+		done()
+	})
+
+	it('able to status', async (done) => {
+		const res = coreApi.transaction.status(reuseOrderId[0])
+		apiResponse = res
+		expect(res.status_code).toStrictEqual('201')
+		expect(typeof res.transaction_status).toStrictEqual('pending')
+		done()
+	})
+
+	// // TODO test statusb2b
+
+	// it('able to notification from object', async (done) => {
+	// 	const res = await coreApi.transaction.notification(apiResponse)
+	// 	expect(res.status_code).toStrictEqual('201')
+	// 	expect(res.transaction_status).toStrictEqual('pending')
+	// 	done()
+	// })
+
+	// it('able to notification from json string', async (done) => {
+	// 	const res = await coreApi.transaction.notification(JSON.stringify(apiResponse))
+	// 	expect(res.status_code).toStrictEqual('201')
+	// 	expect(res.transaction_status).toStrictEqual('pending')
+	// 	done()
+	// })
+
+	// it('able to throw exception notification from empty string', () => {
+	// 	return coreApi.transaction.notification('').catch((e) => {
+	// 		expect(e.message).toStrictEqual('fail to parse')
+	// 	})
+	// })
+
+	// it('able to expire', async (done) => {
+	// 	const res = await coreApi.transaction.expire(reuseOrderId[0])
+	// 	expect(res.status_code).toStrictEqual('407')
+	// 	expect(res.transaction_status).toStrictEqual('expire')
+	// 	done()
+	// })
+
+	// it('fail to approve transaction that cannot be updated', () => {
+	// 	return coreApi.transaction.approve(reuseOrderId[1]).catch((e) => {
+	// 		expect(e.message).toStrictEqual('412')
+	// 	})
+	// })
+
+	// it('fail to deny transaction that cannot be updated', () => {
+	// 	return coreApi.transaction.deny(reuseOrderId[1]).catch((e) => {
+	// 		expect(e.message).toStrictEqual('412')
+	// 	})
+	// })
+
+	// it('able to cancel', async (done) => {
+	// 	const res = coreApi.transaction.cancel(reuseOrderId[1])
+	// 	expect(res.status_code).toStrictEqual('200')
+	// 	expect(res.transaction_status).toStrictEqual('cancel')
+	// 	done()
+	// })
+
+	// it('fail to refund non settlement transaction', () => {
+	// 	const parameter = { amount: 5000, reason: 'for some reason' }
+	// 	return coreApi.transaction.refund(reuseOrderId[2], parameter).catch((e) => {
+	// 		expect(e.message).toStrictEqual('412')
+	// 	})
+	// })
+
+	// it('fail to direct refund non settlement transaction', () => {
+	// 	const parameter = { amount: 5000, reason: 'for some reason' }
+	// 	return coreApi.transaction.refundDirect(reuseOrderId[2], parameter).catch((e) => {
+	// 		expect(e.message).toStrictEqual('412')
+	// 	})
+	// })
+
+	// it('fail to status 404 non exists transaction', () => {
+	// 	return coreApi.transaction.status('non-exists-transaction').catch((e) => {
+	// 		expect(e.message).toStrictEqual('404')
+	// 	})
+	// })
+
+	// it('able to re-set serverKey via setter', () => {
+	// 	expect(coreApi.apiConfig.get().serverKey).toStrictEqual('')
+	// 	expect(coreApi.apiConfig.get().clientKey).toStrictEqual('abc')
+	// 	expect(coreApi.apiConfig.get().isProduction).toBeFalsy()
+	// 	coreApi.apiConfig.set({ serverKey: config.serverKey })
+	// 	expect(coreApi.apiConfig.get().serverKey).toStrictEqual(config.serverKey)
+	// 	expect(coreApi.apiConfig.get().clientKey).toStrictEqual('abc')
+	// 	expect(coreApi.apiConfig.get().isProduction).toBeFalsy()
+	// })
+
+	// it('able to re-set serverKey via property', () => {
+	// 	expect(coreApi.apiConfig.get().serverKey).toStrictEqual('')
+	// 	expect(coreApi.apiConfig.get().clientKey).toStrictEqual('abc')
+	// 	expect(coreApi.apiConfig.get().isProduction).toBeFalsy()
+	// 	coreApi.apiConfig.serverKey = config.serverKey
+	// 	expect(coreApi.apiConfig.get().serverKey).toStrictEqual(config.serverKey)
+	// 	expect(coreApi.apiConfig.get().clientKey).toStrictEqual('abc')
+	// 	expect(coreApi.apiConfig.get().isProduction).toBeFalsy()
+	// })
+
+	// it('fail to charge 401 with no serverKey', () => {
+	// 	return coreApi.charge(generateParamMin()).catch((e) => {
+	// 		expect(e.message).toStrictEqual('401')
+	// 	})
+	// })
+
+	// it('fail to charge 400 with empty param', () => {
+	// 	return coreApi.charge(null).catch((e) => {
+	// 		expect(e.message).toStrictEqual('400')
+	// 	})
+	// })
+
+	// it('fail to charge 400 with zero gross_amount', () => {
+	// 	const parameter = generateParamMin()
+	// 	parameter.transaction_details.gross_amount = 0
+	// 	return coreApi.charge(parameter).catch((e) => {
+	// 		expect(e.message).toStrictEqual('400')
+	// 	})
+	// })
+
+	// it('able to throw custom MidtransError', () => {
+	// 	const parameter = generateParamMin()
+	// 	parameter.transaction_details.gross_amount = 0
+	// 	return coreApi.charge(parameter).catch((e) => {
+	// 		expect(e.message).toStrictEqual('400')
+	// 		expect(e.httpStatusCode).toStrictEqual('400')
+	// 		expect(typeof e.ApiResponse).toStrictEqual('object')
+	// 		expect(e.ApiResponse.validation_messages).toBeInstanceOf(Array)
+	// 		expect(typeof e.rawHttpClientData).toStrictEqual('object')
+	// 		expect(e.rawHttpClientData).toHaveProperty('data')
+	// 	})
+	// })
 })
 
 /**
@@ -68,24 +246,20 @@ function generateParamMin(orderId = null) {
 			gross_amount: 44145,
 			order_id: orderId == null ? 'node-midtransclient-test-' + generateTimestamp() : orderId
 		},
-		bank_transfer: {
-			bank: 'bca'
-		}
+		bank_transfer: { bank: 'bca' }
 	}
 }
 
-// function generateCCParamMin(orderId = null, tokenId = null) {
-// 	return {
-// 		payment_type: 'credit_card',
-// 		transaction_details: {
-// 			gross_amount: 12145,
-// 			order_id: orderId == null ? 'node-midtransclient-test-' + generateTimestamp() : orderId
-// 		},
-// 		credit_card: {
-// 			token_id: tokenId
-// 		}
-// 	}
-// }
+function generateCCParamMin(orderId = null, tokenId = null) {
+	return {
+		payment_type: 'credit_card',
+		transaction_details: {
+			gross_amount: 12145,
+			order_id: orderId == null ? 'node-midtransclient-test-' + generateTimestamp() : orderId
+		},
+		credit_card: { token_id: tokenId }
+	}
+}
 
 // function generateParamMax() {
 // 	return {

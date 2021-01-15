@@ -555,7 +555,7 @@ type ChargeAkuLaku = {
  */
 
 export interface ChargeTypeRequest {
-	readonly chargeBankTransfer: ChargeBankTransfer
+	readonly chargeBankTransfer?: ChargeBankTransfer
 	readonly chargeCreditCard?: ChargeCreditCard
 	readonly chargeNon3DS?: ChargeNon3DS
 	readonly charge3DS?: Charge3DS
