@@ -3,6 +3,6 @@ module.exports = {
 	testEnvironment: 'node',
 	testMatch: ['<rootDir>/test/**/*.{test.ts, spec.ts}', '<rootDir>/__test__/**/*.{test.ts, spec.ts}'],
 	collectCoverageFrom: ['src/lib/**/*.ts'],
-	testPathIgnorePatterns: ['node_modules/', '__test__/', 'dist/', 'esm', 'tsconfig.json'],
-	coveragePathIgnorePatterns: ['node_modules/', '__test__/', 'dist/', 'esm/', 'tsconfig.json']
+	testPathIgnorePatterns: ['node_modules/', 'dist/', 'esm', 'tsconfig.json', 'coverage/'],
+	coveragePathIgnorePatterns: ['node_modules/', 'dist/', 'esm/', 'tsconfig.json', 'coverage/']
 }
