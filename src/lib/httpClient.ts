@@ -49,7 +49,7 @@ export class HttpClient {
 				} catch (err) {
 					reject(
 						new MidtransError({
-							message: `fail to parse 'body parameters' string as JSON. Use JSON string or Object as 'body parameters'. with message: ${err}`
+							message: `fail to parse 'body parameters' string as JSON. Use JSON string or Object as 'body parameters'. with message: ${err} \n response: ${requestBody}`
 						})
 					)
 				}
@@ -62,7 +62,7 @@ export class HttpClient {
 				} catch (err) {
 					reject(
 						new MidtransError({
-							message: `fail to parse 'query parameters' string as JSON. Use JSON string or Object as 'query parameters'. with message: ${err}`
+							message: `fail to parse 'query parameters' string as JSON. Use JSON string or Object as 'query parameters'. with message: ${err} \n response: ${requestBody}`
 						})
 					)
 				}
@@ -84,7 +84,8 @@ export class HttpClient {
 					// 407 is expected get-status API response for `expire` transaction, non-standard
 					reject(
 						new MidtransError({
-							message: 'Midtrans API is returning API error',
+							message: `Midtrans API is returning API error. HTTP status code: ${res.status}.
+							API response: ${JSON.stringify(res.data)}`,
 							httpStatusCode: res.data.status_code,
 							ApiResponse: res.data,
 							rawHttpClientData: res
@@ -123,107 +124,107 @@ export class HttpClient {
 		})
 	}
 
-	public requestClone(
-		httpMethod: string,
-		serverKey: string,
-		requestUrl: string,
-		firstParam: any = {},
-		secondParam: any = {}
-	): Promise<any> {
-		let headers = {
-			'content-type': 'application/json',
-			'accept': 'application/json',
-			'user-agent': 'midtransclient-nodejs/1.2.1'
-		}
+	// public requestClone(
+	// 	httpMethod: string,
+	// 	serverKey: string,
+	// 	requestUrl: string,
+	// 	firstParam: any = {},
+	// 	secondParam: any = {}
+	// ): Promise<any> {
+	// 	let headers = {
+	// 		'content-type': 'application/json',
+	// 		'accept': 'application/json',
+	// 		'user-agent': 'midtransclient-nodejs/1.2.1'
+	// 	}
 
-		let reqBodyPayload: any = {}
-		let reqQueryParam: any = {}
-		if (httpMethod.toLowerCase() === 'get') {
-			// GET http request will use first available param as URL Query param
-			reqQueryParam = firstParam
-			reqBodyPayload = secondParam
-		} else {
-			// Non GET http request will use first available param as JSON payload body
-			reqBodyPayload = firstParam
-			reqQueryParam = secondParam
-		}
+	// 	let reqBodyPayload: any = {}
+	// 	let reqQueryParam: any = {}
+	// 	if (httpMethod.toLowerCase() === 'get') {
+	// 		// GET http request will use first available param as URL Query param
+	// 		reqQueryParam = firstParam
+	// 		reqBodyPayload = secondParam
+	// 	} else {
+	// 		// Non GET http request will use first available param as JSON payload body
+	// 		reqBodyPayload = firstParam
+	// 		reqQueryParam = secondParam
+	// 	}
 
-		return new Promise(function (resolve, reject) {
-			// Reject if param is not JSON
-			if (typeof reqBodyPayload === 'string') {
-				try {
-					reqBodyPayload = JSON.parse(reqBodyPayload)
-				} catch (err) {
-					reject(
-						new MidtransError({
-							message: `fail to parse 'body parameters' string as JSON. Use JSON string or Object as 'body parameters'. with message: ${err}`
-						})
-					)
-				}
-			}
-			// Reject if param is not JSON
-			if (typeof reqQueryParam === 'string') {
-				try {
-					reqQueryParam = JSON.parse(reqQueryParam)
-				} catch (err) {
-					reject(
-						new MidtransError({
-							message: `fail to parse 'query parameters' string as JSON. Use JSON string or Object as 'query parameters'. with message: ${err}`
-						})
-					)
-				}
-			}
+	// 	return new Promise(function (resolve, reject) {
+	// 		// Reject if param is not JSON
+	// 		if (typeof reqBodyPayload === 'string') {
+	// 			try {
+	// 				reqBodyPayload = JSON.parse(reqBodyPayload)
+	// 			} catch (err) {
+	// 				reject(
+	// 					new MidtransError({
+	// 						message: `fail to parse 'body parameters' string as JSON. Use JSON string or Object as 'body parameters'. with message: ${err}`
+	// 					})
+	// 				)
+	// 			}
+	// 		}
+	// 		// Reject if param is not JSON
+	// 		if (typeof reqQueryParam === 'string') {
+	// 			try {
+	// 				reqQueryParam = JSON.parse(reqQueryParam)
+	// 			} catch (err) {
+	// 				reject(
+	// 					new MidtransError({
+	// 						message: `fail to parse 'query parameters' string as JSON. Use JSON string or Object as 'query parameters'. with message: ${err}`
+	// 					})
+	// 				)
+	// 			}
+	// 		}
 
-			axios({
-				method: httpMethod as Method,
-				headers: headers,
-				url: requestUrl,
-				data: reqBodyPayload,
-				params: reqQueryParam,
-				auth: {
-					username: serverKey,
-					password: ''
-				}
-			})
-				.then(function (res) {
-					// Reject core API error status code
-					if (res.data.hasOwnProperty('status_code') && res.data.status_code >= 400 && res.data.status_code !== 407) {
-						// 407 is expected get-status API response for `expire` transaction, non-standard
-						reject(
-							new MidtransError({
-								message: `Midtrans API is returning API error. HTTP status code: ${res.status}.
-								API response: ${JSON.stringify(res.data)}`,
-								httpStatusCode: res.status,
-								ApiResponse: res.data,
-								rawHttpClientData: res
-							})
-						)
-					}
-					resolve(res.data)
-				})
-				.catch(function (err) {
-					let res = err.response
-					// Reject API error HTTP status code
-					if (typeof res !== 'undefined' && res.status >= 400) {
-						reject(
-							new MidtransError({
-								message: `Midtrans API is returning API error. HTTP status code: ${res.status}.
-								API response: ${JSON.stringify(res.data)}`,
-								httpStatusCode: res.status,
-								ApiResponse: res.data,
-								rawHttpClientData: res
-							})
-						)
-						// Reject API undefined HTTP response
-					} else if (typeof res === 'undefined') {
-						reject(
-							new MidtransError({
-								message: 'Midtrans API is returning API error. HTTP status code'
-							})
-						)
-					}
-					reject(err)
-				})
-		})
-	}
+	// 		axios({
+	// 			method: httpMethod as Method,
+	// 			headers: headers,
+	// 			url: requestUrl,
+	// 			data: reqBodyPayload,
+	// 			params: reqQueryParam,
+	// 			auth: {
+	// 				username: serverKey,
+	// 				password: ''
+	// 			}
+	// 		})
+	// 			.then(function (res) {
+	// 				// Reject core API error status code
+	// 				if (res.data.hasOwnProperty('status_code') && res.data.status_code >= 400 && res.data.status_code !== 407) {
+	// 					// 407 is expected get-status API response for `expire` transaction, non-standard
+	// 					reject(
+	// 						new MidtransError({
+	// 							message: `Midtrans API is returning API error. HTTP status code: ${res.status}.
+	// 							API response: ${JSON.stringify(res.data)}`,
+	// 							httpStatusCode: res.status,
+	// 							ApiResponse: res.data,
+	// 							rawHttpClientData: res
+	// 						})
+	// 					)
+	// 				}
+	// 				resolve(res.data)
+	// 			})
+	// 			.catch(function (err) {
+	// 				let res = err.response
+	// 				// Reject API error HTTP status code
+	// 				if (typeof res !== 'undefined' && res.status >= 400) {
+	// 					reject(
+	// 						new MidtransError({
+	// 							message: `Midtrans API is returning API error. HTTP status code: ${res.status}.
+	// 							API response: ${JSON.stringify(res.data)}`,
+	// 							httpStatusCode: res.status,
+	// 							ApiResponse: res.data,
+	// 							rawHttpClientData: res
+	// 						})
+	// 					)
+	// 					// Reject API undefined HTTP response
+	// 				} else if (typeof res === 'undefined') {
+	// 					reject(
+	// 						new MidtransError({
+	// 							message: 'Midtrans API is returning API error. HTTP status code'
+	// 						})
+	// 					)
+	// 				}
+	// 				reject(err)
+	// 			})
+	// 	})
+	// }
 }

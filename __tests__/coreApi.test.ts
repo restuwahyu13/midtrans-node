@@ -94,10 +94,11 @@ describe('Midtrands Core API', () => {
 	})
 
 	it('able to status', async (done) => {
-		const res = coreApi.transaction.status(reuseOrderId[0])
-		apiResponse = res
+		console.log('zzz', coreApi.transaction.status())
+		const res = await coreApi.transaction.status(reuseOrderId[0])
+		// apiResponse = res
 		expect(res.status_code).toStrictEqual('201')
-		expect(typeof res.transaction_status).toStrictEqual('pending')
+		expect(res.transaction_status).toStrictEqual('pending')
 		done()
 	})
 

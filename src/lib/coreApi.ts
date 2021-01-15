@@ -1,6 +1,7 @@
 import { ApiConfig } from './apiConfig'
 import { HttpClient } from './httpClient'
 import { Transaction } from './transaction'
+import { matchCharge } from '../utils/matchCharge'
 import {
 	CoreApiOptions,
 	ChargeTypeRequest,
@@ -20,9 +21,9 @@ export class CoreApi {
 	 * isProduction, serverKey, clientKey
 	 */
 
-	public readonly apiConfig: ApiConfig
-	public readonly httpClient: HttpClient
-	public readonly transaction: Transaction
+	public apiConfig: ApiConfig
+	public httpClient: HttpClient
+	public transaction: Transaction
 
 	constructor(options: CoreApiOptions | Record<string, any> = {}) {
 		this.apiConfig = new ApiConfig(options)
@@ -44,7 +45,7 @@ export class CoreApi {
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: parameter instanceof Object || parameter === null ? parameter : Object.values(parameter)[0]
+			requestPayload: !matchCharge(Object.keys(parameter)[0]) ? parameter : Object.values(parameter)[0]
 		})
 		// const responsePromise = this.httpClient.requestClone('post', this.apiConfig.get().serverKey, apiUrl, parameter)
 		return responsePromise
