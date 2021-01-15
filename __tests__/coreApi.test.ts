@@ -4,17 +4,16 @@ import { config } from './../config'
 let coreApi
 let tokenId = ''
 let savedTokenId = ''
+let reuseOrderId = [
+	'node-midtransclient-test1-' + generateTimestamp(),
+	'node-midtransclient-test2-' + generateTimestamp(),
+	'node-midtransclient-test3-' + generateTimestamp()
+]
 let apiResponse = {}
-let reuseOrderId
 
 describe('Midtrands Core API', () => {
 	beforeEach(() => {
 		coreApi = new MidtransCoreApi(generateConfig())
-		reuseOrderId = [
-			'node-midtransclient-test1-' + generateTimestamp(),
-			'node-midtransclient-test2-' + generateTimestamp(),
-			'node-midtransclient-test3-' + generateTimestamp()
-		]
 	})
 	it('class should be working', () => {
 		expect(coreApi instanceof MidtransCoreApi).toBeTruthy()
@@ -68,7 +67,6 @@ describe('Midtrands Core API', () => {
 	it('able to charge cc simple', async (done) => {
 		const parameter = generateCCParamMin(reuseOrderId[1], tokenId)
 		const res = await coreApi.charge(parameter)
-		console.log(res)
 		expect(res.status_code).toStrictEqual('200')
 		expect(res.transaction_status).toStrictEqual('capture')
 		expect(res.fraud_status).toStrictEqual('accept')
@@ -94,9 +92,8 @@ describe('Midtrands Core API', () => {
 	})
 
 	it('able to status', async (done) => {
-		console.log('zzz', coreApi.transaction.status())
 		const res = await coreApi.transaction.status(reuseOrderId[0])
-		// apiResponse = res
+		apiResponse = res
 		expect(res.status_code).toStrictEqual('201')
 		expect(res.transaction_status).toStrictEqual('pending')
 		done()
@@ -104,124 +101,132 @@ describe('Midtrands Core API', () => {
 
 	// // TODO test statusb2b
 
-	// it('able to notification from object', async (done) => {
-	// 	const res = await coreApi.transaction.notification(apiResponse)
-	// 	expect(res.status_code).toStrictEqual('201')
-	// 	expect(res.transaction_status).toStrictEqual('pending')
-	// 	done()
-	// })
+	it('able to notification from object', async (done) => {
+		const res = await coreApi.transaction.notification(apiResponse)
+		expect(res.status_code).toStrictEqual('201')
+		expect(res.transaction_status).toStrictEqual('pending')
+		done()
+	})
 
-	// it('able to notification from json string', async (done) => {
-	// 	const res = await coreApi.transaction.notification(JSON.stringify(apiResponse))
-	// 	expect(res.status_code).toStrictEqual('201')
-	// 	expect(res.transaction_status).toStrictEqual('pending')
-	// 	done()
-	// })
+	it('able to notification from json string', async (done) => {
+		const res = await coreApi.transaction.notification(JSON.stringify(apiResponse))
+		expect(res.status_code).toStrictEqual('201')
+		expect(res.transaction_status).toStrictEqual('pending')
+		done()
+	})
 
-	// it('able to throw exception notification from empty string', () => {
-	// 	return coreApi.transaction.notification('').catch((e) => {
-	// 		expect(e.message).toStrictEqual('fail to parse')
-	// 	})
-	// })
+	it('able to throw exception notification from empty string', () => {
+		return coreApi.transaction.notification('').catch((e) => {
+			expect(e.message).toStrictEqual(
+				'fail to parse `notification` string as JSON. Use JSON string or Object as `notification`. with message:Unexpected end of JSON input'
+			)
+		})
+	})
 
-	// it('able to expire', async (done) => {
-	// 	const res = await coreApi.transaction.expire(reuseOrderId[0])
-	// 	expect(res.status_code).toStrictEqual('407')
-	// 	expect(res.transaction_status).toStrictEqual('expire')
-	// 	done()
-	// })
+	it('able to expire', async (done) => {
+		const res = await coreApi.transaction.expire(reuseOrderId[0])
+		expect(res.status_code).toStrictEqual('407')
+		expect(res.transaction_status).toStrictEqual('expire')
+		done()
+	})
 
-	// it('fail to approve transaction that cannot be updated', () => {
-	// 	return coreApi.transaction.approve(reuseOrderId[1]).catch((e) => {
-	// 		expect(e.message).toStrictEqual('412')
-	// 	})
-	// })
+	it('fail to approve transaction that cannot be updated', () => {
+		return coreApi.transaction.approve(reuseOrderId[1]).catch((e) => {
+			expect(e.httpStatusCode).toStrictEqual('412')
+		})
+	})
 
-	// it('fail to deny transaction that cannot be updated', () => {
-	// 	return coreApi.transaction.deny(reuseOrderId[1]).catch((e) => {
-	// 		expect(e.message).toStrictEqual('412')
-	// 	})
-	// })
+	it('fail to deny transaction that cannot be updated', () => {
+		return coreApi.transaction.deny(reuseOrderId[1]).catch((e) => {
+			expect(e.httpStatusCode).toStrictEqual('412')
+		})
+	})
 
-	// it('able to cancel', async (done) => {
-	// 	const res = coreApi.transaction.cancel(reuseOrderId[1])
-	// 	expect(res.status_code).toStrictEqual('200')
-	// 	expect(res.transaction_status).toStrictEqual('cancel')
-	// 	done()
-	// })
+	it('able to cancel', async (done) => {
+		const res = await coreApi.transaction.cancel(reuseOrderId[1])
+		expect(res.status_code).toStrictEqual('200')
+		expect(res.transaction_status).toStrictEqual('cancel')
+		done()
+	})
 
-	// it('fail to refund non settlement transaction', () => {
-	// 	const parameter = { amount: 5000, reason: 'for some reason' }
-	// 	return coreApi.transaction.refund(reuseOrderId[2], parameter).catch((e) => {
-	// 		expect(e.message).toStrictEqual('412')
-	// 	})
-	// })
+	it('fail to refund non settlement transaction', () => {
+		const parameter = { amount: 5000, reason: 'for some reason' }
+		return coreApi.transaction.refund(reuseOrderId[2], parameter).catch((e) => {
+			expect(e.httpStatusCode).toStrictEqual('412')
+		})
+	})
 
-	// it('fail to direct refund non settlement transaction', () => {
-	// 	const parameter = { amount: 5000, reason: 'for some reason' }
-	// 	return coreApi.transaction.refundDirect(reuseOrderId[2], parameter).catch((e) => {
-	// 		expect(e.message).toStrictEqual('412')
-	// 	})
-	// })
+	it('fail to direct refund non settlement transaction', () => {
+		const parameter = { amount: 5000, reason: 'for some reason' }
+		return coreApi.transaction.refundDirect(reuseOrderId[2], parameter).catch((e) => {
+			expect(e.httpStatusCode).toStrictEqual('412')
+		})
+	})
 
-	// it('fail to status 404 non exists transaction', () => {
-	// 	return coreApi.transaction.status('non-exists-transaction').catch((e) => {
-	// 		expect(e.message).toStrictEqual('404')
-	// 	})
-	// })
+	it('fail to status 404 non exists transaction', () => {
+		return coreApi.transaction.status('non-exists-transaction').catch((e) => {
+			expect(e.httpStatusCode).toStrictEqual('404')
+		})
+	})
 
-	// it('able to re-set serverKey via setter', () => {
-	// 	expect(coreApi.apiConfig.get().serverKey).toStrictEqual('')
-	// 	expect(coreApi.apiConfig.get().clientKey).toStrictEqual('abc')
-	// 	expect(coreApi.apiConfig.get().isProduction).toBeFalsy()
-	// 	coreApi.apiConfig.set({ serverKey: config.serverKey })
-	// 	expect(coreApi.apiConfig.get().serverKey).toStrictEqual(config.serverKey)
-	// 	expect(coreApi.apiConfig.get().clientKey).toStrictEqual('abc')
-	// 	expect(coreApi.apiConfig.get().isProduction).toBeFalsy()
-	// })
+	it('able to re-set serverKey via setter', () => {
+		const spyCoreApi = jest.spyOn(coreApi.apiConfig, 'get')
+		coreApi.apiConfig.get()
 
-	// it('able to re-set serverKey via property', () => {
-	// 	expect(coreApi.apiConfig.get().serverKey).toStrictEqual('')
-	// 	expect(coreApi.apiConfig.get().clientKey).toStrictEqual('abc')
-	// 	expect(coreApi.apiConfig.get().isProduction).toBeFalsy()
-	// 	coreApi.apiConfig.serverKey = config.serverKey
-	// 	expect(coreApi.apiConfig.get().serverKey).toStrictEqual(config.serverKey)
-	// 	expect(coreApi.apiConfig.get().clientKey).toStrictEqual('abc')
-	// 	expect(coreApi.apiConfig.get().isProduction).toBeFalsy()
-	// })
+		expect(spyCoreApi).toHaveBeenCalled()
+		expect(spyCoreApi).toHaveBeenCalledTimes(1)
+		expect(coreApi.apiConfig.get().serverKey).toStrictEqual(config.serverKey)
+		coreApi.apiConfig.set({ serverKey: '', clientKey: 'abc' })
+		expect(coreApi.apiConfig.get().isProduction).toBeFalsy()
+		expect(coreApi.apiConfig.get().serverKey).toStrictEqual('')
+		expect(coreApi.apiConfig.get().clientKey).toStrictEqual('abc')
+	})
 
-	// it('fail to charge 401 with no serverKey', () => {
-	// 	return coreApi.charge(generateParamMin()).catch((e) => {
-	// 		expect(e.message).toStrictEqual('401')
-	// 	})
-	// })
+	it('able to re-set serverKey via property', () => {
+		const spyCoreApi = jest.spyOn(coreApi.apiConfig, 'get')
+		coreApi.apiConfig.get()
 
-	// it('fail to charge 400 with empty param', () => {
-	// 	return coreApi.charge(null).catch((e) => {
-	// 		expect(e.message).toStrictEqual('400')
-	// 	})
-	// })
+		expect(spyCoreApi).toHaveBeenCalled()
+		expect(spyCoreApi).toHaveBeenCalledTimes(1)
+		expect(coreApi.apiConfig.get().serverKey).toStrictEqual(config.serverKey)
+		coreApi.apiConfig.serverKey = ''
+		coreApi.apiConfig.clientKey = 'abc'
+		expect(coreApi.apiConfig.get().isProduction).toBeFalsy()
+		expect(coreApi.apiConfig.get().serverKey).toStrictEqual('')
+		expect(coreApi.apiConfig.get().clientKey).toStrictEqual('abc')
+	})
 
-	// it('fail to charge 400 with zero gross_amount', () => {
-	// 	const parameter = generateParamMin()
-	// 	parameter.transaction_details.gross_amount = 0
-	// 	return coreApi.charge(parameter).catch((e) => {
-	// 		expect(e.message).toStrictEqual('400')
-	// 	})
-	// })
+	it('fail to charge 401 with no serverKey', () => {
+		return coreApi.charge(generateParamMin()).catch((e) => {
+			expect(e.httpStatusCode).toStrictEqual('401')
+		})
+	})
 
-	// it('able to throw custom MidtransError', () => {
-	// 	const parameter = generateParamMin()
-	// 	parameter.transaction_details.gross_amount = 0
-	// 	return coreApi.charge(parameter).catch((e) => {
-	// 		expect(e.message).toStrictEqual('400')
-	// 		expect(e.httpStatusCode).toStrictEqual('400')
-	// 		expect(typeof e.ApiResponse).toStrictEqual('object')
-	// 		expect(e.ApiResponse.validation_messages).toBeInstanceOf(Array)
-	// 		expect(typeof e.rawHttpClientData).toStrictEqual('object')
-	// 		expect(e.rawHttpClientData).toHaveProperty('data')
-	// 	})
-	// })
+	it('fail to charge 400 with empty param', () => {
+		return coreApi.charge(null).catch((e) => {
+			expect(e.httpStatusCode.toString()).toStrictEqual('400')
+		})
+	})
+
+	it('fail to charge 400 with zero gross_amount', () => {
+		const parameter = generateParamMin()
+		parameter.transaction_details.gross_amount = 0
+		return coreApi.charge(parameter).catch((e) => {
+			expect(e.httpStatusCode).toStrictEqual('400')
+		})
+	})
+
+	it('able to throw custom MidtransError', () => {
+		const parameter = generateParamMin()
+		parameter.transaction_details.gross_amount = 0
+		return coreApi.charge(parameter).catch((e) => {
+			expect(e.httpStatusCode).toStrictEqual('400')
+			expect(typeof e.ApiResponse).toStrictEqual('object')
+			expect(e.ApiResponse.validation_messages).toBeInstanceOf(Array)
+			expect(typeof e.rawHttpClientData).toStrictEqual('object')
+			expect(e.rawHttpClientData).toHaveProperty('data')
+		})
+	})
 })
 
 /**

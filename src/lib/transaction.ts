@@ -114,6 +114,7 @@ export class Transaction {
 			serverKey: this.parent.apiConfig.get().serverKey,
 			requestPayload: null
 		})
+
 		return responsePromise
 	}
 
@@ -165,7 +166,8 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public notification(notification: Record<any, any> = {}): Promise<void> {
+	public notification(notification: Record<string, any> = {}): Promise<any> {
+		let self = this
 		return new Promise(function (resolve, reject) {
 			if (typeof notification === 'string') {
 				try {
@@ -179,8 +181,8 @@ export class Transaction {
 					)
 				}
 			}
-			const transactionId: string = notification.transaction_id
-			this.status(transactionId)
+			self
+				.status(notification.transaction_id)
 				.then((res) => resolve(res))
 				.catch((err) => reject(err))
 		})

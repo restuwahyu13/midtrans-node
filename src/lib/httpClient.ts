@@ -96,20 +96,20 @@ export class HttpClient {
 				// Result Axios Response To Client
 				resolve(res.data)
 			} catch (err) {
-				let { response }: AxiosError = err
+				let res = err.response
 
-				if (typeof response !== 'undefined' && response.status >= 400) {
+				if (typeof res !== 'undefined' && res.status >= 400) {
 					// Reject API error HTTP status code
 					reject(
 						new MidtransError({
-							message: `Midtrans API is returning API error. HTTP status code: ${response.status}.
-							API response: ${JSON.stringify(response.data)}`,
-							httpStatusCode: response.status,
-							ApiResponse: response.data,
-							rawHttpClientData: response
+							message: `Midtrans API is returning API error. HTTP status code: ${res.status}.
+							API response: ${JSON.stringify(res.data)}`,
+							httpStatusCode: res.status,
+							ApiResponse: res.data,
+							rawHttpClientData: res
 						})
 					)
-				} else if (typeof response === 'undefined') {
+				} else if (typeof res === 'undefined') {
 					// Reject API undefined HTTP response
 					reject(
 						new MidtransError({
@@ -119,7 +119,7 @@ export class HttpClient {
 				}
 
 				// Throw Error Response
-				reject(response)
+				reject(res)
 			}
 		})
 	}

@@ -37,15 +37,18 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public charge<T extends ChargeTypeRequest>(
-		parameter: T | null | Record<any, any> = {}
-	): Promise<Record<string, any>> {
+	public charge<T extends ChargeTypeRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/charge'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: !matchCharge(Object.keys(parameter)[0]) ? parameter : Object.values(parameter)[0]
+			requestPayload:
+				parameter === null
+					? parameter
+					: !matchCharge(Object.keys(parameter)[0])
+					? parameter
+					: Object.values(parameter)[0]
 		})
 		// const responsePromise = this.httpClient.requestClone('post', this.apiConfig.get().serverKey, apiUrl, parameter)
 		return responsePromise
