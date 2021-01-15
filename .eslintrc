@@ -21,7 +21,8 @@
 		"no-async-promise-executor": 0,
 		"prefer-const": 0,
 		"camelcase": 0,
-		"@typescript-eslint/no-namespace": 0
+		"@typescript-eslint/no-namespace": 0,
+		"jest/no-done-callback": 0
 	},
 	"env": {
 		"node": true,

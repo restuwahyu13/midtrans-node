@@ -597,7 +597,8 @@ export interface CaptureRequest {
 export interface CardTokenRequest {
 	readonly card_number: string
 	readonly card_exp_month: string
-	readonly card_exp_year: string
+	readonly card_exp_year: any
+	readonly card_cvv: string
 	readonly client_key: string
 }
 

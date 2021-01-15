@@ -13,6 +13,7 @@
 		"start": "ts-node index.ts",
 		"test": "jest",
 		"test:watch": "jest --watchAll",
+		"test:coverage": "jest --coverage",
 		"lint": "eslint src/**/*.{ts,spec.ts,test.ts} --fix",
 		"format": "prettier src/**/*.{ts,spec.ts,test.ts} --write",
 		"lint:fix": "npm run format && npm run lint"
