@@ -1,7 +1,7 @@
 module.exports = {
 	preset: 'ts-jest',
 	testEnvironment: 'node',
-	testMatch: ['<rootDir>/tests/**/*.{test.ts, spec.ts}', '<rootDir>/__tests__/**/*.{test.ts, spec.ts}'],
+	testMatch: ['<rootDir>/test/**/*.{test.ts, spec.ts}', '<rootDir>/__test__/**/*.{test.ts, spec.ts}'],
 	collectCoverageFrom: ['src/lib/**/*.ts'],
 	testPathIgnorePatterns: ['node_modules/', '__test__/', 'dist/', 'esm', 'tsconfig.json'],
 	coveragePathIgnorePatterns: ['node_modules/', '__test__/', 'dist/', 'esm/', 'tsconfig.json']
