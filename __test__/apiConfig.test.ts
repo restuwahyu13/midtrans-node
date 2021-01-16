@@ -1,6 +1,7 @@
-import { config } from '../config'
 import { ApiConfig as MidtransConfigApi } from '../src/lib/apiConfig'
-describe('API CONFIG TEST', () => {
+import { config } from '../config'
+
+describe('ApiConfig', () => {
 	let apiConfig
 
 	beforeEach(() => {

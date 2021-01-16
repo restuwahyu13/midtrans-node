@@ -84,7 +84,7 @@ export class HttpClient {
 					// 407 is expected get-status API response for `expire` transaction, non-standard
 					reject(
 						new MidtransError({
-							message: `Midtrans API is returning API error. HTTP status code: ${res.status}.
+							message: `Midtrans API is returning API error. HTTP status code: ${res.data.status_code}.
 							API response: ${JSON.stringify(res.data)}`,
 							httpStatusCode: res.data.status_code,
 							ApiResponse: res.data,
@@ -102,7 +102,7 @@ export class HttpClient {
 					// Reject API error HTTP status code
 					reject(
 						new MidtransError({
-							message: `Midtrans API is returning API error. HTTP status code: ${res.status}.
+							message: `Midtrans API is returning API error. HTTP status code: ${res.data.status_code}.
 							API response: ${JSON.stringify(res.data)}`,
 							httpStatusCode: res.status,
 							ApiResponse: res.data,

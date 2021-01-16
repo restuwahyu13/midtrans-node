@@ -17,7 +17,7 @@ const core = new MidtransClient.CoreApi({
 // })
 
 core.transaction
-	.expire('node-midtransclient-test1-1610735822470')
+	.deny('BL-1610641734954')
 	.then((res) => console.log(res))
 	.catch((err) => console.log(err))
 
