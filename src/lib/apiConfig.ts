@@ -20,7 +20,7 @@ export class ApiConfig {
 	 * isProduction, serverKey, clientKey
 	 */
 
-	constructor(options: ApiConfigOptions | Record<string, any> = {}) {
+	constructor(options: Partial<ApiConfigOptions> | Record<string, any>) {
 		this.isProduction = false
 		this.serverKey = ''
 		this.clientKey = ''
@@ -46,7 +46,7 @@ export class ApiConfig {
 	 * @param {Object} options - object contains isProduction, serverKey, clientKey]
 	 */
 
-	public set<T extends Partial<ApiConfigOptions>>(options: T | Record<any, any> = {}): void {
+	public set<T extends Partial<ApiConfigOptions>>(options: T | Record<any, any>): void {
 		const currentConfig: ApiConfigOptions = {
 			isProduction: this.isProduction,
 			serverKey: this.serverKey,

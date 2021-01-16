@@ -11,7 +11,7 @@ export class Transaction {
 	private readonly parent: InstanceType<typeof Snap>
 	private apiUrl: string
 
-	constructor(options: ThisType<any> | Record<string, any> = {}) {
+	constructor(options: ThisType<any> | Record<string, any>) {
 		this.parent = options as InstanceType<typeof Snap>
 	}
 
@@ -118,7 +118,7 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public refund<T extends RefundRequest>(
+	public refund<T extends Partial<RefundRequest>>(
 		transactionId: string,
 		parameter?: T | Record<any, any>
 	): Promise<Record<string, any>> {
@@ -138,7 +138,7 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public refundDirect<T extends RefundRequest>(
+	public refundDirect<T extends Partial<RefundRequest>>(
 		transactionId: string,
 		parameter?: T | Record<any, any>
 	): Promise<Record<string, any>> {
@@ -157,7 +157,7 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public notification(notification: Record<string, any> = {}): Promise<any> {
+	public notification(notification: Record<string, any>): Promise<any> {
 		let self = this
 		return new Promise(function (resolve, reject) {
 			if (typeof notification === 'string') {

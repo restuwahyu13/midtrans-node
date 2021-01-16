@@ -13,7 +13,7 @@ export class MidtransError extends Error {
 	private readonly ApiResponse?: any
 	private readonly rawHttpClientData?: any
 
-	constructor({ ...options }: MidtransErrorOptions) {
+	constructor(options: MidtransErrorOptions | Record<string, any>) {
 		super(options.message)
 
 		// Ensure the name of this error is the same as the class name

@@ -15,7 +15,7 @@ export class Snap {
 	private requestPayload: any
 	private matchSnap: any
 
-	constructor(options: SnapOptions | Record<string, any> = {}) {
+	constructor(options: Partial<SnapOptions> | Record<string, any>) {
 		this.apiConfig = new ApiConfig(options)
 		this.httpClient = new HttpClient(this)
 		this.transaction = new Transaction(this)
@@ -28,8 +28,8 @@ export class Snap {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public createTransaction<T extends TransactionRequestType>(
-		parameter: T | Record<any, any> = {}
+	public createTransaction<T extends Partial<TransactionRequestType>>(
+		parameter: T | Record<any, any>
 	): Promise<Record<string, any>> {
 		this.apiUrl = this.apiConfig.getSnapApiBaseUrl() + '/transactions'
 		return this.httpClient.request({
@@ -37,7 +37,7 @@ export class Snap {
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload:
-				parameter === null
+				parameter === null || parameter === undefined
 					? parameter
 					: !this.matchSnap(Object.keys(parameter)[0])
 					? parameter
@@ -50,11 +50,11 @@ export class Snap {
 	 * @return {Promise} - Promise of String token
 	 */
 
-	public createTransactionToken<T extends TransactionRequestType>(
-		parameter: T | Record<any, any> = {}
+	public createTransactionToken<T extends Partial<TransactionRequestType>>(
+		parameter: T | Record<any, any>
 	): Promise<string> {
 		this.requestPayload =
-			parameter === null
+			parameter === null || parameter === undefined
 				? parameter
 				: !this.matchSnap(Object.keys(parameter)[0])
 				? parameter
@@ -67,11 +67,11 @@ export class Snap {
 	 * @return {Promise} - Promise of String redirect_url
 	 */
 
-	public createTransactionRedirectUrl<T extends TransactionRequestType>(
-		parameter: T | Record<any, any> = {}
+	public createTransactionRedirectUrl<T extends Partial<TransactionRequestType>>(
+		parameter: T | Record<any, any>
 	): Promise<string> {
 		this.requestPayload =
-			parameter === null
+			parameter === null || parameter === undefined
 				? parameter
 				: !this.matchSnap(Object.keys(parameter)[0])
 				? parameter

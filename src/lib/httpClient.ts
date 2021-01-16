@@ -31,7 +31,7 @@ export class HttpClient {
 		this.requestParam = {}
 	}
 
-	public request<T extends RequestOptions>(options: T | Record<any, any> = {}): Promise<Record<string, any>> {
+	public request<T extends Partial<RequestOptions>>(options: T | Record<any, any>): Promise<Record<string, any>> {
 		const headers = this.headers
 
 		let requestBody = this.requestBody
