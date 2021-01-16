@@ -248,7 +248,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public getFacilitatorBalance(bankAccountId?: string): Promise<Record<string, any>> {
+	public getFacilitatorBalance(bankAccountId: string): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts/' + bankAccountId + '/balance'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,

@@ -162,16 +162,24 @@ describe('Iris.js', () => {
 		expect(res).toHaveProperty('status')
 		expect(typeof res.status).toStrictEqual('string')
 		expect(res.status).toStrictEqual('rejected')
+		globVar.createdRefNo = res.reference_no
+		done()
+	})
+
+	it('able to getBalance', async (done) => {
+		const res = await iris.getBalance()
+		expect(typeof res.balance).toStrictEqual('string')
 		done()
 	})
 
 	it('able to getTransactionHistory', async (done) => {
 		const res = await iris.getTransactionHistory()
-		console.log(res)
 		expect(res).toBeInstanceOf(Array)
-		expect(typeof res[0].status).toStrictEqual('string')
-		expect(typeof res[0].reference_no).toStrictEqual('string')
-		expect(typeof res[0].beneficiary_account).toStrictEqual('string')
+		if (res.length > 0) {
+			expect(typeof res[0].status).toStrictEqual('string')
+			expect(typeof res[0].reference_no).toStrictEqual('string')
+			expect(typeof res[0].beneficiary_account).toStrictEqual('string')
+		}
 		done()
 	})
 
@@ -182,10 +190,6 @@ describe('Iris.js', () => {
 		expect(typeof res[0].virtual_account_type).toStrictEqual('string')
 		expect(typeof res[0].virtual_account_number).toStrictEqual('string')
 		done()
-	})
-
-	it('able to getBalance', () => {
-		return iris.getBalance().then((res) => expect(typeof res.balance).toStrictEqual('string'))
 	})
 
 	it('fail to getFacilitatorBankAccounts: not authorized due to non facilitator account', () => {

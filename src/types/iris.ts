@@ -1,7 +1,7 @@
 export interface IrisOptions {
 	readonly isProduction: boolean
 	readonly serverKey: string
-	readonly clientKey: string
+	readonly clientKey?: string
 }
 
 export interface BeneficiariesOptions {
