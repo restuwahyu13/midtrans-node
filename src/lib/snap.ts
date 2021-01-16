@@ -8,9 +8,9 @@ import { TransactionRequestType, SnapOptions } from '../types/snap'
  */
 
 export class Snap {
-	public readonly apiConfig: ApiConfig
-	public readonly httpClient: HttpClient
-	public readonly transaction: Transaction
+	public readonly apiConfig: InstanceType<typeof ApiConfig>
+	public readonly httpClient: InstanceType<typeof HttpClient>
+	public readonly transaction: InstanceType<typeof Transaction>
 
 	constructor(options: SnapOptions | Record<string, any> = {}) {
 		this.apiConfig = new ApiConfig(options)

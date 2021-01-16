@@ -11,7 +11,7 @@ let reuseOrderId = [
 ]
 let apiResponse = {}
 
-describe('Midtrands Core API', () => {
+describe('CoreApi', () => {
 	beforeEach(() => {
 		coreApi = new CoreApi(generateConfig())
 	})
@@ -121,12 +121,12 @@ describe('Midtrands Core API', () => {
 		})
 	})
 
-	// it('able to expire', async (done) => {
-	// 	const res = await coreApi.transaction.expire(reuseOrderId[0])
-	// 	expect(res.status_code).toStrictEqual('407')
-	// 	expect(res.transaction_status).toStrictEqual('expire')
-	// 	done()
-	// })
+	it('able to expire', async (done) => {
+		const res = await coreApi.transaction.expire(reuseOrderId[0])
+		expect(res.status_code).toStrictEqual('407')
+		expect(res.transaction_status).toStrictEqual('expire')
+		done()
+	})
 
 	it('fail to approve transaction that cannot be updated', () => {
 		return coreApi.transaction.approve(reuseOrderId[1]).catch((e) => {

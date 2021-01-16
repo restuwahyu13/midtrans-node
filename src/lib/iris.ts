@@ -22,9 +22,9 @@ export class Iris {
 	 * isProduction, apiKey
 	 */
 
-	public readonly apiConfig: ApiConfig
-	public readonly httpClient: HttpClient
-	private readonly transaction: Transaction
+	public readonly apiConfig: InstanceType<typeof ApiConfig>
+	public readonly httpClient: InstanceType<typeof HttpClient>
+	private readonly transaction: InstanceType<typeof Transaction>
 
 	constructor(options: IrisOptions | Record<string, any> = {}) {
 		this.apiConfig = new ApiConfig(options)
@@ -42,7 +42,8 @@ export class Iris {
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -61,7 +62,7 @@ export class Iris {
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: parameter
+			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
 		return responsePromise
 	}
@@ -82,7 +83,7 @@ export class Iris {
 			requestUrl: apiUrl,
 			httpMethod: 'patch',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: parameter
+			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
 		return responsePromise
 	}
@@ -97,7 +98,8 @@ export class Iris {
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -108,13 +110,13 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public createPayout<T extends PayoutOptions>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
+	public createPayouts<T extends PayoutOptions>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
-			httpMethod: 'get',
+			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: parameter
+			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
 		return responsePromise
 	}
@@ -131,9 +133,9 @@ export class Iris {
 		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/approve'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
-			httpMethod: 'get',
+			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: parameter
+			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
 		return responsePromise
 	}
@@ -150,9 +152,9 @@ export class Iris {
 		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/reject'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
-			httpMethod: 'get',
+			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: parameter
+			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
 		return responsePromise
 	}
@@ -168,7 +170,8 @@ export class Iris {
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -178,7 +181,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public getTransactionHistory<T extends TransactionHistory>(
+	public getTransactionHistory<T extends Partial<TransactionHistory>>(
 		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/statements'
@@ -186,7 +189,7 @@ export class Iris {
 			requestUrl: apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: parameter
+			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
 		return responsePromise
 	}
@@ -201,7 +204,8 @@ export class Iris {
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -216,7 +220,8 @@ export class Iris {
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -231,7 +236,8 @@ export class Iris {
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -242,12 +248,13 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public getFacilitatorBalance(bankAccountId: string): Promise<Record<string, any>> {
+	public getFacilitatorBalance(bankAccountId?: string): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts/' + bankAccountId + '/balance'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -262,7 +269,8 @@ export class Iris {
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'get',
-			serverKey: this.apiConfig.get().serverKey
+			serverKey: this.apiConfig.get().serverKey,
+			requestPayload: null
 		})
 		return responsePromise
 	}
@@ -281,7 +289,7 @@ export class Iris {
 			requestUrl: apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: parameter
+			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
 		return responsePromise
 	}

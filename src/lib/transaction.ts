@@ -1,5 +1,5 @@
 import { Snap } from './snap'
-import { RefundRequest, TransactionOptions } from '../types/transaction'
+import { RefundRequest } from '../types/transaction'
 
 /**
  * These are wrapper/implementation of API methods described on:
@@ -8,10 +8,10 @@ import { RefundRequest, TransactionOptions } from '../types/transaction'
  */
 
 export class Transaction {
-	private readonly parent: Snap
+	private readonly parent: InstanceType<typeof Snap>
 
-	constructor(options: TransactionOptions | Record<string, any> = {}) {
-		this.parent = options as Snap
+	constructor(options: ThisType<any>) {
+		this.parent = options as InstanceType<typeof Snap>
 	}
 
 	/**

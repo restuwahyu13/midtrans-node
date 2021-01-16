@@ -1,7 +1,7 @@
 import { MidtransClient } from '../src/index'
 import { config } from '../config'
 
-describe('midtrans-client', () => {
+describe('MidtransClient', () => {
 	let midtransClient
 
 	beforeEach(() => {

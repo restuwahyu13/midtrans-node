@@ -21,9 +21,9 @@ export class CoreApi {
 	 * isProduction, serverKey, clientKey
 	 */
 
-	public apiConfig: ApiConfig
-	public httpClient: HttpClient
-	public transaction: Transaction
+	public apiConfig: InstanceType<typeof ApiConfig>
+	public httpClient: InstanceType<typeof HttpClient>
+	public transaction: InstanceType<typeof Transaction>
 
 	constructor(options: CoreApiOptions | Record<string, any> = {}) {
 		this.apiConfig = new ApiConfig(options)

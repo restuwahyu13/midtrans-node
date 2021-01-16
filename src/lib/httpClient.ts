@@ -1,4 +1,7 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosError, Method } from 'axios'
+import axios, { AxiosInstance, AxiosResponse, Method } from 'axios'
+import { Snap } from '../lib/snap'
+import { CoreApi } from '../lib/coreApi'
+import { Iris } from '../lib/iris'
 import { IncomingHttpHeaders } from 'http'
 import { MidtransError } from './midtransError'
 import { RequestOptions } from '../types/HttpClient'
@@ -10,14 +13,14 @@ import { RequestOptions } from '../types/HttpClient'
  */
 
 export class HttpClient {
-	private readonly parent: Record<string, any>
+	private readonly parent: InstanceType<typeof Snap> | InstanceType<typeof CoreApi> | InstanceType<typeof Iris>
 	private readonly httpClient: AxiosInstance
 	private readonly headers: IncomingHttpHeaders
 	private readonly requestBody?: any
 	private readonly requestParam?: any
 
-	constructor(options: Record<string, any> = {}) {
-		this.parent = options
+	constructor(options: ThisType<any>) {
+		this.parent = options as InstanceType<typeof Snap> | InstanceType<typeof CoreApi> | InstanceType<typeof Iris>
 		this.httpClient = axios.create()
 		this.headers = {
 			'content-type': 'application/json',
@@ -80,12 +83,13 @@ export class HttpClient {
 				})
 
 				// Reject core API error status code
-				if (res.data.hasOwnProperty('status_code') && res.data.status_code >= 400 && res.data.status_code !== 407) {
+				if (res.data.hasOwnProperty('status_code') && res.data.status_code >= 400 && res.data.status_code != 407) {
 					// 407 is expected get-status API response for `expire` transaction, non-standard
 					reject(
 						new MidtransError({
-							message: `Midtrans API is returning API error. HTTP status code: ${res.data.status_code}.
-							API response: ${JSON.stringify(res.data)}`,
+							message: `Midtrans API is returning API error. \n HTTP status code: ${
+								res.data.status_code
+							}. \n API response: ${JSON.stringify(res.data)}`,
 							httpStatusCode: res.data.status_code,
 							ApiResponse: res.data,
 							rawHttpClientData: res
