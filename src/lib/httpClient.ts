@@ -102,8 +102,9 @@ export class HttpClient {
 					// Reject API error HTTP status code
 					reject(
 						new MidtransError({
-							message: `Midtrans API is returning API error. HTTP status code: ${res.data.status_code}.
-							API response: ${JSON.stringify(res.data)}`,
+							message: `Midtrans API is returning API error. \n HTTP status code: ${
+								res.status
+							}. \n API response: ${JSON.stringify(res.data)}`,
 							httpStatusCode: res.status,
 							ApiResponse: res.data,
 							rawHttpClientData: res

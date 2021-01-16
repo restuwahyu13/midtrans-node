@@ -390,7 +390,7 @@ interface snapFull {
  */
 
 export interface TransactionRequestType {
-	readonly snapCreditCard: CreditCard
+	readonly snapCreditCard?: CreditCard
 	readonly snapFull?: snapFull
 	readonly snapBca?: BcaVirtualAccount
 	readonly snapPermata?: PermataVirtualAccount

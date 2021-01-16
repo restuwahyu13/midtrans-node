@@ -10,11 +10,11 @@ describe('Snap', () => {
 
 	it('class should be working', () => {
 		expect(snap instanceof Snap).toBeTruthy()
-		expect(typeof snap.createTransaction).toStrictEqual('function')
-		expect(typeof snap.createTransactionToken).toStrictEqual('function')
-		expect(typeof snap.createTransactionRedirectUrl).toStrictEqual('function')
-		expect(typeof snap.apiConfig.get().serverKey).toStrictEqual('string')
-		expect(typeof snap.apiConfig.get().clientKey).toStrictEqual('string')
+		expect(snap.createTransaction).toBeInstanceOf(Function)
+		expect(snap.createTransactionToken).toBeInstanceOf(Function)
+		expect(snap.createTransactionRedirectUrl).toBeInstanceOf(Function)
+		expect(snap.apiConfig.get().serverKey).toStrictEqual(config.serverKey)
+		expect(snap.apiConfig.get().clientKey).toStrictEqual(config.clientKey)
 	})
 
 	it('able to create transaction simple param', async (done) => {
@@ -35,9 +35,10 @@ describe('Snap', () => {
 		done()
 	})
 
-	it('able to create transaction token', () => {
-		const token = snap.createTransactionToken(generateParamMin())
+	it('able to create transaction token', async (done) => {
+		const token = await snap.createTransactionToken(generateParamMin())
 		expect(typeof token).toStrictEqual('string')
+		done()
 	})
 
 	it('able to create transaction redirect_url', async (done) => {
@@ -50,21 +51,20 @@ describe('Snap', () => {
 		return snap.transaction.status('non exists order_id').catch((e) => expect(e.message).toMatch(/404/))
 	})
 
-	// it('able to status transaction', () => {
-	// 	let snap = new Snap(generateConfig())
-	// 	return snap.transaction.status('node-midtransclient-test-1540974864').then((res) => {
-	// 		expect(res.status_code).to.be.a('string')
-	// 		expect(res.status_code).to.be.equals('201')
-	// 		expect(res.transaction_status).to.be.a('string')
-	// 		expect(res.transaction_status).to.be.equals('pending')
-	// 	})
+	// it('able to status transaction', async (done) => {
+	// 	const res = await snap.transaction.status('node-midtransclient-test-1540974864')
+	// 	expect(typeof res.status_code).toStrictEqual('string')
+	// 	expect(res.status_code).toStrictEqual('201')
+	// 	expect(typeof res.transaction_status).toStrictEqual('string')
+	// 	expect(res.transaction_status).toStrictEqual('pending')
+	// 	done()
 	// })
 
 	it('able to re-set serverKey via setter', () => {
 		snap.apiConfig.set({ serverKey: '', clientKey: 'abc' })
 		expect(snap.apiConfig.get().serverKey).toStrictEqual('')
 		snap.apiConfig.set({ serverKey: config.serverKey })
-		expect(snap.apiConfig.get().isProduction).toBefalsy()
+		expect(snap.apiConfig.get().isProduction).toBeFalsy()
 		expect(snap.apiConfig.get().serverKey).toStrictEqual(config.serverKey)
 		expect(snap.apiConfig.get().clientKey).toStrictEqual('abc')
 	})
@@ -74,7 +74,7 @@ describe('Snap', () => {
 		snap.apiConfig.clientKey = 'abc'
 		expect(snap.apiConfig.get().serverKey).toStrictEqual('')
 		snap.apiConfig.serverKey = config.serverKey
-		expect(snap.apiConfig.get().isProduction).toBefalsy()
+		expect(snap.apiConfig.get().isProduction).toBeFalsy()
 		expect(snap.apiConfig.get().serverKey).toStrictEqual(config.serverKey)
 		expect(snap.apiConfig.get().clientKey).toStrictEqual('abc')
 	})
@@ -86,11 +86,11 @@ describe('Snap', () => {
 
 	it('fail to create transaction 401 with no serverKey', () => {
 		snap.apiConfig.set({ serverKey: '' })
-		return snap.transaction.createTransaction(generateParamMin()).catch((e) => expect(e.message).toMatch(/401/))
+		return snap.createTransaction(generateParamMin()).catch((e) => expect(e.message).toMatch(/401/))
 	})
 
 	it('fail to create transaction 400 with no param', () => {
-		return snap.transaction.createTransaction().catch((e) => expect(e.message).toMatch(/401/))
+		return snap.createTransaction().catch((e) => expect(e.message).toMatch(/400/))
 	})
 
 	it('fail to create transaction with zero gross_amount', () => {
@@ -112,32 +112,29 @@ describe('Snap', () => {
 		})
 	})
 
-	// 	it('able to set X-Override-Notification request header via exposed http_client object', () => {
-	// 		let config = generateConfig()
-	// 		let snap = new Snap(config)
-	// 		let param = generateParamMin()
-	// 		let customUrl = 'https://mysite.com/midtrans-notification-handler'
+	it('able to set X-Override-Notification request header via exposed http_client object', () => {
+		let customUrl = 'https://mysite.com/midtrans-notification-handler'
 
-	// 		snap.httpClient.http_client.interceptors.request.use(
-	// 			function (config) {
-	// 				// Do something before request is sent
-	// 				expect(config.headers.common['X-Override-Notification']).toStrictEqual(customUrl)
-	// 				return config
-	// 			},
-	// 			function (error) {
-	// 				// Do something with request error
-	// 				return Promise.reject(error)
-	// 			}
-	// 		)
+		snap.httpClient.httpClient.interceptors.request.use(
+			(config) => {
+				// Do something before request is sent
+				expect(config.headers.common['X-Override-Notification']).toStrictEqual(customUrl)
+				return config
+			},
+			// Do something with request error
+			(error) => Promise.reject(error)
+		)
 
-	// 		snap.httpClient.http_client.defaults.headers.common['X-Override-Notification'] = customUrl
-	// 		snap.createTransactionToken().catch((e) => {
-	// 			expect(snap.httpClient.http_client.defaults).toHaveProperty('headers')
-	// 			expect(typeof snap.httpClient.http_client.defaults.headers.common).toStrictEqual('object')
-	// 			expect(snap.httpClient.http_client.defaults.headers.common['X-Override-Notification']).toStrictEqual(customUrl)
-	// 		})
-	// 	})
+		snap.httpClient.httpClient.defaults.headers.common['X-Override-Notification'] = customUrl
+		snap.createTransactionToken().catch((e) => {
+			expect(snap.httpClient.httpClient.defaults).toHaveProperty('headers')
+			expect(typeof snap.httpClient.httpClient.defaults.headers.common).toStrictEqual('object')
+			expect(snap.httpClient.httpClient.defaults.headers.common['X-Override-Notification']).toStrictEqual(customUrl)
+		})
+	})
 })
+
+// Helper Function
 
 function generateTimestamp(devider = 1) {
 	return Math.round(new Date().getTime() / devider)

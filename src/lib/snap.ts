@@ -1,8 +1,8 @@
 import { ApiConfig } from './apiConfig'
 import { HttpClient } from './httpClient'
 import { Transaction } from './transaction'
+import { matchSnap } from '../utils/matchSnap'
 import { TransactionRequestType, SnapOptions } from '../types/snap'
-
 /**
  * Snap object used to do request to Midtrans Snap API
  */
@@ -25,14 +25,19 @@ export class Snap {
 	 */
 
 	public createTransaction<T extends TransactionRequestType>(
-		parameter: T | null | undefined | Record<any, any> = {}
+		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
 		const apiUrl = this.apiConfig.getSnapApiBaseUrl() + '/transactions'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
-			requestPayload: parameter === null || parameter === undefined ? parameter : Object.values(parameter)[0]
+			requestPayload:
+				parameter === null || parameter === undefined
+					? parameter
+					: !matchSnap(Object.keys(parameter)[0])
+					? parameter
+					: Object.values(parameter)[0]
 		})
 		return responsePromise
 	}
@@ -43,9 +48,14 @@ export class Snap {
 	 */
 
 	public createTransactionToken<T extends TransactionRequestType>(
-		parameter: T | null | undefined | Record<any, any> = {}
+		parameter: T | Record<any, any> = {}
 	): Promise<string> {
-		const requestPayload = parameter === null || parameter === undefined ? parameter : Object.values(parameter)[0]
+		const requestPayload =
+			parameter === null || parameter === undefined
+				? parameter
+				: !matchSnap(Object.keys(parameter)[0])
+				? parameter
+				: Object.values(parameter)[0]
 		return this.createTransaction(requestPayload).then((res) => res.token)
 	}
 
@@ -55,9 +65,14 @@ export class Snap {
 	 */
 
 	public createTransactionRedirectUrl<T extends TransactionRequestType>(
-		parameter: T | null | undefined | Record<any, any> = {}
+		parameter: T | Record<any, any> = {}
 	): Promise<string> {
-		const requestPayload = parameter === null || parameter === undefined ? parameter : Object.values(parameter)[0]
+		const requestPayload =
+			parameter === null || parameter === undefined
+				? parameter
+				: !matchSnap(Object.keys(parameter)[0])
+				? parameter
+				: Object.values(parameter)[0]
 		return this.createTransaction(requestPayload).then((res) => res.redirect_url)
 	}
 }
