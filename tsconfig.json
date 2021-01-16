@@ -11,14 +11,14 @@
 		"allowUmdGlobalAccess": true,
 		"downlevelIteration": true,
 		"skipLibCheck": true,
-		"sourceMap": true,
 		"declaration": true,
 		"noEmitOnError": true,
+		"sourceMap": false,
 		"strict": false,
 		"alwaysStrict": false,
 		"noImplicitAny": false,
 		"typeRoots": ["node_modules/@types"]
 	},
 	"include": ["src/**/*.ts"],
-	"exclude": ["node_modules", "dist", "__test__/**/*.{test.ts,spec.ts}"]
+	"exclude": ["node_modules", "dist", "__test__/**/*.{test.ts,spec.ts}", "coverage"]
 }

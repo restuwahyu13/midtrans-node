@@ -1,0 +1,16 @@
+**/**
+__test__
+coverage
+dist
+node_modules
+.coveralls.yml
+.editorconfig
+.eslintignore
+.eslintrc
+.gitignore
+.prettierrc
+.travis.yml
+config.ts
+Makefile
+tsconfig.json
+package-lock.json
