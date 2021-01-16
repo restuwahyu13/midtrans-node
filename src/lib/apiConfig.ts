@@ -11,6 +11,8 @@ export class ApiConfig {
 	private isProduction: boolean
 	private serverKey: string
 	private clientKey: string
+	private parsedOptions: any
+	private mergedConfig: any
 
 	/**
 	 * Initiate with options
@@ -22,8 +24,7 @@ export class ApiConfig {
 		this.isProduction = false
 		this.serverKey = ''
 		this.clientKey = ''
-		const { isProduction, serverKey, clientKey } = this
-		options ? this.set(options) : this.set({ isProduction, serverKey, clientKey })
+		this.set(options)
 	}
 
 	/**
@@ -45,19 +46,19 @@ export class ApiConfig {
 	 * @param {Object} options - object contains isProduction, serverKey, clientKey]
 	 */
 
-	public set<T extends ApiConfigOptions>(options: T | Record<any, any> = {}): void {
+	public set<T extends Partial<ApiConfigOptions>>(options: T | Record<any, any> = {}): void {
 		const currentConfig: ApiConfigOptions = {
 			isProduction: this.isProduction,
 			serverKey: this.serverKey,
 			clientKey: this.clientKey
 		}
 
-		const parsedOptions = _.pick(options, ['isProduction', 'serverKey', 'clientKey'])
-		const mergedConfig = _.merge({}, currentConfig, parsedOptions)
+		this.parsedOptions = _.pick(options, ['isProduction', 'serverKey', 'clientKey'])
+		this.mergedConfig = _.merge({}, currentConfig, this.parsedOptions)
 
-		this.isProduction = mergedConfig.isProduction
-		this.serverKey = mergedConfig.serverKey
-		this.clientKey = mergedConfig.clientKey
+		this.isProduction = options ? this.mergedConfig.isProduction : this.isProduction
+		this.serverKey = options ? this.mergedConfig.serverKey : this.serverKey
+		this.clientKey = options ? this.mergedConfig.clientKey : this.clientKey
 	}
 
 	/**

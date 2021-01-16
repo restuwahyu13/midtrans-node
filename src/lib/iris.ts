@@ -25,6 +25,7 @@ export class Iris {
 	public readonly apiConfig: InstanceType<typeof ApiConfig>
 	public readonly httpClient: InstanceType<typeof HttpClient>
 	private readonly transaction: InstanceType<typeof Transaction>
+	private apiUrl: string
 
 	constructor(options: IrisOptions | Record<string, any> = {}) {
 		this.apiConfig = new ApiConfig(options)
@@ -38,14 +39,13 @@ export class Iris {
 	 */
 
 	public ping(): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/ping'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/ping'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: null
 		})
-		return responsePromise
 	}
 
 	/**
@@ -57,14 +57,13 @@ export class Iris {
 	public createBeneficiaries<T extends BeneficiariesOptions>(
 		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
-		return responsePromise
 	}
 
 	/**
@@ -78,14 +77,13 @@ export class Iris {
 		aliasName: string,
 		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries/' + aliasName
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries/' + aliasName
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'patch',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
-		return responsePromise
 	}
 
 	/**
@@ -94,14 +92,13 @@ export class Iris {
 	 */
 
 	public getBeneficiaries(): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: null
 		})
-		return responsePromise
 	}
 
 	/**
@@ -111,14 +108,13 @@ export class Iris {
 	 */
 
 	public createPayouts<T extends PayoutOptions>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
-		return responsePromise
 	}
 
 	/**
@@ -130,14 +126,13 @@ export class Iris {
 	public approvePayouts<T extends ApprovePayoutsOptions>(
 		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/approve'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/approve'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
-		return responsePromise
 	}
 
 	/**
@@ -149,14 +144,13 @@ export class Iris {
 	public rejectPayouts<T extends RejectPayoutsOptions>(
 		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/reject'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/reject'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
-		return responsePromise
 	}
 
 	/**
@@ -166,14 +160,13 @@ export class Iris {
 	 */
 
 	public getPayoutDetails(referenceNo: string): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/' + referenceNo
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/' + referenceNo
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: null
 		})
-		return responsePromise
 	}
 
 	/**
@@ -184,14 +177,13 @@ export class Iris {
 	public getTransactionHistory<T extends Partial<TransactionHistory>>(
 		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/statements'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/statements'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
-		return responsePromise
 	}
 
 	/**
@@ -200,14 +192,13 @@ export class Iris {
 	 */
 
 	public getTopupChannels(): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/channels'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/channels'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: null
 		})
-		return responsePromise
 	}
 
 	/**
@@ -216,14 +207,13 @@ export class Iris {
 	 */
 
 	public getBalance(): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/balance'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/balance'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: null
 		})
-		return responsePromise
 	}
 
 	/**
@@ -232,14 +222,13 @@ export class Iris {
 	 */
 
 	public getFacilitatorBankAccounts(): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: null
 		})
-		return responsePromise
 	}
 
 	/**
@@ -249,14 +238,13 @@ export class Iris {
 	 */
 
 	public getFacilitatorBalance(bankAccountId: string): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts/' + bankAccountId + '/balance'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts/' + bankAccountId + '/balance'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: null
 		})
-		return responsePromise
 	}
 
 	/**
@@ -265,14 +253,13 @@ export class Iris {
 	 */
 
 	public getBeneficiaryBanks(): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiary_banks'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiary_banks'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: null
 		})
-		return responsePromise
 	}
 
 	/**
@@ -284,13 +271,12 @@ export class Iris {
 	public validateBankAccount<T extends ValidateBankAccountOptions>(
 		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/account_validation'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/account_validation'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'get',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload: parameter === null || parameter === undefined ? parameter : parameter
 		})
-		return responsePromise
 	}
 }

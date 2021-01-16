@@ -1,7 +1,7 @@
 import { ApiConfig } from './apiConfig'
 import { HttpClient } from './httpClient'
 import { Transaction } from './transaction'
-import { matchSnap } from '../utils/matchSnap'
+import { matchSnap as MatchSnap } from '../utils/matchSnap'
 import { TransactionRequestType, SnapOptions } from '../types/snap'
 /**
  * Snap object used to do request to Midtrans Snap API
@@ -11,11 +11,15 @@ export class Snap {
 	public readonly apiConfig: InstanceType<typeof ApiConfig>
 	public readonly httpClient: InstanceType<typeof HttpClient>
 	public readonly transaction: InstanceType<typeof Transaction>
+	private apiUrl: string
+	private requestPayload: any
+	private matchSnap: any
 
 	constructor(options: SnapOptions | Record<string, any> = {}) {
 		this.apiConfig = new ApiConfig(options)
 		this.httpClient = new HttpClient(this)
 		this.transaction = new Transaction(this)
+		this.matchSnap = MatchSnap
 	}
 
 	/**
@@ -27,19 +31,18 @@ export class Snap {
 	public createTransaction<T extends TransactionRequestType>(
 		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
-		const apiUrl = this.apiConfig.getSnapApiBaseUrl() + '/transactions'
-		const responsePromise = this.httpClient.request({
-			requestUrl: apiUrl,
+		this.apiUrl = this.apiConfig.getSnapApiBaseUrl() + '/transactions'
+		return this.httpClient.request({
+			requestUrl: this.apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload:
-				parameter === null || parameter === undefined
+				parameter === null
 					? parameter
-					: !matchSnap(Object.keys(parameter)[0])
+					: !this.matchSnap(Object.keys(parameter)[0])
 					? parameter
 					: Object.values(parameter)[0]
 		})
-		return responsePromise
 	}
 
 	/**
@@ -50,13 +53,13 @@ export class Snap {
 	public createTransactionToken<T extends TransactionRequestType>(
 		parameter: T | Record<any, any> = {}
 	): Promise<string> {
-		const requestPayload =
-			parameter === null || parameter === undefined
+		this.requestPayload =
+			parameter === null
 				? parameter
-				: !matchSnap(Object.keys(parameter)[0])
+				: !this.matchSnap(Object.keys(parameter)[0])
 				? parameter
 				: Object.values(parameter)[0]
-		return this.createTransaction(requestPayload).then((res) => res.token)
+		return this.createTransaction(this.requestPayload).then((res) => res.token)
 	}
 
 	/**
@@ -67,12 +70,12 @@ export class Snap {
 	public createTransactionRedirectUrl<T extends TransactionRequestType>(
 		parameter: T | Record<any, any> = {}
 	): Promise<string> {
-		const requestPayload =
-			parameter === null || parameter === undefined
+		this.requestPayload =
+			parameter === null
 				? parameter
-				: !matchSnap(Object.keys(parameter)[0])
+				: !this.matchSnap(Object.keys(parameter)[0])
 				? parameter
 				: Object.values(parameter)[0]
-		return this.createTransaction(requestPayload).then((res) => res.redirect_url)
+		return this.createTransaction(this.requestPayload).then((res) => res.redirect_url)
 	}
 }
