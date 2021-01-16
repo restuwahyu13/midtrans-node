@@ -13,14 +13,12 @@ import {
 /**
  * CoreApi Midtrans is a RESTful Web Service served as a communication bridge between merchants and our payment channels.
  */
-
 export class CoreApi {
 	/**
 	 * Initiate with options
 	 * @param  {Object} options - should have these props:
 	 * isProduction, serverKey, clientKey
 	 */
-
 	public apiConfig: InstanceType<typeof ApiConfig>
 	public httpClient: InstanceType<typeof HttpClient>
 	public transaction: InstanceType<typeof Transaction>
@@ -36,8 +34,9 @@ export class CoreApi {
 	 * @param  parameter - object of Core API JSON body as parameter, will be converted to JSON (more params detail refer to: https://api-docs.midtrans.com)
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
-
-	public charge<T extends ChargeTypeRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
+	public charge<T extends Partial<ChargeTypeRequest>>(
+		parameter: T | Record<any, any> = {}
+	): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/charge'
 		const responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
@@ -59,10 +58,9 @@ export class CoreApi {
 	 * @param parameter - object of Core API JSON body as parameter, will be converted to JSON (more params detail refer to: https://api-docs.midtrans.com)
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
-
 	public capture<T extends CaptureRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
-		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/capture'
-		const responsePromise = this.httpClient.request({
+		let apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/capture'
+		let responsePromise = this.httpClient.request({
 			requestUrl: apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
@@ -76,7 +74,6 @@ export class CoreApi {
 	 * @param parameter - object of Core API JSON body as parameter, will be converted to JSON (more params detail refer to: https://api-docs.midtrans.com)
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
-
 	public cardRegister<T extends CardRegisterRequest>(
 		parameter: T | Record<any, any> = {}
 	): Promise<Record<string, any>> {
@@ -95,7 +92,6 @@ export class CoreApi {
 	 * @param  {Object} parameter - object of Core API JSON body as parameter, will be converted to JSON (more params detail refer to: https://api-docs.midtrans.com)
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
-
 	public cardToken<T extends CardTokenRequest>(parameter: T | Record<any, any> = {}): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/token'
 		const responsePromise = this.httpClient.request({
@@ -112,7 +108,6 @@ export class CoreApi {
 	 * @param  {String} tokenId - tokenId of credit card (more params detail refer to: https://api-docs.midtrans.com)
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
-
 	public cardPointInquiry(tokenId: string): Promise<Record<string, any>> {
 		const apiUrl: string = this.apiConfig.getCoreApiBaseUrl() + '/point_inquiry/' + tokenId
 		const responsePromise = this.httpClient.request({

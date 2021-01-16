@@ -19,7 +19,7 @@ export class HttpClient {
 	private readonly requestBody?: any
 	private readonly requestParam?: any
 
-	constructor(options: ThisType<any>) {
+	constructor(options: ThisType<any> | Record<string, any> = {}) {
 		this.parent = options as InstanceType<typeof Snap> | InstanceType<typeof CoreApi> | InstanceType<typeof Iris>
 		this.httpClient = axios.create()
 		this.headers = {

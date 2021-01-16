@@ -10,7 +10,7 @@ import { RefundRequest } from '../types/transaction'
 export class Transaction {
 	private readonly parent: InstanceType<typeof Snap>
 
-	constructor(options: ThisType<any>) {
+	constructor(options: ThisType<any> | Record<string, any> = {}) {
 		this.parent = options as InstanceType<typeof Snap>
 	}
 

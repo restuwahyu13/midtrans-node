@@ -3,6 +3,7 @@
 		"outDir": "dist",
 		"target": "ESNext",
 		"module": "UMD",
+		"allowJs": true,
 		"moduleResolution": "node",
 		"esModuleInterop": true,
 		"importHelpers": true,
