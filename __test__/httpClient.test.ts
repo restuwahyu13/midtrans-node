@@ -5,6 +5,11 @@ describe('HttpClient', () => {
 
 	beforeEach(() => {
 		httpClient = new HttpClient()
+		jest.resetAllMocks()
+	})
+
+	afterAll(() => {
+		jest.clearAllMocks()
 	})
 
 	it('class should be working', () => {
@@ -16,19 +21,22 @@ describe('HttpClient', () => {
 	})
 
 	it('able to raw request to snap api', async (done) => {
+		const spyHttpClient = jest.spyOn(httpClient, 'request')
 		const res = await httpClient.request({
 			requestUrl: config.SNAP_SANDBOX_BASE_URL + '/transactions',
 			httpMethod: 'post',
 			serverKey: config.serverKey,
 			requestPayload: generateParamMin()
 		})
-
+		expect(spyHttpClient).toHaveBeenCalled()
+		expect(spyHttpClient).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('token')
 		expect(typeof res.token).toStrictEqual('string')
 		done()
 	})
 
 	it('able to raw request GET Token to Core Api', async (done) => {
+		const spyHttpClient = jest.spyOn(httpClient, 'request')
 		const res = await httpClient.request({
 			requestUrl: config.CORE_SANDBOX_BASE_URL + '/token',
 			httpMethod: 'get',
@@ -41,13 +49,15 @@ describe('HttpClient', () => {
 				client_key: config.clientKey
 			}
 		})
-
+		expect(spyHttpClient).toHaveBeenCalled()
+		expect(spyHttpClient).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('token_id')
 		expect(typeof res.token_id).toStrictEqual('string')
 		done()
 	})
 
 	it('able to throw fail to parse string as json exception', () => {
+		const spyHttpClient = jest.spyOn(httpClient, 'request')
 		return httpClient
 			.request({
 				requestUrl: config.SNAP_SANDBOX_BASE_URL + '/transactions',
@@ -55,7 +65,10 @@ describe('HttpClient', () => {
 				serverKey: config.serverKey,
 				requestPayload: 'not json'
 			})
-			.then((res) => res)
+			.then(() => {
+				expect(spyHttpClient).toHaveBeenCalled()
+				expect(spyHttpClient).toHaveBeenCalledTimes(1)
+			})
 			.catch((e) => expect(e.message).toMatch(/fail to parse/))
 	})
 })

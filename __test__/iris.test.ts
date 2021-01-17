@@ -60,20 +60,29 @@ describe('Iris.js', () => {
 	})
 
 	it('able to ping with correct api key', async (done) => {
+		const spyIris = jest.spyOn(iris, 'ping')
 		const res = await iris.ping()
+		expect(spyIris).toHaveBeenCalled()
+		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(typeof res).toStrictEqual('string')
 		expect(res).toStrictEqual('pong')
 		done()
 	})
 
 	it('fail 401 to createBeneficiaries with unset api key', () => {
+		const spyIris = jest.spyOn(iris, 'createBeneficiaries')
 		return iris
 			.createBeneficiaries({})
-			.then((res) => expect(res).toStrictEqual(null))
+			.then((res) => {
+				expect(spyIris).toHaveBeenCalled()
+				expect(spyIris).toHaveBeenCalledTimes(1)
+				expect(res).toStrictEqual(null)
+			})
 			.catch((e) => expect(e.httpStatusCode).toStrictEqual(400))
 	})
 
 	it('fail to createBeneficiaries: account duplicated / already been taken', () => {
+		const spyIris = jest.spyOn(iris, 'createBeneficiaries')
 		return iris
 			.createBeneficiaries({
 				name: 'Budi Susantoo',
@@ -84,6 +93,8 @@ describe('Iris.js', () => {
 			})
 			.then((res) => {
 				expect(res).toStrictEqual(null)
+				expect(spyIris).toHaveBeenCalled()
+				expect(spyIris).toHaveBeenCalledTimes(1)
 			})
 			.catch((e) => {
 				expect(e.httpStatusCode).toStrictEqual(400)
@@ -94,6 +105,7 @@ describe('Iris.js', () => {
 	})
 
 	it('able to updateBeneficiaries with existing/created account', async (done) => {
+		const spyIris = jest.spyOn(iris, 'updateBeneficiaries')
 		const res = await iris.updateBeneficiaries('budisusantoo', {
 			name: 'Budi Susantoo',
 			account: '0611101141',
@@ -101,13 +113,18 @@ describe('Iris.js', () => {
 			alias_name: 'budisusantoo',
 			email: 'budi.susantoo@example.com'
 		})
+		expect(spyIris).toHaveBeenCalled()
+		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('status')
 		expect(res.status).toStrictEqual('updated')
 		done()
 	})
 
 	it('able to getBeneficiaries', async (done) => {
+		const spyIris = jest.spyOn(iris, 'getBeneficiaries')
 		const res = await iris.getBeneficiaries()
+		expect(spyIris).toHaveBeenCalled()
+		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res).toBeInstanceOf(Array)
 		expect(res[0]).toHaveProperty('alias_name')
 		expect(res[0]).toHaveProperty('account')
@@ -115,6 +132,7 @@ describe('Iris.js', () => {
 	})
 
 	it('able to createPayouts', async (done) => {
+		const spyIris = jest.spyOn(iris, 'createPayouts')
 		const res = await iris.createPayouts({
 			payouts: [
 				{
@@ -127,6 +145,8 @@ describe('Iris.js', () => {
 				}
 			]
 		})
+		expect(spyIris).toHaveBeenCalled()
+		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('payouts')
 		expect(res.payouts).toBeInstanceOf(Array)
 		expect(res.payouts[0]).toHaveProperty('reference_no')
@@ -136,29 +156,38 @@ describe('Iris.js', () => {
 	})
 
 	it('fail to approvePayouts: role not authorized', () => {
+		const spyIris = jest.spyOn(iris, 'approvePayouts')
 		return iris
 			.approvePayouts({
 				reference_nos: ['123123123'],
 				otp: '335163'
 			})
 			.catch((e) => {
+				expect(spyIris).toHaveBeenCalled()
+				expect(spyIris).toHaveBeenCalledTimes(1)
 				expect(e.message).toMatch(/401/)
 				expect(e.message).toMatch(/not authorized/)
 			})
 	})
 
 	it('able to rejectPayouts that has been created above', async (done) => {
+		const spyIris = jest.spyOn(iris, 'rejectPayouts')
 		const res = await iris.rejectPayouts({
 			reference_nos: [globVar.createdRefNo],
 			reject_reason: 'Reason to reject payouts'
 		})
+		expect(spyIris).toHaveBeenCalled()
+		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('status')
 		expect(typeof res.status).toStrictEqual('string')
 		done()
 	})
 
 	it('able to getPayoutDetails that has been rejected above', async (done) => {
+		const spyIris = jest.spyOn(iris, 'getPayoutDetails')
 		const res = await iris.getPayoutDetails(globVar.createdRefNo)
+		expect(spyIris).toHaveBeenCalled()
+		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('status')
 		expect(typeof res.status).toStrictEqual('string')
 		expect(res.status).toStrictEqual('rejected')
@@ -167,13 +196,19 @@ describe('Iris.js', () => {
 	})
 
 	it('able to getBalance', async (done) => {
+		const spyIris = jest.spyOn(iris, 'getBalance')
 		const res = await iris.getBalance()
+		expect(spyIris).toHaveBeenCalled()
+		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(typeof res.balance).toStrictEqual('string')
 		done()
 	})
 
 	it('able to getTransactionHistory', async (done) => {
+		const spyIris = jest.spyOn(iris, 'getTransactionHistory')
 		const res = await iris.getTransactionHistory()
+		expect(spyIris).toHaveBeenCalled()
+		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res).toBeInstanceOf(Array)
 		if (res.length > 0) {
 			expect(typeof res[0].status).toStrictEqual('string')
@@ -184,7 +219,10 @@ describe('Iris.js', () => {
 	})
 
 	it('able to getTopupChannels', async (done) => {
+		const spyIris = jest.spyOn(iris, 'getTopupChannels')
 		const res = await iris.getTopupChannels()
+		expect(spyIris).toHaveBeenCalled()
+		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res).toBeInstanceOf(Array)
 		expect(typeof res[0].id).toStrictEqual('number')
 		expect(typeof res[0].virtual_account_type).toStrictEqual('string')
@@ -193,15 +231,19 @@ describe('Iris.js', () => {
 	})
 
 	it('fail to getFacilitatorBankAccounts: not authorized due to non facilitator account', () => {
-		return iris.getFacilitatorBalance().catch((e) => expect(e.message).toMatch(/not authorized/))
-	})
-
-	it('fail to getFacilitatorBalance: not authorized due to non facilitator account', () => {
-		return iris.getFacilitatorBalance().catch((e) => expect(e.message).toMatch(/not authorized/))
+		const spyIris = jest.spyOn(iris, 'getFacilitatorBalance')
+		return iris.getFacilitatorBalance().catch((e) => {
+			expect(spyIris).toHaveBeenCalled()
+			expect(spyIris).toHaveBeenCalledTimes(1)
+			expect(e.message).toMatch(/not authorized/)
+		})
 	})
 
 	it('able to getBeneficiaryBanks', async (done) => {
+		const spyIris = jest.spyOn(iris, 'getBeneficiaryBanks')
 		const res = await iris.getBeneficiaryBanks()
+		expect(spyIris).toHaveBeenCalled()
+		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res.beneficiary_banks).toBeInstanceOf(Array)
 		expect(typeof res.beneficiary_banks[0].code).toStrictEqual('string')
 		expect(typeof res.beneficiary_banks[0].name).toStrictEqual('string')
@@ -209,10 +251,10 @@ describe('Iris.js', () => {
 	})
 
 	it('able to validateBankAccount', async (done) => {
-		const res = await iris.validateBankAccount({
-			bank: 'danamon',
-			account: '000001137298'
-		})
+		const spyIris = jest.spyOn(iris, 'validateBankAccount')
+		const res = await iris.validateBankAccount({ bank: 'danamon', account: '000001137298' })
+		expect(spyIris).toHaveBeenCalled()
+		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(typeof res.account_no).toStrictEqual('string')
 		expect(typeof res.account_name).toStrictEqual('string')
 		done()

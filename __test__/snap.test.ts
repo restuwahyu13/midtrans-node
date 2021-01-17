@@ -6,6 +6,11 @@ describe('Snap', () => {
 
 	beforeEach(() => {
 		snap = new Snap(generateConfig())
+		jest.resetAllMocks()
+	})
+
+	afterAll(() => {
+		jest.clearAllMocks()
 	})
 
 	it('class should be working', () => {
@@ -18,7 +23,10 @@ describe('Snap', () => {
 	})
 
 	it('able to create transaction simple param', async (done) => {
+		const spySnap = jest.spyOn(snap, 'createTransaction')
 		const res = await snap.createTransaction(generateParamMin())
+		expect(spySnap).toHaveBeenCalled()
+		expect(spySnap).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('token')
 		expect(typeof res.token).toStrictEqual('string')
 		expect(res).toHaveProperty('redirect_url')
@@ -27,7 +35,10 @@ describe('Snap', () => {
 	})
 
 	it('able to create transaction max param', async (done) => {
+		const spySnap = jest.spyOn(snap, 'createTransaction')
 		const res = await snap.createTransaction(generateParamMax())
+		expect(spySnap).toHaveBeenCalled()
+		expect(spySnap).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('token')
 		expect(typeof res.token).toStrictEqual('string')
 		expect(res).toHaveProperty('redirect_url')
@@ -36,19 +47,30 @@ describe('Snap', () => {
 	})
 
 	it('able to create transaction token', async (done) => {
+		const spySnap = jest.spyOn(snap, 'createTransactionToken')
 		const token = await snap.createTransactionToken(generateParamMin())
+		expect(spySnap).toHaveBeenCalled()
+		expect(spySnap).toHaveBeenCalledTimes(1)
 		expect(typeof token).toStrictEqual('string')
 		done()
 	})
 
 	it('able to create transaction redirect_url', async (done) => {
+		const spySnap = jest.spyOn(snap, 'createTransactionRedirectUrl')
 		const redirect_url = await snap.createTransactionRedirectUrl(generateParamMin())
+		expect(spySnap).toHaveBeenCalled()
+		expect(spySnap).toHaveBeenCalledTimes(1)
 		expect(typeof redirect_url).toStrictEqual('string')
 		done()
 	})
 
 	it('fail to status transaction 404 with non exists order_id', () => {
-		return snap.transaction.status('non exists order_id').catch((e) => expect(e.message).toMatch(/404/))
+		const spySnap = jest.spyOn(snap.transaction, 'status')
+		return snap.transaction.status('non exists order_id').catch((e) => {
+			expect(spySnap).toHaveBeenCalled()
+			expect(spySnap).toHaveBeenCalledTimes(1)
+			expect(e.message).toMatch(/404/)
+		})
 	})
 
 	// it('able to status transaction', async (done) => {
@@ -80,29 +102,52 @@ describe('Snap', () => {
 	})
 
 	it('fail to status transaction 401 with no serverKey', () => {
+		const spySnap = jest.spyOn(snap.transaction, 'status')
 		snap.apiConfig.set({ serverKey: '' })
-		return snap.transaction.status('non exists order_id').catch((e) => expect(e.message).toMatch(/401/))
+		return snap.transaction.status('non exists order_id').catch((e) => {
+			expect(spySnap).toHaveBeenCalled()
+			expect(spySnap).toHaveBeenCalledTimes(1)
+			expect(e.message).toMatch(/401/)
+		})
 	})
 
 	it('fail to create transaction 401 with no serverKey', () => {
+		const spySnap = jest.spyOn(snap, 'createTransaction')
 		snap.apiConfig.set({ serverKey: '' })
-		return snap.createTransaction(generateParamMin()).catch((e) => expect(e.message).toMatch(/401/))
+		return snap.createTransaction(generateParamMin()).catch((e) => {
+			expect(spySnap).toHaveBeenCalled()
+			expect(spySnap).toHaveBeenCalledTimes(1)
+			expect(e.message).toMatch(/401/)
+		})
 	})
 
 	it('fail to create transaction 400 with no param', () => {
-		return snap.createTransaction().catch((e) => expect(e.message).toMatch(/400/))
+		const spySnap = jest.spyOn(snap, 'createTransaction')
+		return snap.createTransaction().catch((e) => {
+			expect(spySnap).toHaveBeenCalled()
+			expect(spySnap).toHaveBeenCalledTimes(1)
+			expect(e.message).toMatch(/400/)
+		})
 	})
 
 	it('fail to create transaction with zero gross_amount', () => {
-		const param = generateParamMin()
-		param.transaction_details.gross_amount = 0
-		return snap.createTransaction().catch((e) => expect(e.message).toMatch(/400/))
-	})
-
-	it('able to throw custom MidtransError', () => {
+		const spySnap = jest.spyOn(snap, 'createTransaction')
 		const param = generateParamMin()
 		param.transaction_details.gross_amount = 0
 		return snap.createTransaction().catch((e) => {
+			expect(spySnap).toHaveBeenCalled()
+			expect(spySnap).toHaveBeenCalledTimes(1)
+			expect(e.message).toMatch(/400/)
+		})
+	})
+
+	it('able to throw custom MidtransError', () => {
+		const spySnap = jest.spyOn(snap, 'createTransaction')
+		const param = generateParamMin()
+		param.transaction_details.gross_amount = 0
+		return snap.createTransaction().catch((e) => {
+			expect(spySnap).toHaveBeenCalled()
+			expect(spySnap).toHaveBeenCalledTimes(1)
 			expect(e.message).toMatch(/400/)
 			expect(e.httpStatusCode).toStrictEqual(400)
 			expect(e.ApiResponse).toBeInstanceOf(Object)
@@ -114,7 +159,6 @@ describe('Snap', () => {
 
 	it('able to set X-Override-Notification request header via exposed http_client object', () => {
 		let customUrl = 'https://mysite.com/midtrans-notification-handler'
-
 		snap.httpClient.httpClient.interceptors.request.use(
 			(config) => {
 				// Do something before request is sent
@@ -124,7 +168,6 @@ describe('Snap', () => {
 			// Do something with request error
 			(error) => Promise.reject(error)
 		)
-
 		snap.httpClient.httpClient.defaults.headers.common['X-Override-Notification'] = customUrl
 		snap.createTransactionToken().catch((e) => {
 			expect(snap.httpClient.httpClient.defaults).toHaveProperty('headers')

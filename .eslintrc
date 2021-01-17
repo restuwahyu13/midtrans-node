@@ -25,7 +25,8 @@
 		"jest/no-done-callback": 0,
 		"eqeqeq": 1,
 		"@typescript-eslint/no-this-alias": 1,
-		"jest/valid-expect-in-promise": 1
+		"jest/valid-expect-in-promise": 1,
+		"jest/no-conditional-expect": 1
 	},
 	"env": {
 		"node": true,

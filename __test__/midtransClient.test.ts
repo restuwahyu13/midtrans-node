@@ -6,6 +6,11 @@ describe('MidtransClient', () => {
 
 	beforeEach(() => {
 		midtransClient = MidtransClient
+		jest.resetAllMocks()
+	})
+
+	afterAll(() => {
+		jest.clearAllMocks()
 	})
 
 	it('have Snap class', () => {
@@ -17,7 +22,7 @@ describe('MidtransClient', () => {
 	})
 
 	it('able to create CoreApi instance', () => {
-		let core = new midtransClient.CoreApi(generateConfig())
+		const core = new midtransClient.CoreApi(generateConfig())
 		expect(typeof core).toStrictEqual('object')
 		expect(typeof core.apiConfig.get().serverKey).toStrictEqual('string')
 		expect(typeof core.apiConfig.get().clientKey).toStrictEqual('string')
@@ -25,11 +30,19 @@ describe('MidtransClient', () => {
 	})
 
 	it('able to create Snap instance', () => {
-		let snap = new midtransClient.Snap(generateConfig())
+		const snap = new midtransClient.Snap(generateConfig())
 		expect(typeof snap).toStrictEqual('object')
 		expect(typeof snap.apiConfig.get().serverKey).toStrictEqual('string')
 		expect(typeof snap.apiConfig.get().clientKey).toStrictEqual('string')
 		expect(typeof snap.apiConfig.get().isProduction).toStrictEqual('boolean')
+	})
+
+	it('able to create Iris instance', () => {
+		const iris = new midtransClient.Iris(generateConfig())
+		expect(typeof iris).toStrictEqual('object')
+		expect(typeof iris.apiConfig.get().serverKey).toStrictEqual('string')
+		expect(typeof iris.apiConfig.get().clientKey).toStrictEqual('string')
+		expect(typeof iris.apiConfig.get().isProduction).toStrictEqual('boolean')
 	})
 })
 
