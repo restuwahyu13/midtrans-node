@@ -1,7 +1,7 @@
 {
 	"name": "@midtrans/node",
 	"version": "0.0.1",
-	"description": "Unofficial Midtrans Payment API Client for Node JS",
+	"description": "Unoffficial Midtrans Payment API Client for Node JS | Alternative for Midtrans Official Module",
 	"main": "./dist/index.js",
 	"files": [
 		"/dist/**"
@@ -19,13 +19,16 @@
 		"format": "prettier src/**/*.{ts,spec.ts,test.ts} --write",
 		"lint:fix": "npm run format && npm run lint"
 	},
-	"author": "restuwahyu13",
-	"repository": {
-		"url": "https://github.com/restuwahyu13/node-midtrans-client"
+	"author": {
+		"name": "Restu Wahyu Saputra",
+		"email": "restuwahyu13@gmail.com"
 	},
-	"homepage": "https://github.com/restuwahyu13/node-midtrans-client#readme",
+	"repository": {
+		"url": "https://github.com/restuwahyu13/midtrans-node"
+	},
+	"homepage": "https://github.com/restuwahyu13/midtrans-node#readme",
 	"bugs": {
-		"url": "https://github.com/restuwahyu13/node-midtrans-client/issues"
+		"url": "https://github.com/restuwahyu13/midtrans-node/issues"
 	},
 	"license": "MIT",
 	"engines": {
@@ -34,10 +37,13 @@
 	},
 	"keywords": [
 		"payment",
-		"gateway",
-		"api",
+		"payment gateway",
 		"midtrans",
-		"node"
+		"midtrans-client",
+		"npm package",
+		"nodejs",
+		"javascript",
+		"typescript"
 	],
 	"dependencies": {
 		"axios": "^0.21.1",
