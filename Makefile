@@ -8,7 +8,9 @@ DOCKER := docker
 
 dkb:
 
-	${DOCKER} build .
+ifdef tag
+	${DOCKER} build -t ${tag} .
+endif
 
 #########################
 ## BUILD APPLICATION PROD
@@ -36,6 +38,13 @@ testw:
 
 testc:
 	${NPM} ${NPM_FLAGS} test:coverage
+
+#########################
+## NPM INSTALL AND FIX
+#########################
+
+install:
+	${NPM} install && ${NPM} audit fix
 
 #########################
 ## BUILD AUTOMATION
