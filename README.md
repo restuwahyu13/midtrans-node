@@ -5,4 +5,4 @@
 
 ### NOTED
 
-**Sedang Dalam Tahap Maintance**
+**Sudah siap untuk digunakan**
