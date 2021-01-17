@@ -44,6 +44,7 @@ export class HttpClient {
 			// Non GET http request will use first available param as JSON payload body
 			requestBody = options.requestPayload
 		}
+
 		return new Promise(async (resolve, reject) => {
 			if (typeof requestBody === 'string' || typeof requestParam === 'string') {
 				// Reject if body is not JSON

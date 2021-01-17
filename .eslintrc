@@ -22,7 +22,10 @@
 		"prefer-const": 0,
 		"camelcase": 0,
 		"@typescript-eslint/no-namespace": 0,
-		"jest/no-done-callback": 0
+		"jest/no-done-callback": 0,
+		"eqeqeq": 1,
+		"@typescript-eslint/no-this-alias": 1,
+		"jest/valid-expect-in-promise": 1
 	},
 	"env": {
 		"node": true,

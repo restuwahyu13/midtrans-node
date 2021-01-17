@@ -11,6 +11,8 @@ node_modules
 .prettierrc
 .travis.yml
 config.ts
+Dockerfile
+jest.config.js
 Makefile
 tsconfig.json
 package-lock.json
