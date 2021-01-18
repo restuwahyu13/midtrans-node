@@ -10,7 +10,7 @@ COPY package*.json \
   .prettierrc \
   .travis.yml \
   config.ts \
-  jest.config.js \
+  jest.config.ts \
   Makefile ./
 COPY ./ /app
 RUN apk add make \
