@@ -1,7 +1,6 @@
 ## BUILD STAGE ONE
 
 FROM node:14-alpine as midtrans-client
-WORKDIR /app
 COPY package*.json \
   .coveralls.yml \
   .editorconfig \
@@ -12,13 +11,13 @@ COPY package*.json \
   config.ts \
   jest.config.ts \
   Makefile ./
-COPY ./ /app
+COPY . ./
 RUN apk add make \
   && make install
 
 ## BUILD STAGE TWO
 
 FROM midtrans-client
-WORKDIR /app
 COPY --from=midtrans-client ./ /app
+WORKDIR /app
 RUN make build

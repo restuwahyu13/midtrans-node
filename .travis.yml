@@ -1,12 +1,17 @@
+dist: xenial
+
 language: node_js
 
 node_js:
   - node
   - 14
-  - 13
-  - 12
-  - 11
-  - 10
+
+env:
+  global:
+    - COVERALLS_SERVICE_NAME=travis-pro
+    - COVERALLS_REPO_TOKEN=YT53lAbINN4drLFtqMe4ZaP6uwEhVsOMf
+    - COVERALLS_GIT_BRANCH=main
+    - COVERALLS_PARALLEL=true
 
 services:
   - docker
@@ -17,3 +22,7 @@ script: docker image ls
 
 os:
   - linux
+
+notifications:
+  webhooks: https://coveralls.io/webhook?repo_token=YT53lAbINN4drLFtqMe4ZaP6uwEhVsOMf
+  email: restuwahyu13@mail.com
