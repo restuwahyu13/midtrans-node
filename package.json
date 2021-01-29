@@ -1,6 +1,6 @@
 {
 	"name": "@midtrans/node",
-	"version": "0.0.1",
+	"version": "0.0.1-rc",
 	"description": "Unoffficial Midtrans Payment API Client for Node JS | Alternative for Midtrans Official Module",
 	"main": "./dist/index.js",
 	"files": [
@@ -32,7 +32,7 @@
 	},
 	"license": "MIT",
 	"engines": {
-		"node": ">=10",
+		"node": ">=12",
 		"npm": ">=6"
 	},
 	"keywords": [
@@ -42,6 +42,7 @@
 		"midtrans-client",
 		"npm package",
 		"nodejs",
+		"node_modules",
 		"javascript",
 		"typescript"
 	],
