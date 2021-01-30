@@ -8,29 +8,27 @@ env:
     - COVERALLS_SERVICE_NAME=travis-pro
     - COVERALLS_REPO_TOKEN=YT53lAbINN4drLFtqMe4ZaP6uwEhVsOMf
     - COVERALLS_GIT_BRANCH=main
-jobs:
-  fast_finish: true
-  include:
-    - addons:
-        apt:
-          packages:
-            - make
-      before_install:
-        - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
-        - git lfs pull
-        - npm ci
-      branches:
-        only:
-          - main
-      git:
-        lfs_skip_smudge: true
-      script: make build
-      cache:
-        - npm
-        - packages
+addons:
+  apt:
+    packages:
+      - make
+before_install:
+  - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+  - git lfs pull
+branches:
+  only:
+    - main
+git:
+  lfs_skip_smudge: true
+script: make build
+cache:
+  - npm
+  - packages
 dist: xenial
 os:
   - linux
+jobs:
+  fast_finish: true
 notifications:
   webhooks: https://coveralls.io/webhook?repo_token=YT53lAbINN4drLFtqMe4ZaP6uwEhVsOMf
   email: restuwahyu13@gmail.com
