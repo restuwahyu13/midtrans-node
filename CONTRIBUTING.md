@@ -1,6 +1,6 @@
 ## Contributing
 
-- Fork it **https://github.com/restuwahyu13/@midtrans/node/fork**
+- Fork it **https://github.com/restuwahyu13/midtrans-node/fork**
 - Create your feature branch `git checkout -b my-new-feature`
 - Add changes `git add changed-path`
 - Commit your changes `git commit -m 'Add some feature'`

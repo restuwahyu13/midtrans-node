@@ -1,28 +1,36 @@
-dist: xenial
-
 language: node_js
-
 node_js:
   - node
   - 14
-
 env:
   global:
+    - COVERALLS_PARALLEL=true
     - COVERALLS_SERVICE_NAME=travis-pro
     - COVERALLS_REPO_TOKEN=YT53lAbINN4drLFtqMe4ZaP6uwEhVsOMf
     - COVERALLS_GIT_BRANCH=main
-    - COVERALLS_PARALLEL=true
-
-services:
-  - docker
-
-before_install: docker build -t midtrans/client .
-
-script: docker image ls
-
+jobs:
+  fast_finish: true
+  include:
+    - addons:
+        apt:
+          packages:
+            - make
+      before_install:
+        - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+        - git lfs pull
+        - npm ci
+      branches:
+        only:
+          - main
+      git:
+        lfs_skip_smudge: true
+      script: make build
+      cache:
+        - npm
+        - packages
+dist: xenial
 os:
   - linux
-
 notifications:
   webhooks: https://coveralls.io/webhook?repo_token=YT53lAbINN4drLFtqMe4ZaP6uwEhVsOMf
-  email: restuwahyu13@mail.com
+  email: restuwahyu13@gmail.com
