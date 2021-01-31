@@ -35,19 +35,19 @@ export interface RejectPayoutsOptions {
 	readonly reject_reason: string
 }
 
-export interface PayoutDetailsOptions {
-	readonly amount: string
-	readonly beneficiary_name: string
-	readonly beneficiary_account: string
-	readonly bank: string
-	readonly reference_no: string
-	readonly notes: string
-	readonly beneficiary_email: string
-	readonly status: string
-	readonly created_by: string
-	readonly created_at?: string
-	readonly updated_at?: string
-}
+// export interface PayoutDetailsOptions {
+// 	readonly amount: string
+// 	readonly beneficiary_name: string
+// 	readonly beneficiary_account: string
+// 	readonly bank: string
+// 	readonly reference_no: string
+// 	readonly notes: string
+// 	readonly beneficiary_email: string
+// 	readonly status: string
+// 	readonly created_by: string
+// 	readonly created_at?: string
+// 	readonly updated_at?: string
+// }
 
 export interface TransactionHistoryOptions {
 	readonly from_date: string

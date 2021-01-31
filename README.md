@@ -44,6 +44,10 @@
     + [refund](#refund-transactionid-string-parameter-object-promise)
     + [refundDirect](#refunddirect-transactionid-string-parameter-object-promise)
     + [notification](#notification-notification-object--promise)
+- [Custome Usage](#custome-usage)
+    + [charge](#charge-parameter-object---promise)
+    + [createTransaction](#createtransaction-parameter-object--promise)
+- [Custome Reference](custome-Reference)
 - [Testing](#testing)
 - [Bugs](#bugs)
 - [Contributing](#contributing)
@@ -63,11 +67,11 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
   
 - #### Iris API Documentation
 
-  follow this link for more related information [Iris Midtrans API Reference](https://snap-docs.midtrans.com/) official
+  follow this link for more related information [Iris Midtrans API Reference](https://iris-docs.midtrans.com/) official
 
 - #### Snap API Documentation
 
-  follow this link for more related information [Snap Midtrans API Reference](https://iris-docs.midtrans.com/) official
+  follow this link for more related information [Snap Midtrans API Reference](https://snap-docs.midtrans.com/) official
 
 ## API Reference
 
@@ -1742,6 +1746,286 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        .then(console.log)
        .catch(console.error)
     ```
+
+### Custome Usage
+  
+  For custom usage already using type definitions for ease of use and for all functions that use parameters all have type definitions.
+
+  - #### charge( parameter: object ) : Promise
+
+    + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.charge({
+          chargeBankTransfer: {
+            payment_type: 'bank_transfer',
+            bank_transfer: { bank: 'bca' },
+            transaction_details: {
+              order_id: uuidv4(),
+              gross_amount: 100000
+            },
+            item_details: [
+              {
+               id: uuidv4(),
+               name: 'ayam bakar sambal balado'
+               quantity: 2
+               price: 25000
+              },
+              {
+               id: uuidv4(),
+               name: 'sop iga bakar daging lunak'
+               quantity: 1
+               price: 30000
+              },
+              {
+               id: uuidv4(),
+               name: 'just alpuckat'
+               quantity: 2
+               price: 10000
+              }
+            ],
+            customer_details: {
+              first_name: 'restu wahyu',
+              last_name: ' saputra',
+              email: 'restuwahyu13@zetmail.com',
+              phone: '087820154350',
+              billing_address:  {
+                address: 'jl.sibuta gua hantu no.120',
+                city: 'Depok',
+                postal_code: '16436'
+              }
+            }
+         }
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.charge({
+          chargeBankTransfer: {
+            payment_type: 'bank_transfer',
+            bank_transfer: { bank: 'bca' },
+            transaction_details: {
+              order_id: uuidv4(),
+              gross_amount: 100000
+            },
+            item_details: [
+              {
+               id: uuidv4(),
+               name: 'ayam bakar sambal balado'
+               quantity: 2
+               price: 25000
+              },
+              {
+               id: uuidv4(),
+               name: 'sop iga bakar daging lunak'
+               quantity: 1
+               price: 30000
+              },
+              {
+               id: uuidv4(),
+               name: 'just alpuckat'
+               quantity: 2
+               price: 10000
+              }
+            ],
+            customer_details: {
+              first_name: 'restu wahyu',
+              last_name: ' saputra',
+              email: 'restuwahyu13@zetmail.com',
+              phone: '087820154350',
+              billing_address:  {
+                address: 'jl.sibuta gua hantu no.120',
+                city: 'Depok',
+                postal_code: '16436'
+              }
+            }
+         }
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const snap = new MidtransClient.Snap({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       snap.createTransaction({
+          BcaVirtualAccount: {
+            payment_type: 'bank_transfer',
+            bank_transfer: { bank: 'bca' },
+            transaction_details: {
+              order_id: uuidv4(),
+              gross_amount: 100000
+            },
+            item_details: [
+              {
+               id: uuidv4(),
+               name: 'ayam bakar sambal balado'
+               quantity: 2
+               price: 25000
+              },
+              {
+               id: uuidv4(),
+               name: 'sop iga bakar daging lunak'
+               quantity: 1
+               price: 30000
+              },
+              {
+               id: uuidv4(),
+               name: 'just alpuckat'
+               quantity: 2
+               price: 20000
+              }
+            ],
+            customer_details: {
+              first_name: 'restu wahyu',
+              last_name: ' saputra',
+              email: 'restuwahyu13@zetmail.com',
+              phone: '087820154350',
+              billing_address:  {
+                address: 'jl.sibuta gua hantu no.120',
+                city: 'Depok',
+                postal_code: '16436'
+              }
+            }
+         }
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const snap = new MidtransClient.Snap({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       snap.createTransaction({
+          BcaVirtualAccount: {
+            payment_type: 'bank_transfer',
+            bank_transfer: { bank: 'bca' },
+            transaction_details: {
+              order_id: uuidv4(),
+              gross_amount: 100000
+            },
+            item_details: [
+              {
+               id: uuidv4(),
+               name: 'ayam bakar sambal balado'
+               quantity: 2
+               price: 25000
+              },
+              {
+               id: uuidv4(),
+               name: 'sop iga bakar daging lunak'
+               quantity: 1
+               price: 30000
+              },
+              {
+               id: uuidv4(),
+               name: 'just alpuckat'
+               quantity: 2
+               price: 20000
+              }
+            ],
+            customer_details: {
+              first_name: 'restu wahyu',
+              last_name: ' saputra',
+              email: 'restuwahyu13@zetmail.com',
+              phone: '087820154350',
+              billing_address:  {
+                address: 'jl.sibuta gua hantu no.120',
+                city: 'Depok',
+                postal_code: '16436'
+              }
+            }
+         }
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
+### Custome Reference
+
+- #### Custome Core API Service - charge Request
+  ```javascript
+  chargeBankTransfer?: ChargeBankTransfer
+	chargeCreditCard?: ChargeCreditCard
+	chargeNon3DS?: ChargeNon3DS
+	charge3DS?: Charge3DS
+	chargePermata?: ChargePermataVirtualAccount
+	chargeBca?: ChargeBcaVirtualAccount
+	chargeMandiri?: ChargeMandiriVirtualAccount
+	chargeBni?: ChargeBniVirtualAccount
+	chargeBri?: ChargeBriVirtualAccount
+	chargeBcaKlikPay?: ChargeBcaKlikpay
+	chargeKlikBca?: ChargeKlikBca
+	chargeBriEpay?: ChargeBriEpay
+	chargeChimbClick?: ChargeCimbClick
+	chargeDanamonOnline?: ChargeDanamonOnline
+	chargeQris?: ChargeQris
+	chargeGopay?: ChargeGopay
+	chargeShopeePay?: ChargeShoopePay
+	chargeIndomaret?: ChargeIndomaret
+	chargeAlfamart?: ChargeAlfamart
+	chargeAkuLaku?: ChargeAkuLaku
+  ```
+- #### Custome Snap Service - createTransaction Request
+  ```javascript
+ 	snapCreditCard?: CreditCard
+	snapFull?: snapFull
+	snapBca?: BcaVirtualAccount
+	snapPermata?: PermataVirtualAccount
+	snapBni?: BniVirtualAccount
+	snapBri?: BriVirtualAccount
+	snapMandiri?: MandiriVirtualAccount
+	snapGopay?: Gopay
+	snapKlikBca?: KlikBCA
+	snapBcaKlikPay?: BcaKlikPay
+	snapCimbKlik?: CimbKlik
+	snapDanamonOnline?: DanamonOnlineBanking
+	snapBriEpay?: BriEpay
+	snapIndomaret?: Indomaret
+	snapAlfamart?: Alfamart
+	snapAkuLaku?: AkuLaku
+	snapShopePay?: ShopeePay
+  ```
+
 ### Testing
 
 - Testing Via Local
