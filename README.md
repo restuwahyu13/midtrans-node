@@ -1866,6 +1866,8 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        .then(console.log)
        .catch(console.error)
     ```
+  
+  - #### createTransaction( parameter: object ): Promise
 
     + ##### Example Usage Using CommonJS
   
