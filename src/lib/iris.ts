@@ -5,9 +5,9 @@ import {
 	IrisOptions,
 	BeneficiariesOptions,
 	PayoutOptions,
-	ApprovePayoutsOptions,
+	ApprovePayoutOptions,
 	RejectPayoutsOptions,
-	TransactionHistory,
+	TransactionHistoryOptions,
 	ValidateBankAccountOptions
 } from '../types/iris'
 
@@ -125,7 +125,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public approvePayouts<T extends Partial<ApprovePayoutsOptions>>(
+	public approvePayouts<T extends Partial<ApprovePayoutOptions>>(
 		parameter: T | Record<string, any>
 	): Promise<Record<string, any>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/approve'
@@ -176,7 +176,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public getTransactionHistory<T extends Partial<TransactionHistory>>(
+	public getTransactionHistory<T extends Partial<TransactionHistoryOptions>>(
 		parameter: T | Record<string, any>
 	): Promise<Record<string, any>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/statements'

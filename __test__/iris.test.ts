@@ -214,8 +214,8 @@ describe('Iris.js', () => {
 			expect(typeof res[0].status).toStrictEqual('string')
 			expect(typeof res[0].reference_no).toStrictEqual('string')
 			expect(typeof res[0].beneficiary_account).toStrictEqual('string')
+			done()
 		}
-		done()
 	})
 
 	it('able to getTopupChannels', async (done) => {

@@ -73,15 +73,6 @@ describe('Snap', () => {
 		})
 	})
 
-	// it('able to status transaction', async (done) => {
-	// 	const res = await snap.transaction.status('node-midtransclient-test-1540974864')
-	// 	expect(typeof res.status_code).toStrictEqual('string')
-	// 	expect(res.status_code).toStrictEqual('201')
-	// 	expect(typeof res.transaction_status).toStrictEqual('string')
-	// 	expect(res.transaction_status).toStrictEqual('pending')
-	// 	done()
-	// })
-
 	it('able to re-set serverKey via setter', () => {
 		snap.apiConfig.set({ serverKey: '', clientKey: 'abc' })
 		expect(snap.apiConfig.get().serverKey).toStrictEqual('')
@@ -157,7 +148,7 @@ describe('Snap', () => {
 		})
 	})
 
-	it('able to set X-Override-Notification request header via exposed http_client object', () => {
+	it('able to set X-Override-Notification request header via exposed http_client object', (done) => {
 		let customUrl = 'https://mysite.com/midtrans-notification-handler'
 		snap.httpClient.httpClient.interceptors.request.use(
 			(config) => {
@@ -169,10 +160,11 @@ describe('Snap', () => {
 			(error) => Promise.reject(error)
 		)
 		snap.httpClient.httpClient.defaults.headers.common['X-Override-Notification'] = customUrl
-		snap.createTransactionToken().catch((e) => {
+		snap.createTransactionToken().catch(() => {
 			expect(snap.httpClient.httpClient.defaults).toHaveProperty('headers')
 			expect(typeof snap.httpClient.httpClient.defaults.headers.common).toStrictEqual('object')
 			expect(snap.httpClient.httpClient.defaults.headers.common['X-Override-Notification']).toStrictEqual(customUrl)
+			done()
 		})
 	})
 })

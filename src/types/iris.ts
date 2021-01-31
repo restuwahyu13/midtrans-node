@@ -25,9 +25,9 @@ export interface PayoutOptions {
 	readonly payouts: SubPayoutOptions | SubPayoutOptions[]
 }
 
-export interface ApprovePayoutsOptions {
+export interface ApprovePayoutOptions {
 	readonly reference_nos: string[]
-	readonly otp: string
+	readonly otp?: string
 }
 
 export interface RejectPayoutsOptions {
@@ -49,7 +49,7 @@ export interface PayoutDetailsOptions {
 	readonly updated_at?: string
 }
 
-export interface TransactionHistory {
+export interface TransactionHistoryOptions {
 	readonly from_date: string
 	readonly to_date: string
 }

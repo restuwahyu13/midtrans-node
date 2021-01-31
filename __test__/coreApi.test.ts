@@ -47,6 +47,7 @@ describe('CoreApi', () => {
 		expect(typeof res.token_id).toStrictEqual('string')
 		expect(res.status_code).toStrictEqual('200')
 		tokenId = res.token_id
+		console.log('xxxx', tokenId)
 		done()
 	})
 
