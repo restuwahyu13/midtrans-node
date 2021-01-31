@@ -674,7 +674,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        })
         
        iris.rejectPayouts({
-			  reference_nos: ['20543502291'],
+			  reference_nos: ['eyad5swd9b026c5kmr'],
 			  reject_reason: 'Reason to reject payouts'
 		  })
        .then(console.log)
@@ -1014,76 +1014,734 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
 
   + #### createTransaction( parameter: object ): Promise
 
-  | Method            | Request | Description                                                       |
-  | ----------------- | ------- | ----------------------------------------------------------------- |
-  | createTransaction | *POST*  | create transaction payment using snap integaration payment method | 
+    | Method            | Request | Description                                                       | 
+    | ----------------- | ------- | ----------------------------------------------------------------- |
+    | createTransaction | *POST*  | create transaction payment using snap integaration payment method |
 
-  + #### createTransactionToken(): Promise
+    + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const snap = new MidtransClient.Snap({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       snap.createTransaction({
+        	payment_type: 'bank_transfer',
+          bank_transfer: { bank: 'bca' },
+          transaction_details: {
+            order_id: uuidv4(),
+            gross_amount: 100000
+          },
+          item_details: [
+            {
+             id: uuidv4(),
+             name: 'ayam bakar sambal balado'
+             quantity: 2
+             price: 25000
+            },
+            {
+             id: uuidv4(),
+             name: 'sop iga bakar daging lunak'
+             quantity: 1
+             price: 30000
+            },
+            {
+             id: uuidv4(),
+             name: 'just alpuckat'
+             quantity: 2
+             price: 10000
+            }
+          ],
+          customer_details: {
+          	first_name: 'restu wahyu',
+            last_name: ' saputra',
+            email: 'restuwahyu13@zetmail.com',
+            phone: '087820154350',
+            billing_address:  {
+            	address: 'jl.sibuta gua hantu no.120',
+              city: 'Depok',
+              postal_code: '16436'
+            }
+          }
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
 
-  | Method                 | Request     | Description                                    |
-  | ---------------------- | ----------- | ---------------------------------------------- |
-  | createTransactionToken | *undefined* | Wrapper function that call `createTransaction` |
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const snap = new MidtransClient.Snap({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       snap.createTransaction({
+        	payment_type: 'bank_transfer',
+          bank_transfer: { bank: 'bca' },
+          transaction_details: {
+            order_id: uuidv4(),
+            gross_amount: 100000
+          },
+          item_details: [
+            {
+             id: uuidv4(),
+             name: 'ayam bakar sambal balado'
+             quantity: 2
+             price: 25000
+            },
+            {
+             id: uuidv4(),
+             name: 'sop iga bakar daging lunak'
+             quantity: 1
+             price: 30000
+            },
+            {
+             id: uuidv4(),
+             name: 'just alpuckat'
+             quantity: 2
+             price: 20000
+            }
+          ],
+          customer_details: {
+          	first_name: 'restu wahyu',
+            last_name: ' saputra',
+            email: 'restuwahyu13@zetmail.com',
+            phone: '087820154350',
+            billing_address:  {
+            	address: 'jl.sibuta gua hantu no.120',
+              city: 'Depok',
+              postal_code: '16436'
+            }
+          }
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
 
-  + #### createTransactionRedirectUrl(): Promise
+  + #### createTransactionToken( parameter: object ): Promise
 
-  | Method                       | Request     | Description                                    |
-  | ---------------------------- | ----------- | ---------------------------------------------- |
-  | createTransactionRedirectUrl | *undefined* | Wrapper function that call `createTransaction` |
+    | Method                 | Request | Description                                                             |
+    | ---------------------- | ------- | ----------------------------------------------------------------------- |
+    | createTransactionToken | *POST*  | create transaction payment token using snap integaration payment method | 
+
+    + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const snap = new MidtransClient.Snap({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       snap.createTransactionToken({
+        	payment_type: 'bank_transfer',
+          bank_transfer: { bank: 'bca' },
+          transaction_details: {
+            order_id: uuidv4(),
+            gross_amount: 100000
+          },
+          item_details: [
+            {
+             id: uuidv4(),
+             name: 'ayam bakar sambal balado'
+             quantity: 2
+             price: 25000
+            },
+            {
+             id: uuidv4(),
+             name: 'sop iga bakar daging lunak'
+             quantity: 1
+             price: 30000
+            },
+            {
+             id: uuidv4(),
+             name: 'just alpuckat'
+             quantity: 2
+             price: 10000
+            }
+          ],
+          customer_details: {
+          	first_name: 'restu wahyu',
+            last_name: ' saputra',
+            email: 'restuwahyu13@zetmail.com',
+            phone: '087820154350',
+            billing_address:  {
+            	address: 'jl.sibuta gua hantu no.120',
+              city: 'Depok',
+              postal_code: '16436'
+            }
+          }
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const snap = new MidtransClient.Snap({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       snap.createTransactionToken({
+        	payment_type: 'bank_transfer',
+          bank_transfer: { bank: 'bca' },
+          transaction_details: {
+            order_id: uuidv4(),
+            gross_amount: 100000
+          },
+          item_details: [
+            {
+             id: uuidv4(),
+             name: 'ayam bakar sambal balado'
+             quantity: 2
+             price: 25000
+            },
+            {
+             id: uuidv4(),
+             name: 'sop iga bakar daging lunak'
+             quantity: 1
+             price: 30000
+            },
+            {
+             id: uuidv4(),
+             name: 'just alpuckat'
+             quantity: 2
+             price: 20000
+            }
+          ],
+          customer_details: {
+          	first_name: 'restu wahyu',
+            last_name: ' saputra',
+            email: 'restuwahyu13@zetmail.com',
+            phone: '087820154350',
+            billing_address:  {
+            	address: 'jl.sibuta gua hantu no.120',
+              city: 'Depok',
+              postal_code: '16436'
+            }
+          }
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+  + #### createTransactionRedirectUrl( parameter: object ): Promise
+
+    | Method                       | Request | Description                                                                |
+    | ---------------------------- | ------- | -------------------------------------------------------------------------- |
+    | createTransactionRedirectUrl | *POST*  | create transaction payment redirect using snap integaration payment method | 
+
+    + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const snap = new MidtransClient.Snap({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       snap.createTransactionRedirectUrl({
+        	payment_type: 'bank_transfer',
+          bank_transfer: { bank: 'bca' },
+          transaction_details: {
+            order_id: uuidv4(),
+            gross_amount: 100000
+          },
+          item_details: [
+            {
+             id: uuidv4(),
+             name: 'ayam bakar sambal balado'
+             quantity: 2
+             price: 25000
+            },
+            {
+             id: uuidv4(),
+             name: 'sop iga bakar daging lunak'
+             quantity: 1
+             price: 30000
+            },
+            {
+             id: uuidv4(),
+             name: 'just alpuckat'
+             quantity: 2
+             price: 10000
+            }
+          ],
+          customer_details: {
+          	first_name: 'restu wahyu',
+            last_name: ' saputra',
+            email: 'restuwahyu13@zetmail.com',
+            phone: '087820154350',
+            billing_address:  {
+            	address: 'jl.sibuta gua hantu no.120',
+              city: 'Depok',
+              postal_code: '16436'
+            }
+          }
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const snap = new MidtransClient.Snap({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       snap.createTransactionRedirectUrl({
+        	payment_type: 'bank_transfer',
+          bank_transfer: { bank: 'bca' },
+          transaction_details: {
+            order_id: uuidv4(),
+            gross_amount: 100000
+          },
+          item_details: [
+            {
+             id: uuidv4(),
+             name: 'ayam bakar sambal balado'
+             quantity: 2
+             price: 25000
+            },
+            {
+             id: uuidv4(),
+             name: 'sop iga bakar daging lunak'
+             quantity: 1
+             price: 30000
+            },
+            {
+             id: uuidv4(),
+             name: 'just alpuckat'
+             quantity: 2
+             price: 20000
+            }
+          ],
+          customer_details: {
+          	first_name: 'restu wahyu',
+            last_name: ' saputra',
+            email: 'restuwahyu13@zetmail.com',
+            phone: '087820154350',
+            billing_address:  {
+            	address: 'jl.sibuta gua hantu no.120',
+              city: 'Depok',
+              postal_code: '16436'
+            }
+          }
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
 
 ### Transaction API Services
 
   + #### status( transactionId: string ): Promise
 
-  | Method | Request | Description                                                                     |
-  | ------ | ------- | ------------------------------------------------------------------------------- |
-  | status | *GET*   | Get information status of a transaction with certain order_id or transaction_id |
+    | Method | Request | Description                                                                     |
+    | ------ | ------- | ------------------------------------------------------------------------------- |
+    | status | *GET*   | Get information status of a transaction with certain order_id or transaction_id |
+
+    + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
 
   + #### statusb2b( transactionId: string ): Promise
 
-  | Method    | Request | Description                                                                                       |
-  | --------- | ------- | ------------------------------------------------------------------------------------------------- |
-  | statusb2b | *GET*   | Get information status of multiple B2B transactions related to certain order_id or transaction_id |
+    | Method    | Request | Description                                                                                       |
+    | --------- | ------- | ------------------------------------------------------------------------------------------------- |
+    | statusb2b | *GET*   | Get information status of multiple B2B transactions related to certain order_id or transaction_id |
+
+    + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.statusb2b('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
 
   + #### approve( transactionId: string ): Promise
 
-  | Method  | Request | Description                                                                                                           |
-  | ------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
-  | approve | *POST*  | Approve a transaction with certain order_id or transaction_id which gets challenge status from Fraud Detection System |
+    | Method  | Request | Description                                                                                                           |
+    | ------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
+    | approve | *POST*  | Approve a transaction with certain order_id or transaction_id which gets challenge status from Fraud Detection System |
+
+    + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.approve('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.approve('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
 
   + #### deny( transactionId: string ): Promise
 
-  | Method | Request | Description                                                                                                        |
-  | ------ | ------- | ------------------------------------------------------------------------------------------------------------------ |
-  | deny   | *POST*  | Deny a transaction with certain order_id or transaction_id which gets challenge status from Fraud Detection System |
+    | Method | Request | Description                                                                                                        |
+    | ------ | ------- | ------------------------------------------------------------------------------------------------------------------ |
+    | deny   | *POST*  | Deny a transaction with certain order_id or transaction_id which gets challenge status from Fraud Detection System |
+
+    + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.deny('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.deny('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
 
   + #### cancel( transactionId: string ): Promise
 
-  | Method | Request | Description                                                                            |
-  | ------ | ------- | -------------------------------------------------------------------------------------- |
-  | cancel | *POST*  | Cancel a transaction with certain order_id or transaction_id before settlement process |
+    | Method | Request | Description                                                                            |
+    | ------ | ------- | -------------------------------------------------------------------------------------- |
+    | cancel | *POST*  | Cancel a transaction with certain order_id or transaction_id before settlement process |
+
+    + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.cancel('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.cancel('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
 
   + #### expire( transactionId: string ): Promise
 
-  | Method | Request | Description     |                                                  |
-  | ------ | ------- | --------------- | ------------------------------------------------ |
-  | expire | *POST*  | Update order_id | transaction_id with pending status to be expired |
+    | Method | Request | Description                                                         | 
+    | ------ | ------- | ------------------------------------------------------------------- |
+    | expire | *POST*  | Update order_id or transaction_id with pending status to be expired |
+  
+      + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.expire('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.expire('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then(console.log)
+       .catch(console.error)
+    ```
   
   + #### refund( transactionId: string, parameter?: object): Promise
 
-  | Method | Request | Description                                                           |
-  | ------ | ------- | --------------------------------------------------------------------- |
-  | refund | *POST*  | Update order_id or transaction_id with settlement status to be refund |
+    | Method | Request | Description                                                           |
+    | ------ | ------- | --------------------------------------------------------------------- |
+    | refund | *POST*  | Update order_id or transaction_id with settlement status to be refund |
+
+      + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.refund('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
+         amount: 1000000, 
+         reason: 'Reason to refund payouts'
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.refund('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
+         amount: 1000000, 
+         reason: 'Reason to refund payouts'
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
 
   + #### refundDirect( transactionId: string, parameter?: object): Promise
 
-  | Method       | Request | Description                                                                                                    |
-  | ------------ | ------- | -------------------------------------------------------------------------------------------------------------- |
-  | refundDirect | *POST*  | Attempt to send refund to bank or payment provider and update the transaction status to refund if it succeeded |
+    | Method       | Request | Description                                                                                                    |
+    | ------------ | ------- | -------------------------------------------------------------------------------------------------------------- |
+    | refundDirect | *POST*  | Attempt to send refund to bank or payment provider and update the transaction status to refund if it succeeded |
+
+      + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.refundDirect('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
+         amount: 1000000, 
+         reason: 'Reason to refund direct payouts'
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
+
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.refundDirect('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
+         amount: 1000000, 
+         reason: 'Reason to direct payouts'
+       })
+       .then(console.log)
+       .catch(console.error)
+    ```
 
   + #### notification( notification: object ): Promise
 
-  | Method       | Request     | Description                                                                                              |
-  | ------------ | ----------- | -------------------------------------------------------------------------------------------------------- |
-  | notification | *undefined* | additional mechanism we provide to verify the content and the origin of the notification is to challenge |
+    | Method       | Request     | Description                                                                                              |
+    | ------------ | ----------- | -------------------------------------------------------------------------------------------------------- |
+    | notification | *undefined* | additional mechanism we provide to verify the content and the origin of the notification is to challenge |
 
+      + ##### Example Usage Using CommonJS
+  
+    ```javascript
+       const { MidtransClient } = require('@midtrans/node')
+       const { v4: uuidv4 } = require('uuid')
+       
+       let getResponse;
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+        core.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then((res) => getResponse = res)
+       .catch(console.error)
+       
+       core.transaction.notification(JSON.stringify(getResponse))
+       .then(console.log)
+       .catch(console.error)
+    ```
 
+    + ##### Example Usage Using ES6
+  
+    ```javascript
+       import { MidtransClient } from '@midtrans/node'
+       import { v4 as uuidv4 } from 'uuid'
+       
+       let getResponse;
+       
+       const core = new MidtransClient.CoreApi({
+         isProduction: process.env.DEVELOPMENT,
+         serverKey: process.env.SERVER_KEY,
+         clientKey: process.env.CLIENT_KEY
+       })
+        
+       core.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       .then((res) => getResponse = res)
+       .catch(console.error)
+       
+       core.transaction.notification(JSON.stringify(getResponse))
+       .then(console.log)
+       .catch(console.error)
+    ```

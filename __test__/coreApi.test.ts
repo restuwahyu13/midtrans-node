@@ -10,7 +10,6 @@ let reuseOrderId = [
 	'node-midtransclient-test3-' + generateTimestamp()
 ]
 let apiResponse = {}
-
 describe('CoreApi', () => {
 	beforeEach(() => {
 		coreApi = new CoreApi(generateConfig())
@@ -47,7 +46,6 @@ describe('CoreApi', () => {
 		expect(typeof res.token_id).toStrictEqual('string')
 		expect(res.status_code).toStrictEqual('200')
 		tokenId = res.token_id
-		console.log('xxxx', tokenId)
 		done()
 	})
 
@@ -123,6 +121,7 @@ describe('CoreApi', () => {
 		expect(res.status_code).toStrictEqual('201')
 		expect(res.transaction_status).toStrictEqual('pending')
 		done()
+		console.log('xxx status', apiResponse)
 	})
 
 	// // TODO test statusb2b
