@@ -1,6 +1,6 @@
 # Midtrans Node
 
-[![Build Status](https://travis-ci.org/restuwahyu13/midtrans-node.svg?branch=main)](https://travis-ci.org/restuwahyu13/midtrans-node) [![Coverage Status](https://coveralls.io/repos/github/restuwahyu13/nodejs-midtrans-client/badge.svg?branch=main)](https://coveralls.io/github/restuwahyu13/nodejs-midtrans-client?branch=main) ![node-current](https://img.shields.io/node/v/midtrans-node-client?style=flat-square) ![npm](https://img.shields.io/npm/dm/midtrans-node-client) ![npm bundle size](https://img.shields.io/bundlephobia/min/midtrans-node-client) ![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/midtrans-node-client) ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/restuwahyu13/midtrans-node-client) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/restuwahyu13/midtrans-node/blob/main/CONTRIBUTING.md)
+[![Build Status](https://travis-ci.org/restuwahyu13/midtrans-node.svg?branch=main)](https://travis-ci.org/restuwahyu13/midtrans-node) [![Coverage Status](https://coveralls.io/repos/github/restuwahyu13/nodejs-midtrans-client/badge.svg?branch=main)](https://coveralls.io/github/restuwahyu13/nodejs-midtrans-client?branch=main) ![node-current](https://img.shields.io/node/v/midtrans-node-client?style=flat-square) ![npm](https://img.shields.io/npm/dm/midtrans-node-client) ![npm bundle size](https://img.shields.io/bundlephobia/min/midtrans-node-client) ![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/midtrans-node-client) ![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/midtrans-node-client?style=flat-square) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/restuwahyu13/midtrans-node/blob/main/CONTRIBUTING.md)
 
 - [Installation](#installation)
 - [API Documentation](#api-documentation)
@@ -2063,5 +2063,5 @@ Want to make **Midtrans Node** more perfect ? Let's contribute and follow the [c
 - [MIT License](https://github.com/restuwahyu13/streambox-collection/blob/main/LICENSE.md)
 
 <p align="right" style="padding: 5px; border-radius: 100%; background-color: red; font-size: 2rem;">
-  <b><a href="#Midtrans-node">BACK TO TOP</a></b>
+  <b><a href="#midtrans-node">BACK TO TOP</a></b>
 </p>
