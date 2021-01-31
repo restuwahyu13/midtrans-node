@@ -1,3 +1,4 @@
+import { isType } from '../src/utils/util.is'
 import { Snap } from '../src/lib/snap'
 import { config } from '../config'
 
@@ -28,9 +29,9 @@ describe('Snap', () => {
 		expect(spySnap).toHaveBeenCalled()
 		expect(spySnap).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('token')
-		expect(typeof res.token).toStrictEqual('string')
+		expect(isType(res.token)).toStrictEqual('string')
 		expect(res).toHaveProperty('redirect_url')
-		expect(typeof res.token).toStrictEqual('string')
+		expect(isType(res.token)).toStrictEqual('string')
 		done()
 	})
 
@@ -40,9 +41,9 @@ describe('Snap', () => {
 		expect(spySnap).toHaveBeenCalled()
 		expect(spySnap).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('token')
-		expect(typeof res.token).toStrictEqual('string')
+		expect(isType(res.token)).toStrictEqual('string')
 		expect(res).toHaveProperty('redirect_url')
-		expect(typeof res.token).toStrictEqual('string')
+		expect(isType(res.token)).toStrictEqual('string')
 		done()
 	})
 
@@ -51,7 +52,7 @@ describe('Snap', () => {
 		const token = await snap.createTransactionToken(generateParamMin())
 		expect(spySnap).toHaveBeenCalled()
 		expect(spySnap).toHaveBeenCalledTimes(1)
-		expect(typeof token).toStrictEqual('string')
+		expect(isType(token)).toStrictEqual('string')
 		done()
 	})
 
@@ -60,7 +61,7 @@ describe('Snap', () => {
 		const redirect_url = await snap.createTransactionRedirectUrl(generateParamMin())
 		expect(spySnap).toHaveBeenCalled()
 		expect(spySnap).toHaveBeenCalledTimes(1)
-		expect(typeof redirect_url).toStrictEqual('string')
+		expect(isType(redirect_url)).toStrictEqual('string')
 		done()
 	})
 
@@ -126,23 +127,6 @@ describe('Snap', () => {
 		})
 	})
 
-	it('able to throw custom MidtransError', (done) => {
-		const spySnap = jest.spyOn(snap, 'createTransaction')
-		const param = generateParamMin()
-		param.transaction_details.gross_amount = 0
-		snap.createTransaction().catch((e) => {
-			expect(spySnap).toHaveBeenCalled()
-			expect(spySnap).toHaveBeenCalledTimes(1)
-			expect(e.message).toMatch(/400/)
-			expect(e.httpStatusCode).toStrictEqual(400)
-			expect(e.ApiResponse).toBeInstanceOf(Object)
-			expect(e.ApiResponse.error_messages).toBeInstanceOf(Array)
-			expect(e.rawHttpClientData).toBeInstanceOf(Object)
-			expect(e.rawHttpClientData).toHaveProperty('data')
-			done()
-		})
-	})
-
 	it('able to set X-Override-Notification request header via exposed http_client object', (done) => {
 		let customUrl = 'https://mysite.com/midtrans-notification-handler'
 		snap.httpClient.httpClient.interceptors.request.use(
@@ -157,7 +141,7 @@ describe('Snap', () => {
 		snap.httpClient.httpClient.defaults.headers.common['X-Override-Notification'] = customUrl
 		snap.createTransactionToken().catch(() => {
 			expect(snap.httpClient.httpClient.defaults).toHaveProperty('headers')
-			expect(typeof snap.httpClient.httpClient.defaults.headers.common).toStrictEqual('object')
+			expect(isType(snap.httpClient.httpClient.defaults.headers.common)).toStrictEqual('object')
 			expect(snap.httpClient.httpClient.defaults.headers.common['X-Override-Notification']).toStrictEqual(customUrl)
 			done()
 		})

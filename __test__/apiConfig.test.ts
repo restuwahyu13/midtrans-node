@@ -1,3 +1,4 @@
+import { isType } from '../src/utils/util.is'
 import { ApiConfig as MidtransConfigApi } from '../src/lib/apiConfig'
 import { config } from '../config'
 
@@ -24,8 +25,8 @@ describe('ApiConfig', () => {
 		expect(spyApiConfig).toHaveBeenCalled()
 		expect(spyApiConfig).toHaveBeenCalledTimes(1)
 		expect(apiConfig.get().isProduction).toBeFalsy()
-		expect(typeof apiConfig.get().serverKey).toStrictEqual('string')
-		expect(typeof apiConfig.get().clientKey).toStrictEqual('string')
+		expect(isType(apiConfig.get().serverKey)).toStrictEqual('string')
+		expect(isType(apiConfig.get().clientKey)).toStrictEqual('string')
 		expect(apiConfig.get().serverKey).toStrictEqual(config.serverKey)
 		expect(apiConfig.get().clientKey).toStrictEqual(config.clientKey)
 	})
@@ -36,8 +37,8 @@ describe('ApiConfig', () => {
 		expect(spyApiConfig).toHaveBeenCalled()
 		expect(spyApiConfig).toHaveBeenCalledTimes(1)
 		expect(apiConfig.get().isProduction).toBeTruthy()
-		expect(typeof apiConfig.get().serverKey).toStrictEqual('string')
-		expect(typeof apiConfig.get().clientKey).toStrictEqual('string')
+		expect(isType(apiConfig.get().serverKey)).toStrictEqual('string')
+		expect(isType(apiConfig.get().clientKey)).toStrictEqual('string')
 	})
 
 	it('able to get correct API url environtment for Core Api', () => {

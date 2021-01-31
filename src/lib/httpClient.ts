@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse, Method } from 'axios'
+import { isType } from '../utils/util.is'
 import { Snap } from '../lib/snap'
 import { CoreApi } from '../lib/coreApi'
 import { Iris } from '../lib/iris'
@@ -52,26 +53,9 @@ export class HttpClient {
 					requestBody = JSON.parse(requestBody)
 					requestParam = JSON.parse(requestParam)
 				} catch (err) {
-					reject(
-						new MidtransError({
-							message: `fail to parse 'body parameters' string as JSON. Use JSON string or Object as 'body parameters'. with message: ${err} \n response: ${requestBody}`
-						})
-					)
+					reject(new MidtransError({ message: `request is must be a object you give type ${isType(requestBody)}` }))
 				}
 			}
-
-			// else if (typeof requestParam === 'string') {
-			// 	// Reject if param is not JSON
-			// 	try {
-			// 		requestParam = JSON.parse(requestParam)
-			// 	} catch (err) {
-			// 		reject(
-			// 			new MidtransError({
-			// 				message: `fail to parse 'query parameters' string as JSON. Use JSON string or Object as 'query parameters'. with message: ${err} \n response: ${requestParam}`
-			// 			})
-			// 		)
-			// 	}
-			// }
 
 			// Fetching data from server
 			try {
@@ -89,12 +73,7 @@ export class HttpClient {
 					// 407 is expected get-status API response for `expire` transaction, non-standard
 					reject(
 						new MidtransError({
-							message: `Midtrans API is returning API error. \n HTTP status code: ${
-								res.data.status_code
-							}. \n API response: ${JSON.stringify(res.data)}`,
-							httpStatusCode: res.data.status_code,
-							ApiResponse: res.data,
-							rawHttpClientData: res
+							message: `${res.data.status_message} HTTP status code ${res.data.status_code}`
 						})
 					)
 				}
@@ -104,29 +83,10 @@ export class HttpClient {
 			} catch (err) {
 				let res = err.response
 
-				if (typeof res !== 'undefined' && res.status >= 400) {
+				if (isType(res) !== 'undefined' && res.status >= 400) {
 					// Reject API error HTTP status code
-					reject(
-						new MidtransError({
-							message: `Midtrans API is returning API error. \n HTTP status code: ${
-								res.status
-							}. \n API response: ${JSON.stringify(res.data)}`,
-							httpStatusCode: res.status,
-							ApiResponse: res.data,
-							rawHttpClientData: res
-						})
-					)
+					reject(new MidtransError({ message: err.message }))
 				}
-
-				// else if (typeof res === 'undefined') {
-				// 	// Reject API undefined HTTP response
-				// 	reject(
-				// 		new MidtransError({
-				// 			message: 'Midtrans API request failed. HTTP response not found, likely connection failure'
-				// 		})
-				// 	)
-				// }
-
 				// Throw Error Response
 				reject(res)
 			}

@@ -41,16 +41,13 @@ export class CoreApi {
 		parameter: T | Record<string, any>
 	): Promise<Record<string, any>> {
 		this.apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/charge'
+		const res = parameter
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
 			httpMethod: 'post',
 			serverKey: this.apiConfig.get().serverKey,
 			requestPayload:
-				parameter === null || parameter === undefined
-					? parameter
-					: !matchCharge(Object.keys(parameter)[0])
-					? parameter
-					: Object.values(parameter)[0]
+				res === null || res === undefined ? res : !matchCharge(Object.keys(res)[0]) ? res : Object.values(res)[0]
 		})
 	}
 

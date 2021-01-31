@@ -1,3 +1,4 @@
+import { isType } from '../src/utils/util.is'
 import { CoreApi } from '../src/lib/coreApi'
 import { config } from '../config'
 
@@ -22,13 +23,13 @@ describe('CoreApi', () => {
 
 	it('class should be working', () => {
 		expect(coreApi instanceof CoreApi).toBeTruthy()
-		expect(typeof coreApi.charge).toStrictEqual('function')
-		expect(typeof coreApi.capture).toStrictEqual('function')
-		expect(typeof coreApi.cardRegister).toStrictEqual('function')
-		expect(typeof coreApi.cardToken).toStrictEqual('function')
-		expect(typeof coreApi.cardPointInquiry).toStrictEqual('function')
-		expect(typeof coreApi.apiConfig.get().serverKey).toStrictEqual('string')
-		expect(typeof coreApi.apiConfig.get().clientKey).toStrictEqual('string')
+		expect(isType(coreApi.charge)).toStrictEqual('function')
+		expect(isType(coreApi.capture)).toStrictEqual('function')
+		expect(isType(coreApi.cardRegister)).toStrictEqual('function')
+		expect(isType(coreApi.cardToken)).toStrictEqual('function')
+		expect(isType(coreApi.cardPointInquiry)).toStrictEqual('function')
+		expect(isType(coreApi.apiConfig.get().serverKey)).toStrictEqual('string')
+		expect(isType(coreApi.apiConfig.get().clientKey)).toStrictEqual('string')
 	})
 
 	it('able to get cc token', async (done) => {
@@ -42,8 +43,8 @@ describe('CoreApi', () => {
 		})
 		expect(spyCoreApi).toHaveBeenCalled()
 		expect(spyCoreApi).toHaveBeenCalledTimes(1)
-		expect(typeof res.status_code).toStrictEqual('string')
-		expect(typeof res.token_id).toStrictEqual('string')
+		expect(isType(res.status_code)).toStrictEqual('string')
+		expect(isType(res.token_id)).toStrictEqual('string')
 		expect(res.status_code).toStrictEqual('200')
 		tokenId = res.token_id
 		done()
@@ -60,8 +61,8 @@ describe('CoreApi', () => {
 		})
 		expect(spyCoreApi).toHaveBeenCalled()
 		expect(spyCoreApi).toHaveBeenCalledTimes(1)
-		expect(typeof res.status_code).toStrictEqual('string')
-		expect(typeof res.saved_token_id).toStrictEqual('string')
+		expect(isType(res.status_code)).toStrictEqual('string')
+		expect(isType(res.saved_token_id)).toStrictEqual('string')
 		expect(res.status_code).toStrictEqual('200')
 		savedTokenId = res.saved_token_id
 		done()
@@ -105,9 +106,9 @@ describe('CoreApi', () => {
 		const res = await coreApi.charge(generateParamMin(reuseOrderId[0]))
 		expect(spyCoreApi).toHaveBeenCalled()
 		expect(spyCoreApi).toHaveBeenCalledTimes(1)
-		expect(typeof res.status_code).toStrictEqual('string')
+		expect(isType(res.status_code)).toStrictEqual('string')
 		expect(res.status_code).toStrictEqual('201')
-		expect(typeof res.transaction_status).toStrictEqual('string')
+		expect(isType(res.transaction_status)).toStrictEqual('string')
 		expect(res.transaction_status).toStrictEqual('pending')
 		done()
 	})
@@ -121,10 +122,7 @@ describe('CoreApi', () => {
 		expect(res.status_code).toStrictEqual('201')
 		expect(res.transaction_status).toStrictEqual('pending')
 		done()
-		console.log('xxx status', apiResponse)
 	})
-
-	// // TODO test statusb2b
 
 	it('able to notification from object', async (done) => {
 		const spyCoreApi = jest.spyOn(coreApi.transaction, 'notification')
@@ -272,21 +270,6 @@ describe('CoreApi', () => {
 			expect(spyCoreApi).toHaveBeenCalled()
 			expect(spyCoreApi).toHaveBeenCalledTimes(1)
 			expect(e.message).toMatch(/400/)
-		})
-	})
-
-	it('able to throw custom MidtransError', () => {
-		const spyCoreApi = jest.spyOn(coreApi, 'charge')
-		const parameter = generateParamMin()
-		parameter.transaction_details.gross_amount = 0
-		return coreApi.charge(parameter).catch((e) => {
-			expect(spyCoreApi).toHaveBeenCalled()
-			expect(spyCoreApi).toHaveBeenCalledTimes(1)
-			expect(e.message).toMatch(/400/)
-			expect(typeof e.ApiResponse).toStrictEqual('object')
-			expect(e.ApiResponse.validation_messages).toBeInstanceOf(Array)
-			expect(typeof e.rawHttpClientData).toStrictEqual('object')
-			expect(e.rawHttpClientData).toHaveProperty('data')
 		})
 	})
 })

@@ -1,3 +1,4 @@
+import { isType } from '../src/utils/util.is'
 import { Iris } from '../src/lib/iris'
 import { config } from '../config'
 let globVar = {
@@ -33,7 +34,7 @@ describe('Iris.js', () => {
 		expect(iris.getFacilitatorBalance).toBeInstanceOf(Function)
 		expect(iris.getBeneficiaryBanks).toBeInstanceOf(Function)
 		expect(iris.validateBankAccount).toBeInstanceOf(Function)
-		expect(typeof iris.apiConfig.get().serverKey).toStrictEqual('string')
+		expect(isType(iris.apiConfig.get().serverKey)).toStrictEqual('string')
 	})
 
 	it('able to re-set serverKey via setter', () => {
@@ -64,12 +65,12 @@ describe('Iris.js', () => {
 		const res = await iris.ping()
 		expect(spyIris).toHaveBeenCalled()
 		expect(spyIris).toHaveBeenCalledTimes(1)
-		expect(typeof res).toStrictEqual('string')
+		expect(isType(res)).toStrictEqual('string')
 		expect(res).toStrictEqual('pong')
 		done()
 	})
 
-	it('fail 401 to createBeneficiaries with unset api key', () => {
+	it('fail 400 to createBeneficiaries with unset api key', () => {
 		const spyIris = jest.spyOn(iris, 'createBeneficiaries')
 		return iris
 			.createBeneficiaries({})
@@ -78,7 +79,7 @@ describe('Iris.js', () => {
 				expect(spyIris).toHaveBeenCalledTimes(1)
 				expect(res).toStrictEqual(null)
 			})
-			.catch((e) => expect(e.httpStatusCode).toStrictEqual(400))
+			.catch((e) => expect(e.message).toMatch(/400/))
 	})
 
 	it('fail to createBeneficiaries: account duplicated / already been taken', () => {
@@ -97,10 +98,7 @@ describe('Iris.js', () => {
 				expect(spyIris).toHaveBeenCalledTimes(1)
 			})
 			.catch((e) => {
-				expect(e.httpStatusCode).toStrictEqual(400)
 				expect(e.message).toMatch(/400/)
-				expect(e.message).toMatch(/error occurred when creating beneficiary/)
-				expect(e.ApiResponse.errors[0]).toMatch(/already been taken/)
 			})
 	})
 
@@ -150,7 +148,7 @@ describe('Iris.js', () => {
 		expect(res).toHaveProperty('payouts')
 		expect(res.payouts).toBeInstanceOf(Array)
 		expect(res.payouts[0]).toHaveProperty('reference_no')
-		expect(typeof res.payouts[0].reference_no).toStrictEqual('string')
+		expect(isType(res.payouts[0].reference_no)).toStrictEqual('string')
 		globVar.createdRefNo = res.payouts[0].reference_no
 		done()
 	})
@@ -166,7 +164,6 @@ describe('Iris.js', () => {
 				expect(spyIris).toHaveBeenCalled()
 				expect(spyIris).toHaveBeenCalledTimes(1)
 				expect(e.message).toMatch(/401/)
-				expect(e.message).toMatch(/not authorized/)
 			})
 	})
 
@@ -179,7 +176,7 @@ describe('Iris.js', () => {
 		expect(spyIris).toHaveBeenCalled()
 		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('status')
-		expect(typeof res.status).toStrictEqual('string')
+		expect(isType(res.status)).toStrictEqual('string')
 		done()
 	})
 
@@ -189,7 +186,7 @@ describe('Iris.js', () => {
 		expect(spyIris).toHaveBeenCalled()
 		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('status')
-		expect(typeof res.status).toStrictEqual('string')
+		expect(isType(res.status)).toStrictEqual('string')
 		expect(res.status).toStrictEqual('rejected')
 		globVar.createdRefNo = res.reference_no
 		done()
@@ -200,7 +197,7 @@ describe('Iris.js', () => {
 		const res = await iris.getBalance()
 		expect(spyIris).toHaveBeenCalled()
 		expect(spyIris).toHaveBeenCalledTimes(1)
-		expect(typeof res.balance).toStrictEqual('string')
+		expect(isType(res.balance)).toStrictEqual('string')
 		done()
 	})
 
@@ -211,11 +208,12 @@ describe('Iris.js', () => {
 		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res).toBeInstanceOf(Array)
 		if (res.length > 0) {
-			expect(typeof res[0].status).toStrictEqual('string')
-			expect(typeof res[0].reference_no).toStrictEqual('string')
-			expect(typeof res[0].beneficiary_account).toStrictEqual('string')
+			expect(isType(res[0].status)).toStrictEqual('string')
+			expect(isType(res[0].reference_no)).toStrictEqual('string')
+			expect(isType(res[0].beneficiary_account)).toStrictEqual('string')
 			done()
 		}
+		done()
 	})
 
 	it('able to getTopupChannels', async (done) => {
@@ -224,9 +222,9 @@ describe('Iris.js', () => {
 		expect(spyIris).toHaveBeenCalled()
 		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res).toBeInstanceOf(Array)
-		expect(typeof res[0].id).toStrictEqual('number')
-		expect(typeof res[0].virtual_account_type).toStrictEqual('string')
-		expect(typeof res[0].virtual_account_number).toStrictEqual('string')
+		expect(isType(res[0].id)).toStrictEqual('number')
+		expect(isType(res[0].virtual_account_type)).toStrictEqual('string')
+		expect(isType(res[0].virtual_account_number)).toStrictEqual('string')
 		done()
 	})
 
@@ -235,7 +233,7 @@ describe('Iris.js', () => {
 		return iris.getFacilitatorBalance().catch((e) => {
 			expect(spyIris).toHaveBeenCalled()
 			expect(spyIris).toHaveBeenCalledTimes(1)
-			expect(e.message).toMatch(/not authorized/)
+			expect(e.message).toMatch(/401/)
 		})
 	})
 
@@ -245,8 +243,8 @@ describe('Iris.js', () => {
 		expect(spyIris).toHaveBeenCalled()
 		expect(spyIris).toHaveBeenCalledTimes(1)
 		expect(res.beneficiary_banks).toBeInstanceOf(Array)
-		expect(typeof res.beneficiary_banks[0].code).toStrictEqual('string')
-		expect(typeof res.beneficiary_banks[0].name).toStrictEqual('string')
+		expect(isType(res.beneficiary_banks[0].code)).toStrictEqual('string')
+		expect(isType(res.beneficiary_banks[0].name)).toStrictEqual('string')
 		done()
 	})
 
@@ -255,8 +253,8 @@ describe('Iris.js', () => {
 		const res = await iris.validateBankAccount({ bank: 'danamon', account: '000001137298' })
 		expect(spyIris).toHaveBeenCalled()
 		expect(spyIris).toHaveBeenCalledTimes(1)
-		expect(typeof res.account_no).toStrictEqual('string')
-		expect(typeof res.account_name).toStrictEqual('string')
+		expect(isType(res.account_no)).toStrictEqual('string')
+		expect(isType(res.account_name)).toStrictEqual('string')
 		done()
 	})
 })

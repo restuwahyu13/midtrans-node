@@ -1,3 +1,4 @@
+import { isType } from '../src/utils/util.is'
 import { HttpClient } from '../src/lib/httpClient'
 import { config } from '../config'
 describe('HttpClient', () => {
@@ -17,7 +18,7 @@ describe('HttpClient', () => {
 	})
 
 	it('have .request function', () => {
-		expect(typeof httpClient.request).toStrictEqual('function')
+		expect(isType(httpClient.request)).toStrictEqual('function')
 	})
 
 	it('able to raw request to snap api', async (done) => {
@@ -31,7 +32,7 @@ describe('HttpClient', () => {
 		expect(spyHttpClient).toHaveBeenCalled()
 		expect(spyHttpClient).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('token')
-		expect(typeof res.token).toStrictEqual('string')
+		expect(isType(res.token)).toStrictEqual('string')
 		done()
 	})
 
@@ -52,7 +53,7 @@ describe('HttpClient', () => {
 		expect(spyHttpClient).toHaveBeenCalled()
 		expect(spyHttpClient).toHaveBeenCalledTimes(1)
 		expect(res).toHaveProperty('token_id')
-		expect(typeof res.token_id).toStrictEqual('string')
+		expect(isType(res.token_id)).toStrictEqual('string')
 		done()
 	})
 
@@ -69,7 +70,7 @@ describe('HttpClient', () => {
 				expect(spyHttpClient).toHaveBeenCalled()
 				expect(spyHttpClient).toHaveBeenCalledTimes(1)
 			})
-			.catch((e) => expect(e.message).toMatch(/fail to parse/))
+			.catch((e) => expect(e.message).toBe('request is must be a object you give type string'))
 	})
 })
 
