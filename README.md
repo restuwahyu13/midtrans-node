@@ -2011,23 +2011,23 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
 - #### Custome Snap Service - createTransaction Request
 
   ```javascript
- 	snapCreditCard?: CreditCard
+ 	snapCreditCard?: SnapCreditCard
 	snapFull?: SnapFull
-	snapBca?: BcaVirtualAccount
-	snapPermata?: PermataVirtualAccount
-	snapBni?: BniVirtualAccount
-	snapBri?: BriVirtualAccount
-	snapMandiri?: MandiriVirtualAccount
-	snapGopay?: Gopay
-	snapKlikBca?: KlikBCA
-	snapBcaKlikPay?: BcaKlikPay
-	snapCimbKlik?: CimbKlik
-	snapDanamonOnline?: DanamonOnlineBanking
-	snapBriEpay?: BriEpay
-	snapIndomaret?: Indomaret
-	snapAlfamart?: Alfamart
-	snapAkuLaku?: AkuLaku
-	snapShopePay?: ShopeePay
+	snapBca?: SnapBcaVirtualAccount
+	snapPermata?: SnapPermataVirtualAccount
+	snapBni?: SnapBniVirtualAccount
+	snapBri?: SnapBriVirtualAccount
+	snapMandiri?: SnapMandiriVirtualAccount
+	snapGopay?: SnapGopay
+	snapKlikBca?: SnapKlikBCA
+	snapBcaKlikPay?: SnapBcaKlikPay
+	snapCimbKlik?: SnapCimbKlik
+	snapDanamonOnline?: SnapDanamonOnlineBanking
+	snapBriEpay?: SnapBriEpay
+	snapIndomaret?: SnapIndomaret
+	snapAlfamart?: SnapAlfamart
+	snapAkuLaku?: SnapAkuLaku
+	snapShopePay?: SnapShopeePay
   ```
 
 ### Testing
