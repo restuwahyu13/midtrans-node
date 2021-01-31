@@ -228,9 +228,18 @@ describe('Iris.js', () => {
 		done()
 	})
 
-	it('fail to getFacilitatorBankAccounts: not authorized due to non facilitator account', () => {
+	it('fail to getFacilitatorBalance not authorized due to non facilitator account', () => {
 		const spyIris = jest.spyOn(iris, 'getFacilitatorBalance')
 		return iris.getFacilitatorBalance().catch((e) => {
+			expect(spyIris).toHaveBeenCalled()
+			expect(spyIris).toHaveBeenCalledTimes(1)
+			expect(e.message).toMatch(/401/)
+		})
+	})
+
+	it('able to getFacilitatorBankAccounts not authorized due to non facilitator account', () => {
+		const spyIris = jest.spyOn(iris, 'getFacilitatorBankAccounts')
+		return iris.getFacilitatorBankAccounts().catch((e) => {
 			expect(spyIris).toHaveBeenCalled()
 			expect(spyIris).toHaveBeenCalledTimes(1)
 			expect(e.message).toMatch(/401/)

@@ -11,6 +11,7 @@ let reuseOrderId = [
 	'node-midtransclient-test3-' + generateTimestamp()
 ]
 let apiResponse = {}
+
 describe('CoreApi', () => {
 	beforeEach(() => {
 		coreApi = new CoreApi(generateConfig())
@@ -220,6 +221,15 @@ describe('CoreApi', () => {
 		})
 	})
 
+	it('fail to statusb2b 404 non exists transaction', () => {
+		const spyCoreApi = jest.spyOn(coreApi.transaction, 'statusb2b')
+		return coreApi.transaction.statusb2b('non-exists-transaction').catch((e) => {
+			expect(spyCoreApi).toHaveBeenCalled()
+			expect(spyCoreApi).toHaveBeenCalledTimes(1)
+			expect(e.message).toMatch(/404/)
+		})
+	})
+
 	it('able to re-set serverKey via setter', () => {
 		const spyCoreApi = jest.spyOn(coreApi.apiConfig, 'get')
 		coreApi.apiConfig.get()
@@ -271,6 +281,18 @@ describe('CoreApi', () => {
 			expect(spyCoreApi).toHaveBeenCalledTimes(1)
 			expect(e.message).toMatch(/400/)
 		})
+	})
+
+	it('fail to capture charge transaction_id cannot be update 402', (done) => {
+		return coreApi
+			.capture({
+				transaction_id: '5bce24c4-6566-40c6-9c65-4366ad43de28',
+				gross_amount: '44145.00'
+			})
+			.catch((e) => {
+				expect(e.message).toMatch(/412/)
+				done()
+			})
 	})
 })
 
