@@ -1,5 +1,5 @@
 {
-	"name": "@midtrans/node",
+	"name": "midtrans-node-client",
 	"version": "0.0.1-rc",
 	"description": "Unoffficial Midtrans Payment API Client for Node JS | Alternative for Midtrans Official Module",
 	"main": "./dist/index.js",

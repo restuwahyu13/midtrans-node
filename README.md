@@ -1,6 +1,6 @@
 # Midtrans Node
 
-[![Build Status](https://travis-ci.org/restuwahyu13/midtrans-node.svg?branch=main)](https://travis-ci.org/restuwahyu13/midtrans-node) [![Coverage Status](https://coveralls.io/repos/github/restuwahyu13/nodejs-midtrans-client/badge.svg?branch=main)](https://coveralls.io/github/restuwahyu13/nodejs-midtrans-client?branch=main) ![node-current](https://img.shields.io/node/v/@midtrans/node?style=flat-square) ![npm](https://img.shields.io/npm/dm/@midtrans/node) ![npm bundle size](https://img.shields.io/bundlephobia/min/@midtrans/node) ![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/@midtrans/node) ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/restuwahyu13/@midtrans/node) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/restuwahyu13/midtrans-node/blob/main/CONTRIBUTING.md)
+[![Build Status](https://travis-ci.org/restuwahyu13/midtrans-node.svg?branch=main)](https://travis-ci.org/restuwahyu13/midtrans-node) [![Coverage Status](https://coveralls.io/repos/github/restuwahyu13/nodejs-midtrans-client/badge.svg?branch=main)](https://coveralls.io/github/restuwahyu13/nodejs-midtrans-client?branch=main) ![node-current](https://img.shields.io/node/v/midtrans-node-client?style=flat-square) ![npm](https://img.shields.io/npm/dm/midtrans-node-client) ![npm bundle size](https://img.shields.io/bundlephobia/min/midtrans-node-client) ![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/midtrans-node-client) ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/restuwahyu13/midtrans-node-client) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/restuwahyu13/midtrans-node/blob/main/CONTRIBUTING.md)
 
 - [Installation](#installation)
 - [API Documentation](#api-documentation)
@@ -56,7 +56,7 @@
 ## Installation
 
 ```bash
-npm install @midtrans/node -S or yarn add @midtrans/node -S
+npm install midtrans-node-client -S or yarn add midtrans-node-client -S
 ```
 
 ## API Documentation
@@ -86,7 +86,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const core = new MidtransClient.CoreApi({
@@ -141,7 +141,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const core = new MidtransClient.CoreApi({
@@ -202,7 +202,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
                
        const core = new MidtransClient.CoreApi({
          isProduction: process.env.DEVELOPMENT,
@@ -221,7 +221,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const core = new MidtransClient.CoreApi({
          isProduction: process.env.DEVELOPMENT,
@@ -246,7 +246,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const core = new MidtransClient.CoreApi({
          isProduction: process.env.DEVELOPMENT,
@@ -268,7 +268,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const core = new MidtransClient.CoreApi({
          isProduction: process.env.DEVELOPMENT,
@@ -296,7 +296,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const core = new MidtransClient.CoreApi({
          isProduction: process.env.DEVELOPMENT,
@@ -318,7 +318,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const core = new MidtransClient.CoreApi({
          isProduction: process.env.DEVELOPMENT,
@@ -346,7 +346,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const core = new MidtransClient.CoreApi({
          isProduction: process.env.DEVELOPMENT,
@@ -362,7 +362,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const core = new MidtransClient.CoreApi({
          isProduction: process.env.DEVELOPMENT,
@@ -386,7 +386,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -402,7 +402,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -424,7 +424,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -446,7 +446,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -474,7 +474,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -496,7 +496,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -524,7 +524,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -540,7 +540,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -562,7 +562,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -589,7 +589,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -622,7 +622,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -641,7 +641,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -666,7 +666,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -685,7 +685,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -710,7 +710,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -729,7 +729,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -754,7 +754,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -770,7 +770,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -792,7 +792,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -808,7 +808,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -830,7 +830,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -846,7 +846,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -868,7 +868,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -884,7 +884,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -906,7 +906,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -922,7 +922,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -944,7 +944,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -960,7 +960,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -982,7 +982,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -998,7 +998,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        
        const iris = new MidtransClient.Iris({
          isProduction: process.env.DEVELOPMENT,
@@ -1022,7 +1022,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1077,7 +1077,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
@@ -1138,7 +1138,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1193,7 +1193,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
@@ -1254,7 +1254,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1309,7 +1309,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
@@ -1372,7 +1372,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1389,7 +1389,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
@@ -1412,7 +1412,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1429,7 +1429,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
@@ -1452,7 +1452,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1469,7 +1469,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
@@ -1492,7 +1492,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1509,7 +1509,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
@@ -1532,7 +1532,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1549,7 +1549,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
@@ -1572,7 +1572,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
       + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1589,7 +1589,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
@@ -1612,7 +1612,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
       + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1632,7 +1632,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
@@ -1658,7 +1658,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
       + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1678,7 +1678,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
@@ -1704,7 +1704,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
       + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        let getResponse;
@@ -1727,7 +1727,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        let getResponse;
@@ -1756,7 +1756,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const core = new MidtransClient.CoreApi({
@@ -1813,7 +1813,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const core = new MidtransClient.CoreApi({
@@ -1872,7 +1872,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using CommonJS
   
     ```javascript
-       const { MidtransClient } = require('@midtrans/node')
+       const { MidtransClient } = require('midtrans-node-client')
        const { v4: uuidv4 } = require('uuid')
        
        const snap = new MidtransClient.Snap({
@@ -1929,7 +1929,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
     + ##### Example Usage Using ES6
   
     ```javascript
-       import { MidtransClient } from '@midtrans/node'
+       import { MidtransClient } from 'midtrans-node-client'
        import { v4 as uuidv4 } from 'uuid'
        
        const snap = new MidtransClient.Snap({
