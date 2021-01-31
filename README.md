@@ -47,7 +47,7 @@
 - [Custome Usage](#custome-usage)
     + [charge](#charge-parameter-object---promise)
     + [createTransaction](#createtransaction-parameter-object--promise)
-- [Custome Reference](custome-Reference)
+- [Custome Reference](#custome-reference)
 - [Testing](#testing)
 - [Bugs](#bugs)
 - [Contributing](#contributing)
@@ -1985,6 +1985,7 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
 ### Custome Reference
 
 - #### Custome Core API Service - charge Request
+
   ```javascript
   chargeBankTransfer?: ChargeBankTransfer
 	chargeCreditCard?: ChargeCreditCard
@@ -2008,9 +2009,10 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
 	chargeAkuLaku?: ChargeAkuLaku
   ```
 - #### Custome Snap Service - createTransaction Request
+
   ```javascript
  	snapCreditCard?: CreditCard
-	snapFull?: snapFull
+	snapFull?: SnapFull
 	snapBca?: BcaVirtualAccount
 	snapPermata?: PermataVirtualAccount
 	snapBni?: BniVirtualAccount

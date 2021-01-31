@@ -89,7 +89,7 @@ type CreditCardOptions = {
 	readonly dynamic_descriptor?: DynamicDescriptorOptions
 }
 
-interface CreditCard {
+interface SnapCreditCard {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -115,7 +115,7 @@ type BcaVtOptions = {
 	readonly free_text?: FreeTextOptions
 }
 
-interface BcaVirtualAccount {
+interface SnapBcaVirtualAccount {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -135,7 +135,7 @@ type PermataVTOptions = {
 	readonly recipient_name?: string
 }
 
-interface PermataVirtualAccount {
+interface SnapPermataVirtualAccount {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -154,7 +154,7 @@ type BniVTOptions = {
 	readonly va_number: boolean
 }
 
-interface BniVirtualAccount {
+interface SnapBniVirtualAccount {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -173,7 +173,7 @@ type BriVTOptions = {
 	readonly va_number: boolean
 }
 
-interface BriVirtualAccount {
+interface SnapBriVirtualAccount {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -188,7 +188,7 @@ interface BriVirtualAccount {
  *==========================================
  */
 
-interface MandiriVirtualAccount {
+interface SnapMandiriVirtualAccount {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -207,7 +207,7 @@ type GopayOptions = {
 	readonly callback_url?: string
 }
 
-interface Gopay {
+interface SnapGopay {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -222,7 +222,7 @@ interface Gopay {
  *==========================================
  */
 
-interface KlikBCA {
+interface SnapKlikBCA {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -236,7 +236,7 @@ interface KlikBCA {
  *==========================================
  */
 
-interface BcaKlikPay {
+interface SnapBcaKlikPay {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -250,7 +250,7 @@ interface BcaKlikPay {
  *==========================================
  */
 
-interface CimbKlik {
+interface SnapCimbKlik {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -264,7 +264,7 @@ interface CimbKlik {
  *==========================================
  */
 
-interface DanamonOnlineBanking {
+interface SnapDanamonOnlineBanking {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -278,7 +278,7 @@ interface DanamonOnlineBanking {
  *==========================================
  */
 
-interface BriEpay {
+interface SnapBriEpay {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -292,7 +292,7 @@ interface BriEpay {
  *==========================================
  */
 
-interface Indomaret {
+interface SnapIndomaret {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -306,7 +306,7 @@ interface Indomaret {
  *==========================================
  */
 
-interface Alfamart {
+interface SnapAlfamart {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -320,7 +320,7 @@ interface Alfamart {
  *==========================================
  */
 
-interface AkuLaku {
+interface SnapAkuLaku {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -338,7 +338,7 @@ type ShopeePayOptions = {
 	readonly callback_url: string
 }
 
-interface ShopeePay {
+interface SnapShopeePay {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -363,7 +363,7 @@ type ExpiryOptions = {
 	readonly duration: number
 }
 
-interface snapFull {
+interface SnapFull {
 	readonly transaction_details: TransactionDetailOptions
 	readonly item_details?: ItemDetailsOptions
 	readonly customer_details?: CustomerDetailOptions
@@ -390,21 +390,21 @@ interface snapFull {
  */
 
 export interface TransactionRequestType {
-	readonly snapCreditCard?: CreditCard
-	readonly snapFull?: snapFull
-	readonly snapBca?: BcaVirtualAccount
-	readonly snapPermata?: PermataVirtualAccount
-	readonly snapBni?: BniVirtualAccount
-	readonly snapBri?: BriVirtualAccount
-	readonly snapMandiri?: MandiriVirtualAccount
-	readonly snapGopay?: Gopay
-	readonly snapKlikBca?: KlikBCA
-	readonly snapBcaKlikPay?: BcaKlikPay
-	readonly snapCimbKlik?: CimbKlik
-	readonly snapDanamonOnline?: DanamonOnlineBanking
-	readonly snapBriEpay?: BriEpay
-	readonly snapIndomaret?: Indomaret
-	readonly snapAlfamart?: Alfamart
-	readonly snapAkuLaku?: AkuLaku
-	readonly snapShopePay?: ShopeePay
+	readonly snapCreditCard?: SnapCreditCard
+	readonly snapFull?: SnapFull
+	readonly snapBca?: SnapBcaVirtualAccount
+	readonly snapPermata?: SnapPermataVirtualAccount
+	readonly snapBni?: SnapBniVirtualAccount
+	readonly snapBri?: SnapBriVirtualAccount
+	readonly snapMandiri?: SnapMandiriVirtualAccount
+	readonly snapGopay?: SnapGopay
+	readonly snapKlikBca?: SnapKlikBCA
+	readonly snapBcaKlikPay?: SnapBcaKlikPay
+	readonly snapCimbKlik?: SnapCimbKlik
+	readonly snapDanamonOnline?: SnapDanamonOnlineBanking
+	readonly snapBriEpay?: SnapBriEpay
+	readonly snapIndomaret?: SnapIndomaret
+	readonly snapAlfamart?: SnapAlfamart
+	readonly snapAkuLaku?: SnapAkuLaku
+	readonly snapShopePay?: SnapShopeePay
 }
