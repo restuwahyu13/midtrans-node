@@ -2,55 +2,52 @@
 
 [![Build Status](https://travis-ci.org/restuwahyu13/streambox-collection.svg?branch=main)](https://travis-ci.org/restuwahyu13/streambox-collection) [![Coverage Status](https://coveralls.io/repos/github/restuwahyu13/streambox-collection/badge.svg?branch=main)](https://coveralls.io/github/restuwahyu13/streambox-collection?branch=main) [![npm version](https://badge.fury.io/js/stream-collection.svg)](https://badge.fury.io/js/stream-collection) ![node-current](https://img.shields.io/node/v/stream-collection?style=flat-square) ![npm](https://img.shields.io/npm/dm/stream-collection) ![npm bundle size](https://img.shields.io/bundlephobia/min/stream-collection) ![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/stream-collection/1.0.1-rc1) ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/restuwahyu13/stream-collection) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/restuwahyu13/stream-collection/blob/main/CONTRIBUTING.md)
 
-- [Installation](#Installation)
-- [API Documentation](#API-Documentation)
-    + [Core API Documentation]()
-    + [Iris API Documentation]()
-    + [Snap API Documentation]()
-- [API Reference](#API-Reference)
+- [Installation](#installation)
+- [API Documentation](#api-documentation)
+    + [Core API Documentation](#core-api-documentation)
+    + [Iris API Documentation](#iris-api-documentation)
+    + [Snap API Documentation](#snap-api-documentation)
+- [API Reference](#api-reference)
   * [Core API Services](#Card-Services)
-    + [charge]()
-    + [capture]()
-    + [cardRegister]()
-    + [cardToken]()
-    + [cardPointInquiry]()
+    + [charge](#charge-parameter-object---promise)
+    + [capture](#capture-parameter-object---promise)
+    + [cardRegister](#cardregister-parameter-object---promise)
+    + [cardToken](#cardtoken-parameter-object---promise)
+    + [cardPointInquiry](#cardpointinquiry-tokenid-string---promise)
   * [Iris API Services](#Iris-Services)
-    + [ping]()
-    + [createBeneficiaries]()
-    + [updateBeneficiaries]()
-    + [getBeneficiaries]()
-    + [createPayouts]()
-    + [approvePayouts]()
-    + [rejectPayouts]()
-    + [getPayoutDetails]()
-    + [getTransactionHistory]()
-    + [getTopupChannels]()
-    + [getBalance]()
-    + [getFacilitatorBankAccounts]()
-    + [getFacilitatorBalance]()
-    + [getBeneficiaryBanks]()
-    + [validateBankAccount]()
+    + [ping](#ping-promise)
+    + [createBeneficiaries](#createbeneficiaries-parameter-object--promise)
+    + [updateBeneficiaries](#updatebeneficiaries-aliasname-string-parameter-object--promise)
+    + [getBeneficiaries](#getbeneficiaries-promise)
+    + [createPayouts](#createpayouts-parameter-object--promise)
+    + [approvePayouts](#approvepayouts-parameter-object--promise)
+    + [rejectPayouts](#rejectpayouts-parameter-object--promise)
+    + [getPayoutDetails](#getpayoutdetails-referenceno-string--promise)
+    + [getTransactionHistory](#gettransactionhistory-parameter-string-promise)
+    + [getTopupChannels](#gettopupchannels-promise)
+    + [getBalance](#getbalance-promise)
+    + [getFacilitatorBankAccounts](#getfacilitatorbankaccounts-promise)
+    + [getFacilitatorBalance](#getfacilitatorbalance-bankaccountid-string--promise)
+    + [getBeneficiaryBanks](#getbeneficiarybanks-promise)
+    + [validateBankAccount](#validatebankaccount-parameter-object--promise)
   * [Snap API Services](#Snap-Services)
-    + [createTransaction]()
-    + [createTransactionToken]()
-    + [createTransactionRedirectUrl]()
+    + [createTransaction](#createtransaction-parameter-object--promise)
+    + [createTransactionToken](#createtransactiontoken-parameter-object--promise)
+    + [createTransactionRedirectUrl](#createtransactionredirecturl-parameter-object--promise)
   * [Transaction API Service](#Transaction-Service)
-    + [status]()
-    + [statusb2b]()
-    + [approve]()
-    + [deny]()
-    + [cancel]()
-    + [expire]()
-    + [refund]()
-    + [refundDirect]()
-    + [notification]()
-- [Example Usage]()
-- [Testing](#Testing)
-- [Bugs](#Bugs)
-- [Contributing](#Contributing)
-- [License](#License)
-
-<!-- tocstop -->
+    + [status](#status-transactionid-string--promise)
+    + [statusb2b](#statusb2b-transactionid-string--promise)
+    + [approve](#approve-transactionid-string--promise)
+    + [deny](#deny-transactionid-string--promise)
+    + [cancel](#cancel-transactionid-string--promise)
+    + [expire](#expire-transactionid-string--promise)
+    + [refund](#refund-transactionid-string-parameter-object-promise)
+    + [refundDirect](#refunddirect-transactionid-string-parameter-object-promise)
+    + [notification](#notification-notification-object--promise)
+- [Testing](#testing)
+- [Bugs](#bugs)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
@@ -1745,3 +1742,38 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        .then(console.log)
        .catch(console.error)
     ```
+### Testing
+
+- Testing Via Local
+
+  ```sh
+  npm test or make test
+  ```
+
+- Testing Via Local And Build
+
+  ```sh
+  make build
+  ```
+
+- Testing Via Docker
+
+  ```sh
+  docker build -t midtrans-node or make dkb tag=midtrans-node
+  ```
+
+### Bugs
+
+For information on bugs related to package libraries, please visit [here](https://github.com/restuwahyu13/midtrans-node/issues)
+
+### Contributing
+
+Want to make **Midtrans Node** more perfect ? Let's contribute and follow the [contribution guide.](https://github.com/restuwahyu13/midtrans-node/blob/main/CONTRIBUTING.md)
+
+### License
+
+- [MIT License](https://github.com/restuwahyu13/streambox-collection/blob/main/LICENSE.md)
+
+<p align="right" style="padding: 5px; border-radius: 100%; background-color: red; font-size: 2rem;">
+  <b><a href="#Midtrans-node">BACK TO TOP</a></b>
+</p>
