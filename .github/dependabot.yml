@@ -1,8 +1,23 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "22:00"
-  open-pull-requests-limit: 10
+  - package-ecosystem: npm
+    target-branch: 'main'
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+      time: '19:00'
+      timezone: 'Asia/Jakarta'
+    ignore:
+      - dependency-name: 'husky'
+      - dependency-name: 'rimraf'
+      - dependency-name: 'coveralls'
+      - dependency-name: 'streambox-collection'
+      - dependency-name: 'ts-node'
+      - dependency-name: '*.@types'
+    open-pull-requests-limit: 5
+    versioning-strategy: 'increase-if-necessary'
+    commit-message:
+      prefix: 'dependencies'
+      prefix-development: 'devDependencies'
+      include: 'scope'
