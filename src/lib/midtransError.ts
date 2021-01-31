@@ -9,9 +9,9 @@ import { MidtransErrorOptions } from '../types/midtransError'
 
 export class MidtransError extends Error {
 	public readonly name: string
-	private readonly httpStatusCode?: number
-	private readonly ApiResponse?: any
-	private readonly rawHttpClientData?: any
+	// private readonly httpStatusCode?: number
+	// private readonly ApiResponse?: any
+	// private readonly rawHttpClientData?: any
 
 	constructor(options: MidtransErrorOptions | Record<string, any>) {
 		super(options.message)
@@ -19,9 +19,9 @@ export class MidtransError extends Error {
 		// Ensure the name of this error is the same as the class name
 		this.name = this.constructor.name
 
-		this.httpStatusCode = options.httpStatusCode
-		this.ApiResponse = options.ApiResponse
-		this.rawHttpClientData = options.rawHttpClientData
+		// this.httpStatusCode = options.httpStatusCode
+		// this.ApiResponse = options.ApiResponse
+		// this.rawHttpClientData = options.rawHttpClientData
 
 		// This clips the constructor invocation from the stack trace.
 		Error.captureStackTrace(this, this.constructor)

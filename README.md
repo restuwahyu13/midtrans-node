@@ -1,6 +1,6 @@
 # Midtrans Node
 
-[![Build Status](https://travis-ci.org/restuwahyu13/streambox-collection.svg?branch=main)](https://travis-ci.org/restuwahyu13/streambox-collection) [![Coverage Status](https://coveralls.io/repos/github/restuwahyu13/streambox-collection/badge.svg?branch=main)](https://coveralls.io/github/restuwahyu13/streambox-collection?branch=main) [![npm version](https://badge.fury.io/js/stream-collection.svg)](https://badge.fury.io/js/stream-collection) ![node-current](https://img.shields.io/node/v/stream-collection?style=flat-square) ![npm](https://img.shields.io/npm/dm/stream-collection) ![npm bundle size](https://img.shields.io/bundlephobia/min/stream-collection) ![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/stream-collection/1.0.1-rc1) ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/restuwahyu13/stream-collection) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/restuwahyu13/stream-collection/blob/main/CONTRIBUTING.md)
+[![Build Status](https://travis-ci.org/restuwahyu13/midtrans-node.svg?branch=main)](https://travis-ci.org/restuwahyu13/midtrans-node) [![Coverage Status](https://coveralls.io/repos/github/restuwahyu13/nodejs-midtrans-client/badge.svg?branch=main)](https://coveralls.io/github/restuwahyu13/nodejs-midtrans-client?branch=main) ![node-current](https://img.shields.io/node/v/@midtrans/node?style=flat-square) ![npm](https://img.shields.io/npm/dm/@midtrans/node) ![npm bundle size](https://img.shields.io/bundlephobia/min/@midtrans/node) ![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/@midtrans/node) ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/restuwahyu13/@midtrans/node) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/restuwahyu13/midtrans-node/blob/main/CONTRIBUTING.md)
 
 - [Installation](#installation)
 - [API Documentation](#api-documentation)
@@ -1375,13 +1375,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        const { MidtransClient } = require('@midtrans/node')
        const { v4: uuidv4 } = require('uuid')
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1392,13 +1392,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        import { MidtransClient } from '@midtrans/node'
        import { v4 as uuidv4 } from 'uuid'
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1415,13 +1415,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        const { MidtransClient } = require('@midtrans/node')
        const { v4: uuidv4 } = require('uuid')
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1432,13 +1432,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        import { MidtransClient } from '@midtrans/node'
        import { v4 as uuidv4 } from 'uuid'
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.statusb2b('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.statusb2b('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1455,13 +1455,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        const { MidtransClient } = require('@midtrans/node')
        const { v4: uuidv4 } = require('uuid')
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.approve('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.approve('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1472,13 +1472,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        import { MidtransClient } from '@midtrans/node'
        import { v4 as uuidv4 } from 'uuid'
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.approve('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.approve('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1495,13 +1495,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        const { MidtransClient } = require('@midtrans/node')
        const { v4: uuidv4 } = require('uuid')
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.deny('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.deny('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1512,13 +1512,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        import { MidtransClient } from '@midtrans/node'
        import { v4 as uuidv4 } from 'uuid'
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.deny('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.deny('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1535,13 +1535,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        const { MidtransClient } = require('@midtrans/node')
        const { v4: uuidv4 } = require('uuid')
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.cancel('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.cancel('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1552,13 +1552,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        import { MidtransClient } from '@midtrans/node'
        import { v4 as uuidv4 } from 'uuid'
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.cancel('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.cancel('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1575,13 +1575,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        const { MidtransClient } = require('@midtrans/node')
        const { v4: uuidv4 } = require('uuid')
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.expire('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.expire('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1592,13 +1592,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        import { MidtransClient } from '@midtrans/node'
        import { v4 as uuidv4 } from 'uuid'
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.expire('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.expire('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then(console.log)
        .catch(console.error)
     ```
@@ -1615,13 +1615,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        const { MidtransClient } = require('@midtrans/node')
        const { v4: uuidv4 } = require('uuid')
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.refund('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
+       snap.transaction.refund('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
          amount: 1000000, 
          reason: 'Reason to refund payouts'
        })
@@ -1635,13 +1635,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        import { MidtransClient } from '@midtrans/node'
        import { v4 as uuidv4 } from 'uuid'
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.refund('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
+       snap.transaction.refund('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
          amount: 1000000, 
          reason: 'Reason to refund payouts'
        })
@@ -1661,13 +1661,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        const { MidtransClient } = require('@midtrans/node')
        const { v4: uuidv4 } = require('uuid')
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.refundDirect('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
+       snap.transaction.refundDirect('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
          amount: 1000000, 
          reason: 'Reason to refund direct payouts'
        })
@@ -1681,13 +1681,13 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        import { MidtransClient } from '@midtrans/node'
        import { v4 as uuidv4 } from 'uuid'
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.refundDirect('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
+       snap.transaction.refundDirect('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590', {
          amount: 1000000, 
          reason: 'Reason to direct payouts'
        })
@@ -1709,17 +1709,17 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        
        let getResponse;
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-        core.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+        snap.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then((res) => getResponse = res)
        .catch(console.error)
        
-       core.transaction.notification(JSON.stringify(getResponse))
+       snap.transaction.notification(JSON.stringify(getResponse))
        .then(console.log)
        .catch(console.error)
     ```
@@ -1732,17 +1732,17 @@ npm install @midtrans/node -S or yarn add @midtrans/node -S
        
        let getResponse;
        
-       const core = new MidtransClient.CoreApi({
+       const snap = new MidtransClient.Snap({
          isProduction: process.env.DEVELOPMENT,
          serverKey: process.env.SERVER_KEY,
          clientKey: process.env.CLIENT_KEY
        })
         
-       core.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
+       snap.transaction.status('be4f3e44-d6ee-4355-8c64-c1d1dc7f4590')
        .then((res) => getResponse = res)
        .catch(console.error)
        
-       core.transaction.notification(JSON.stringify(getResponse))
+       snap.transaction.notification(JSON.stringify(getResponse))
        .then(console.log)
        .catch(console.error)
     ```
