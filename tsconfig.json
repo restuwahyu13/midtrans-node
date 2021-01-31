@@ -6,7 +6,6 @@
 		"allowJs": true,
 		"moduleResolution": "node",
 		"esModuleInterop": true,
-		"importHelpers": true,
 		"allowSyntheticDefaultImports": true,
 		"allowUmdGlobalAccess": true,
 		"downlevelIteration": true,
