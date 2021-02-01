@@ -1,6 +1,6 @@
 {
 	"name": "midtrans-node-client",
-	"version": "0.0.1-rc",
+	"version": "0.0.1",
 	"description": "Unoffficial Midtrans Payment API Client for Node JS | Alternative for Midtrans Official Module",
 	"main": "./dist/index.js",
 	"files": [
@@ -48,6 +48,7 @@
 	],
 	"dependencies": {
 		"axios": "^0.21.1",
+		"is-any-type": "0.0.2",
 		"lodash": "^4.17.20"
 	},
 	"devDependencies": {

@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse, Method } from 'axios'
-import { isType } from '../utils/util.is'
+import { isType } from 'is-any-type'
 import { Snap } from '../lib/snap'
 import { CoreApi } from '../lib/coreApi'
 import { Iris } from '../lib/iris'

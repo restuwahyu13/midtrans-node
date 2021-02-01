@@ -1,4 +1,4 @@
-import { isType } from '../src/utils/util.is'
+import { isType } from 'is-any-type'
 import { ApiConfig as MidtransConfigApi } from '../src/lib/apiConfig'
 import { config } from '../config'
 

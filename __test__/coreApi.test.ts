@@ -1,4 +1,4 @@
-import { isType } from '../src/utils/util.is'
+import { isType } from 'is-any-type'
 import { CoreApi } from '../src/lib/coreApi'
 import { config } from '../config'
 

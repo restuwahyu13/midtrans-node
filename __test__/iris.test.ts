@@ -1,4 +1,4 @@
-import { isType } from '../src/utils/util.is'
+import { isType } from 'is-any-type'
 import { Iris } from '../src/lib/iris'
 import { config } from '../config'
 let globVar = {

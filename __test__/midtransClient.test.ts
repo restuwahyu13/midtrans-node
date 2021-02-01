@@ -1,4 +1,4 @@
-import { isType } from '../src/utils/util.is'
+import { isType } from 'is-any-type'
 import { MidtransClient } from '../src/index'
 import { config } from '../config'
 

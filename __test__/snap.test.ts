@@ -1,4 +1,4 @@
-import { isType } from '../src/utils/util.is'
+import { isType } from 'is-any-type'
 import { Snap } from '../src/lib/snap'
 import { config } from '../config'
 

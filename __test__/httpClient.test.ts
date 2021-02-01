@@ -1,4 +1,4 @@
-import { isType } from '../src/utils/util.is'
+import { isType } from 'is-any-type'
 import { HttpClient } from '../src/lib/httpClient'
 import { config } from '../config'
 describe('HttpClient', () => {
