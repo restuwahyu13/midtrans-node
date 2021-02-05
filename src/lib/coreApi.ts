@@ -39,7 +39,7 @@ export class CoreApi {
 
 	public charge<T extends Partial<ChargeTypeRequest>>(
 		parameter: T | Record<string, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/charge'
 		const res = parameter
 		return this.httpClient.request({
@@ -57,7 +57,9 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public capture<T extends Partial<CaptureRequest>>(parameter: T | Record<string, any>): Promise<Record<string, any>> {
+	public capture<T extends Partial<CaptureRequest>>(
+		parameter: T | Record<string, any>
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/capture'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -75,7 +77,7 @@ export class CoreApi {
 
 	public cardRegister<T extends Partial<CardRegisterRequest>>(
 		parameter: T | Record<any, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/card/register'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -93,7 +95,7 @@ export class CoreApi {
 
 	public cardToken<T extends Partial<CardTokenRequest>>(
 		parameter: T | Record<string, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/token'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -109,7 +111,7 @@ export class CoreApi {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public cardPointInquiry(tokenId: string): Promise<Record<string, any>> {
+	public cardPointInquiry(tokenId: string): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getCoreApiBaseUrl() + '/point_inquiry/' + tokenId
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,

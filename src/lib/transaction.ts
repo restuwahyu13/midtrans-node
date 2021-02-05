@@ -21,7 +21,7 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public status(transactionId: string): Promise<Record<string, any>> {
+	public status(transactionId: string): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/status'
 		return this.parent.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -37,7 +37,7 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public statusb2b(transactionId: string): Promise<Record<string, any>> {
+	public statusb2b(transactionId: string): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/statusb2b'
 		return this.parent.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -53,7 +53,7 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public approve(transactionId: string): Promise<Record<string, any>> {
+	public approve(transactionId: string): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/approve'
 		return this.parent.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -69,7 +69,7 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public deny(transactionId: string): Promise<Record<string, any>> {
+	public deny(transactionId: string): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/deny'
 		return this.parent.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -85,7 +85,7 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public cancel(transactionId: string): Promise<Record<string, any>> {
+	public cancel(transactionId: string): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/cancel'
 		return this.parent.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -101,7 +101,7 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public expire(transactionId: string): Promise<Record<string, any>> {
+	public expire(transactionId: string): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/expire'
 		return this.parent.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -121,7 +121,7 @@ export class Transaction {
 	public refund<T extends Partial<RefundRequest>>(
 		transactionId: string,
 		parameter?: T | Record<any, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund'
 		return this.parent.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -141,7 +141,7 @@ export class Transaction {
 	public refundDirect<T extends Partial<RefundRequest>>(
 		transactionId: string,
 		parameter?: T | Record<any, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.parent.apiConfig.getCoreApiBaseUrl() + '/' + transactionId + '/refund/online/direct'
 		return this.parent.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -157,7 +157,7 @@ export class Transaction {
 	 * @return Promise
 	 */
 
-	public notification(notification: Record<string, any>): Promise<any> {
+	public notification(notification: Record<string, any>): ReturnType<() => Promise<any>> {
 		let self = this
 		return new Promise(function (resolve, reject) {
 			if (typeof notification === 'string') {

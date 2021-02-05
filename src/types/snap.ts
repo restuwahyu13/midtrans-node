@@ -40,9 +40,7 @@ type ItemDetailsOptions = {
 	readonly brand?: string
 	readonly category?: string
 	readonly merchant_name?: string
-	/**
-	 * @descript For BCA Klikpay
-	 */
+	//  For BCA Klikpay
 	readonly tenor?: number
 	readonly code_plan?: number
 	readonly mid?: number

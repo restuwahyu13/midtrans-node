@@ -32,7 +32,7 @@ export class ApiConfig {
 	 * @return {Object} object contains isProduction, serverKey, clientKey
 	 */
 
-	public get(): ApiConfigGetter {
+	public get(): ReturnType<() => ApiConfigGetter> {
 		const currentConfig: ApiConfigOptions = {
 			isProduction: this.isProduction,
 			serverKey: this.serverKey,
@@ -46,7 +46,7 @@ export class ApiConfig {
 	 * @param {Object} options - object contains isProduction, serverKey, clientKey]
 	 */
 
-	public set<T extends Partial<ApiConfigOptions>>(options: T | Record<any, any>): void {
+	public set<T extends Partial<ApiConfigOptions>>(options: T | Record<any, any>): ReturnType<() => void> {
 		const currentConfig: ApiConfigOptions = {
 			isProduction: this.isProduction,
 			serverKey: this.serverKey,
@@ -65,7 +65,7 @@ export class ApiConfig {
 	 * @return {String} core api base url
 	 */
 
-	public getCoreApiBaseUrl(): string {
+	public getCoreApiBaseUrl(): ReturnType<() => string> {
 		return this.isProduction ? ApiConfig.CORE_PRODUCTION_BASE_URL : ApiConfig.CORE_SANDBOX_BASE_URL
 	}
 
@@ -73,7 +73,7 @@ export class ApiConfig {
 	 * @return {String} snap api base url
 	 */
 
-	public getSnapApiBaseUrl(): string {
+	public getSnapApiBaseUrl(): ReturnType<() => string> {
 		return this.isProduction ? ApiConfig.SNAP_PRODUCTION_BASE_URL : ApiConfig.SNAP_SANDBOX_BASE_URL
 	}
 
@@ -81,7 +81,7 @@ export class ApiConfig {
 	 * @return {String} Iris api base url
 	 */
 
-	public getIrisApiBaseUrl(): string {
+	public getIrisApiBaseUrl(): ReturnType<() => string> {
 		return this.isProduction ? ApiConfig.IRIS_PRODUCTION_BASE_URL : ApiConfig.IRIS_SANDBOX_BASE_URL
 	}
 }

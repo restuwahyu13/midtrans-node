@@ -30,7 +30,7 @@ export class Snap {
 
 	public createTransaction<T extends Partial<TransactionRequestType>>(
 		parameter: T | Record<any, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getSnapApiBaseUrl() + '/transactions'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -52,7 +52,7 @@ export class Snap {
 
 	public createTransactionToken<T extends Partial<TransactionRequestType>>(
 		parameter: T | Record<any, any>
-	): Promise<string> {
+	): ReturnType<() => Promise<string>> {
 		this.requestPayload =
 			parameter === null || parameter === undefined
 				? parameter
@@ -69,7 +69,7 @@ export class Snap {
 
 	public createTransactionRedirectUrl<T extends Partial<TransactionRequestType>>(
 		parameter: T | Record<any, any>
-	): Promise<string> {
+	): ReturnType<() => Promise<string>> {
 		this.requestPayload =
 			parameter === null || parameter === undefined
 				? parameter

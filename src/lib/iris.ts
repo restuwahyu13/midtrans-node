@@ -38,7 +38,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public ping(): Promise<Record<string, any>> {
+	public ping(): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/ping'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -56,7 +56,7 @@ export class Iris {
 
 	public createBeneficiaries<T extends Partial<BeneficiariesOptions>>(
 		parameter: T | Record<string, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -76,7 +76,7 @@ export class Iris {
 	public updateBeneficiaries<T extends Partial<BeneficiariesOptions>>(
 		aliasName: string,
 		parameter: T | Record<string, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries/' + aliasName
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -91,7 +91,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public getBeneficiaries(): Promise<Record<string, any>> {
+	public getBeneficiaries(): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiaries'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -109,7 +109,7 @@ export class Iris {
 
 	public createPayouts<T extends Partial<PayoutOptions>>(
 		parameter: T | Record<string, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -127,7 +127,7 @@ export class Iris {
 
 	public approvePayouts<T extends Partial<ApprovePayoutOptions>>(
 		parameter: T | Record<string, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/approve'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -145,7 +145,7 @@ export class Iris {
 
 	public rejectPayouts<T extends Partial<RejectPayoutsOptions>>(
 		parameter: T | Record<string, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/reject'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -161,7 +161,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public getPayoutDetails(referenceNo: string): Promise<Record<string, any>> {
+	public getPayoutDetails(referenceNo: string): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/payouts/' + referenceNo
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -178,7 +178,7 @@ export class Iris {
 
 	public getTransactionHistory<T extends Partial<TransactionHistoryOptions>>(
 		parameter: T | Record<string, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/statements'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -193,7 +193,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public getTopupChannels(): Promise<Record<string, any>> {
+	public getTopupChannels(): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/channels'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -208,7 +208,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public getBalance(): Promise<Record<string, any>> {
+	public getBalance(): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/balance'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -223,7 +223,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public getFacilitatorBankAccounts(): Promise<Record<string, any>> {
+	public getFacilitatorBankAccounts(): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -239,7 +239,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public getFacilitatorBalance(bankAccountId: string): Promise<Record<string, any>> {
+	public getFacilitatorBalance(bankAccountId: string): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/bank_accounts/' + bankAccountId + '/balance'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -254,7 +254,7 @@ export class Iris {
 	 * @return {Promise} - Promise contains Object from JSON decoded response
 	 */
 
-	public getBeneficiaryBanks(): Promise<Record<string, any>> {
+	public getBeneficiaryBanks(): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/beneficiary_banks'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
@@ -272,7 +272,7 @@ export class Iris {
 
 	public validateBankAccount<T extends Partial<ValidateBankAccountOptions>>(
 		parameter: T | Record<any, any>
-	): Promise<Record<string, any>> {
+	): ReturnType<() => Promise<Record<string, any>>> {
 		this.apiUrl = this.apiConfig.getIrisApiBaseUrl() + '/account_validation'
 		return this.httpClient.request({
 			requestUrl: this.apiUrl,
