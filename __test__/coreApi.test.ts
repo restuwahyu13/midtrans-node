@@ -47,8 +47,8 @@ describe('CoreApi', () => {
 		expect(isType(res.status_code)).toStrictEqual('string')
 		expect(isType(res.token_id)).toStrictEqual('string')
 		expect(res.status_code).toStrictEqual('200')
-		tokenId = res.token_id
 		done()
+		tokenId = res.token_id
 	})
 
 	it('able to card register cc', async (done) => {
@@ -65,8 +65,8 @@ describe('CoreApi', () => {
 		expect(isType(res.status_code)).toStrictEqual('string')
 		expect(isType(res.saved_token_id)).toStrictEqual('string')
 		expect(res.status_code).toStrictEqual('200')
-		savedTokenId = res.saved_token_id
 		done()
+		savedTokenId = res.saved_token_id
 	})
 
 	it('fail to card point inquiry 402', () => {

@@ -70,16 +70,14 @@ describe('Iris.js', () => {
 		done()
 	})
 
-	it('fail 400 to createBeneficiaries with unset api key', () => {
+	it('fail 400 to createBeneficiaries with unset api key', (done) => {
 		const spyIris = jest.spyOn(iris, 'createBeneficiaries')
-		return iris
-			.createBeneficiaries({})
-			.then((res) => {
-				expect(spyIris).toHaveBeenCalled()
-				expect(spyIris).toHaveBeenCalledTimes(1)
-				expect(res).toStrictEqual(null)
-			})
-			.catch((e) => expect(e.message).toMatch(/400/))
+		return iris.createBeneficiaries({}).catch((e) => {
+			expect(spyIris).toHaveBeenCalled()
+			expect(spyIris).toHaveBeenCalledTimes(1)
+			expect(e.message).toMatch(/400/)
+			done()
+		})
 	})
 
 	it('fail to createBeneficiaries: account duplicated / already been taken', () => {

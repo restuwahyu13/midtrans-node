@@ -54,7 +54,7 @@ export class ApiConfig {
 		}
 
 		this.parsedOptions = _.pick(options, ['isProduction', 'serverKey', 'clientKey'])
-		this.mergedConfig = _.merge({}, currentConfig, this.parsedOptions)
+		this.mergedConfig = Object.assign(currentConfig, this.parsedOptions)
 
 		this.isProduction = options ? this.mergedConfig.isProduction : this.isProduction
 		this.serverKey = options ? this.mergedConfig.serverKey : this.serverKey
