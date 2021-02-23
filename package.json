@@ -49,7 +49,7 @@
 	"dependencies": {
 		"axios": "^0.21.1",
 		"is-any-type": "0.0.3",
-		"lodash": "^4.17.20"
+		"lodash": "^4.17.21"
 	},
 	"devDependencies": {
 		"@types/axios": "^0.14.0",
