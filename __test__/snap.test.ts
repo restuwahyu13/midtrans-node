@@ -6,12 +6,14 @@ describe('Snap', () => {
 	let snap
 
 	beforeEach(() => {
-		snap = new Snap(generateConfig())
 		jest.resetAllMocks()
+		jest.setTimeout(50000)
+		snap = new Snap(generateConfig())
 	})
 
 	afterAll(() => {
 		jest.clearAllMocks()
+		jest.clearAllTimers()
 	})
 
 	it('class should be working', () => {

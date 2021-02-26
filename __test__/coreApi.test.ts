@@ -14,12 +14,14 @@ let apiResponse = {}
 
 describe('CoreApi', () => {
 	beforeEach(() => {
-		coreApi = new CoreApi(generateConfig())
 		jest.resetAllMocks()
+		jest.setTimeout(50000)
+		coreApi = new CoreApi(generateConfig())
 	})
 
 	afterAll(() => {
 		jest.clearAllMocks()
+		jest.clearAllTimers()
 	})
 
 	it('class should be working', () => {

@@ -9,12 +9,14 @@ describe('Iris.js', () => {
 	let iris
 
 	beforeEach(() => {
-		iris = new Iris(generateConfig())
 		jest.resetAllMocks()
+		jest.setTimeout(50000)
+		iris = new Iris(generateConfig())
 	})
 
 	afterAll(() => {
 		jest.clearAllMocks()
+		jest.clearAllTimers()
 	})
 
 	it('class should be working', () => {

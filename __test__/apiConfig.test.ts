@@ -7,6 +7,7 @@ describe('ApiConfig', () => {
 
 	beforeEach(() => {
 		jest.resetAllMocks()
+		jest.setTimeout(50000)
 
 		apiConfig = new MidtransConfigApi({
 			isProduction: false,
@@ -17,6 +18,7 @@ describe('ApiConfig', () => {
 
 	afterAll(() => {
 		jest.clearAllMocks()
+		jest.clearAllTimers()
 	})
 
 	it('able to store config', () => {

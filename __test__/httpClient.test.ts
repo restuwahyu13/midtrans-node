@@ -5,12 +5,14 @@ describe('HttpClient', () => {
 	let httpClient
 
 	beforeEach(() => {
-		httpClient = new HttpClient()
 		jest.resetAllMocks()
+		jest.setTimeout(50000)
+		httpClient = new HttpClient()
 	})
 
 	afterAll(() => {
 		jest.clearAllMocks()
+		jest.clearAllTimers()
 	})
 
 	it('class should be working', () => {

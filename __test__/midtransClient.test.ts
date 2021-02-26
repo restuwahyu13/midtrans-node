@@ -6,12 +6,14 @@ describe('MidtransClient', () => {
 	let midtransClient
 
 	beforeEach(() => {
-		midtransClient = MidtransClient
 		jest.resetAllMocks()
+		jest.setTimeout(50000)
+		midtransClient = MidtransClient
 	})
 
 	afterAll(() => {
 		jest.clearAllMocks()
+		jest.clearAllTimers()
 	})
 
 	it('have Snap class', () => {
