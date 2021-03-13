@@ -49,7 +49,7 @@ export class HttpClient {
 		}
 
 		return new Promise(async (resolve, reject) => {
-			if (typeof requestBody === 'string' || typeof requestParam === 'string') {
+			if (isType(requestBody) === 'string' || isType(requestParam) === 'string') {
 				// Reject if body is not JSON
 				try {
 					requestBody = JSON.parse(requestBody)

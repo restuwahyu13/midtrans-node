@@ -2,12 +2,11 @@
 	"compilerOptions": {
 		"outDir": "dist",
 		"target": "ESNext",
-		"module": "UMD",
+		"module": "CommonJS",
 		"allowJs": true,
 		"moduleResolution": "node",
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
-		"allowUmdGlobalAccess": true,
 		"downlevelIteration": true,
 		"skipLibCheck": true,
 		"declaration": true,

@@ -1,15 +1,19 @@
 {
 	"name": "midtrans-node-client",
-	"version": "0.0.2",
+	"version": "0.0.4",
 	"description": "Unoffficial Midtrans Payment API Client for Node JS | Alternative for Midtrans Official Module",
 	"main": "./dist/index.js",
+	"module": "./esm/index.js",
 	"files": [
-		"/dist/**"
+		"dists/**/*.js",
+		"esm/**/*.js"
 	],
 	"scripts": {
-		"clean": "rimraf dist",
-		"compiler": "npm run clean && tsc --pretty",
-		"build": "npm run compiler",
+		"clean:esm": "rimraf dist",
+		"clean:cjs": "rimraf dist",
+		"compiler:esm": "npm run clean:esm && tsc --module es6 --outDir esm --pretty",
+		"compiler:cjs": "npm run clean:cjs && tsc --pretty",
+		"build": "npm run compiler:esm && npm run compiler:cjs",
 		"test": "jest",
 		"test:watch": "jest --watchAll",
 		"test:coverage": "jest --coverage",
@@ -40,7 +44,9 @@
 		"payment gateway",
 		"midtrans",
 		"midtrans-client",
-		"npm package",
+		"es6",
+		"commonjs",
+		"node",
 		"nodejs",
 		"node_modules",
 		"javascript",

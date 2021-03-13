@@ -9,11 +9,6 @@ updates:
       time: '19:00'
       timezone: 'Asia/Jakarta'
     ignore:
-      - dependency-name: 'husky'
-      - dependency-name: 'rimraf'
-      - dependency-name: 'coveralls'
-      - dependency-name: 'streambox-collection'
-      - dependency-name: 'ts-node'
       - dependency-name: '*.@types'
     open-pull-requests-limit: 5
     versioning-strategy: 'increase-if-necessary'

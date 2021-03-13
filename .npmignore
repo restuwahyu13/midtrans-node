@@ -2,6 +2,7 @@
 __test__
 coverage
 dist
+esm
 node_modules
 .coveralls.yml
 .editorconfig
