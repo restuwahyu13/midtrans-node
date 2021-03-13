@@ -1,25 +1,25 @@
 {
 	"name": "midtrans-node-client",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Unoffficial Midtrans Payment API Client for Node JS | Alternative for Midtrans Official Module",
 	"main": "./dist/index.js",
 	"module": "./esm/index.js",
 	"files": [
-		"dist/**/*.js",
-		"esm/**/*.js"
+		"/dist/**",
+		"/esm/**"
 	],
 	"scripts": {
-		"clean:esm": "rimraf dist",
+		"clean:esm": "rimraf esm",
 		"clean:cjs": "rimraf dist",
-		"compiler:esm": "npm run clean:esm && tsc --module es6 --outDir esm --pretty",
+		"compiler:esm": "npm run clean:esm && tsc --outDir esm --module es6 --pretty",
 		"compiler:cjs": "npm run clean:cjs && tsc --pretty",
-		"build": "npm run compiler:esm && npm run compiler:cjs",
+		"build": "npm run compiler:cjs && npm run compiler:esm",
 		"test": "jest",
-		"test:watch": "jest --watchAll",
 		"test:coverage": "jest --coverage",
+		"test:watch": "jest --watchAll",
 		"test:coveralls": "jest --coverage && coveralls < coverage/lcov.info",
-		"lint": "eslint src/**/*.ts --fix",
-		"format": "prettier src/**/*.ts --write",
+		"lint": "eslint src/**/*.{ts,spec.ts,test.ts} --fix",
+		"format": "prettier src/**/*.{ts,spec.ts,test.ts} --write",
 		"lint:fix": "npm run format && npm run lint"
 	},
 	"author": {
