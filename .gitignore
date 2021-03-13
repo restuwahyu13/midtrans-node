@@ -2,3 +2,4 @@ node_modules
 dist
 esm
 coverage
+app
