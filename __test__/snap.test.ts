@@ -96,13 +96,13 @@ describe('Snap', () => {
 		expect(snap.apiConfig.get().clientKey).toStrictEqual('abc')
 	})
 
-	it('fail to create transaction 400 with no serverKey', (done) => {
+	it('fail to create transaction 401 with no serverKey', (done) => {
 		const spySnap = jest.spyOn(snap, 'createTransaction')
 		snap.apiConfig.set({ serverKey: '' })
 		return snap.createTransaction(generateParamMin()).catch((e) => {
 			expect(spySnap).toHaveBeenCalled()
 			expect(spySnap).toHaveBeenCalledTimes(1)
-			expect(e.message).toMatch(/400/)
+			expect(e.message).toMatch(/401/)
 			done()
 		})
 	})
