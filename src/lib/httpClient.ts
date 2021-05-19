@@ -26,7 +26,7 @@ export class HttpClient {
 		this.headers = {
 			'content-type': 'application/json',
 			'accept': 'application/json',
-			'user-agent': 'midtransclient-nodejs/1.2.1'
+			'user-agent': 'midtransclient-nodejs/1.2.3'
 		}
 		this.requestBody = {}
 		this.requestParam = {}
