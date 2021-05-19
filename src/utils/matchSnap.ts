@@ -15,6 +15,6 @@ export const matchSnap = (type: string): boolean => {
 		'snapIndomaret',
 		'snapAlfamart',
 		'snapAkuLaku',
-		'snapShopePay'
+		'snapShopeePay'
 	].includes(type)
 }
