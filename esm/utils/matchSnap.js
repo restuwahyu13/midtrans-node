@@ -15,6 +15,6 @@ export const matchSnap = (type) => {
         'snapIndomaret',
         'snapAlfamart',
         'snapAkuLaku',
-        'snapShopePay'
+        'snapShopeePay'
     ].includes(type);
 };

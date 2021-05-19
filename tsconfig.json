@@ -25,5 +25,6 @@
 		"esm",
 		"__test__/**/*.{test.ts,spec.ts}",
 		"coverage",
+		".github"
 	]
 }

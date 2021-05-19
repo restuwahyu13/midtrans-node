@@ -1,6 +1,6 @@
 {
 	"name": "midtrans-node-client",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "Unoffficial Midtrans Payment API Client for Node JS | Alternative for Midtrans Official Module",
 	"main": "./dist/index.js",
 	"module": "./esm/index.js",
