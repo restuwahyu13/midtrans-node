@@ -404,5 +404,5 @@ export interface TransactionRequestType {
 	readonly snapIndomaret?: SnapIndomaret
 	readonly snapAlfamart?: SnapAlfamart
 	readonly snapAkuLaku?: SnapAkuLaku
-	readonly snapShopePay?: SnapShopeePay
+	readonly snapShopeePay?: SnapShopeePay
 }
