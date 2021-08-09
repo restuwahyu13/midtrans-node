@@ -54,7 +54,7 @@
 	],
 	"dependencies": {
 		"axios": "^0.21.1",
-		"is-any-type": "0.0.3",
+		"is-any-type": "0.0.4",
 		"lodash": "^4.17.21"
 	},
 	"devDependencies": {
