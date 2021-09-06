@@ -53,7 +53,7 @@
 		"typescript"
 	],
 	"dependencies": {
-		"axios": "^0.21.1",
+		"axios": "^0.21.3",
 		"is-any-type": "0.0.3",
 		"lodash": "^4.17.21"
 	},
